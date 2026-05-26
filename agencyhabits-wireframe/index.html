@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgencyHabits Redesign — Wireframes Spec</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- LEFT PANEL: Side navigation list of wireframes -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>AgencyHabits Redesign</h1>
+      <p>B2B Platform Wireframe Spec v1.0</p>
+    </div>
+    
+    <nav class="sidebar-menu">
+      <div class="menu-section-title">Core Pages</div>
+      <div class="menu-item active" data-page-id="home" onclick="navigateTo('home')">
+        <span class="menu-item-num">01</span> Home Page
+      </div>
+      <div class="menu-item" data-page-id="articles" onclick="navigateTo('articles')">
+        <span class="menu-item-num">02</span> Articles Listing
+      </div>
+      <div class="menu-item" data-page-id="article_template" onclick="navigateTo('article_template')">
+        <span class="menu-item-num">03</span> Article Detail
+      </div>
+      <div class="menu-item" data-page-id="books" onclick="navigateTo('books')">
+        <span class="menu-item-num">04</span> Books Recommendations
+      </div>
+      <div class="menu-item" data-page-id="tools" onclick="navigateTo('tools')">
+        <span class="menu-item-num">05</span> Tools & Downloads
+      </div>
+      <div class="menu-item" data-page-id="about" onclick="navigateTo('about')">
+        <span class="menu-item-num">06</span> About Us
+      </div>
+      <div class="menu-item" data-page-id="podcast" onclick="navigateTo('podcast')">
+        <span class="menu-item-num">07</span> Podcast Page
+      </div>
+      <div class="menu-item" data-page-id="contact" onclick="navigateTo('contact')">
+        <span class="menu-item-num">08</span> Contact Us
+      </div>
+      <div class="menu-item" data-page-id="thelist" onclick="navigateTo('thelist')">
+        <span class="menu-item-num">09</span> The List Page
+      </div>
+      <div class="menu-item" data-page-id="newsletter" onclick="navigateTo('newsletter')">
+        <span class="menu-item-num">10</span> Newsletter Page
+      </div>
+
+      <div class="menu-section-title">Asset Sub-Pages</div>
+      <div class="menu-item" data-page-id="bizdev_collection" onclick="navigateTo('bizdev_collection')">
+        <span class="menu-item-num">11</span> Biz Dev Collection
+      </div>
+      <div class="menu-item" data-page-id="exit_checklist" onclick="navigateTo('exit_checklist')">
+        <span class="menu-item-num">12</span> Exit-Readiness Checklist
+      </div>
+      <div class="menu-item" data-page-id="goal_template" onclick="navigateTo('goal_template')">
+        <span class="menu-item-num">13</span> Goal Setting Template
+      </div>
+
+      <div class="menu-section-title">Ecosystem & App</div>
+      <div class="menu-item" data-page-id="foundation" onclick="navigateTo('foundation')">
+        <span class="menu-item-num">14</span> Foundation App
+      </div>
+      <div class="menu-item" data-page-id="kb" onclick="navigateTo('kb')">
+        <span class="menu-item-num">15</span> Knowledge Base
+      </div>
+      <div class="menu-item" data-page-id="events" onclick="navigateTo('events')">
+        <span class="menu-item-num">16</span> Events Page
+      </div>
+    </nav>
+  </aside>
+
+  <!-- MIDDLE: Main layout workspace -->
+  <main class="main-layout">
+    <!-- Top toolbar controls -->
+    <div class="control-bar">
+      <div class="page-title-display" id="page-title-display">HOME PAGE</div>
+      <div class="view-controls">
+        <!-- Canvas view controls -->
+        <button class="btn-control" id="btn-grid" onclick="toggleGrid()">
+          <span class="wf-icon-placeholder" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Show 12-Col Grid
+        </button>
+        <button class="btn-control active" id="btn-annotations" onclick="toggleAnnotations()">
+          <span class="wf-icon-placeholder wf-icon-circle" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Show Annotations
+        </button>
+        <button class="btn-control active" id="btn-section-notes" onclick="toggleSectionNotes()">
+          <span class="wf-icon-placeholder" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Hide Section Notes
+        </button>
+        
+        <span style="border-left: 1px solid #d0d7de; margin: 0 4px; height: 20px; align-self: center;"></span>
+
+        <!-- Device viewport switcher -->
+        <button class="btn-control active" id="btn-device-desktop" onclick="setDeviceView('desktop')">
+          Desktop (1440px)
+        </button>
+        <button class="btn-control" id="btn-device-tablet" onclick="setDeviceView('tablet')">
+          Tablet (768px)
+        </button>
+        <button class="btn-control" id="btn-device-phone" onclick="setDeviceView('phone')">
+          Phone (375px)
+        </button>
+      </div>
+    </div>
+
+    <!-- Wireframe canvas space -->
+    <div class="canvas-viewport" id="canvas-viewport">
+      <div class="canvas-scale-wrapper" id="canvas-scale-wrapper">
+        <div class="wireframe-canvas" id="wireframe-canvas">
+          <!-- Rendered wireframes and overlay badges go here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- RIGHT PANEL: Annotation details -->
+  <aside class="annotation-sidebar" id="annotation-sidebar">
+    <div class="annotation-sidebar-header">
+      <h2>Section Notes</h2>
+    </div>
+    <div class="annotation-list" id="annotation-list">
+      <!-- Annotation items go here -->
+    </div>
+  </aside>
+
+  <!-- MOBILE ACCESS BLOCK OVERLAY (Triggers on physical phone screen sizes) -->
+  <div class="mobile-block-overlay">
+    <div class="mobile-block-content">
+      <span class="mobile-block-icon">🖥️</span>
+      <h2>Цей прототип доступний тільки з ПК</h2>
+      <p>Будь ласка, відкрийте це посилання на комп'ютері або ноутбуку для перегляду інтерактивних вайрфреймів.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

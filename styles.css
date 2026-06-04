@@ -338,8 +338,9 @@ body {
 }
 
 .wf-footer-top {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
   margin-bottom: 40px;
 }
 
@@ -799,6 +800,11 @@ body {
   padding: 60px 40px !important;
 }
 
+.view-tablet .wf-footer-top {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 32px 24px !important;
+}
+
 /* Tablet Typography Overrides */
 .view-tablet .wf-h1 { font-size: 32px !important; line-height: 1.2 !important; }
 .view-tablet .wf-h2 { font-size: 24px !important; line-height: 1.25 !important; }
@@ -966,6 +972,7 @@ body {
 
 /* 1. Footer layout fixes on mobile (stacked top, stacked bottom, 2-col links) */
 .view-phone .wf-footer-top {
+  display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
   gap: 32px !important;
@@ -1184,6 +1191,107 @@ body {
 .view-tablet .wf-article-sidebar,
 .view-phone .wf-article-sidebar {
   display: none !important;
+}
+
+/* Share Strip Mobile Stacking */
+.view-phone .wf-share-strip {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+}
+
+.view-phone .wf-share-strip span {
+  margin-bottom: 4px !important;
+}
+
+.view-phone .wf-share-strip div {
+  width: 100% !important;
+  justify-content: flex-start !important;
+}
+
+/* Podcast Hero Mobile Stacking */
+.view-phone .wf-listen-hero-banner {
+  grid-template-columns: 1fr !important;
+  gap: 24px !important;
+  padding: 32px 20px !important;
+}
+
+.view-phone .wf-listen-hero-banner .wf-placeholder-box {
+  width: 120px !important;
+  height: 120px !important;
+  margin: 0 auto !important;
+}
+
+.view-phone .wf-listen-hero-banner > div:last-child {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.view-phone .wf-listen-hero-banner > div:last-child div {
+  justify-content: center !important;
+}
+
+/* Episodes Feed & Archive List Mobile Adaptation */
+.view-phone .podcast-ep-item {
+  flex-direction: column !important;
+  gap: 16px !important;
+  padding: 16px !important;
+}
+
+.view-phone .podcast-ep-item .wf-placeholder-box {
+  width: 100% !important;
+  height: 160px !important;
+  flex-shrink: 0 !important;
+}
+
+.view-phone .wf-episodes-feed-header {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+}
+
+.view-phone .wf-episodes-feed-header div[style*="display: flex"] {
+  width: 100% !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.view-phone .wf-episodes-feed-header .wf-input-text {
+  width: 100% !important;
+}
+
+/* YouTube Shorts Grid Responsive Wrap */
+.view-tablet .wf-shorts-grid,
+.view-phone .wf-shorts-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px !important;
+}
+
+/* Gather Archive Past Sessions Mobile Adaptation */
+.view-phone .wf-archive-header {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+}
+
+.view-phone .wf-archive-header div[style*="display: flex"] {
+  width: 100% !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.view-phone .wf-archive-header .wf-input-text {
+  width: 100% !important;
+}
+
+.view-tablet .gather-event-card {
+  grid-column: span 6 !important;
+}
+
+.view-phone .gather-event-card {
+  grid-column: span 12 !important;
 }
 
 /* Query targets window size below 768px (real mobile screen width) */

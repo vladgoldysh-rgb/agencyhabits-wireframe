@@ -55,7 +55,7 @@ function getNewsletterCtaHTML() {
 function getFooterHTML() {
   return `
     <footer class="wf-footer">
-      <div class="wf-footer-top" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;">
+      <div class="wf-footer-top">
         <div>
           <a href="#" class="wf-logo" onclick="navigateTo('home')" style="margin-bottom: 16px; display: inline-block;">AgencyHabits</a>
           <p class="wf-body-small" style="max-width: 280px; color: #666;">Learnings, ideas, and resources for agency operators drawn from Barrel Holdings companies.</p>
@@ -356,6 +356,9 @@ const PAGES = {
             <span class="wf-placeholder-label">[Founder Photo: Peter + Sei-Wook]</span>
           </div>
           <p class="wf-body-small" style="color: #64748b; line-height: 1.6;">AgencyHabits is published by the team at Barrel Holdings - a portfolio of six agency businesses. Everything on this site comes from operators currently running the same plays.</p>
+          <div style="margin-top: 16px;">
+            <a href="https://barrel-holdings.com" target="_blank" style="color: #0f172a; font-weight: 700; font-size: 14px; text-decoration: underline; display: inline-block;">Thinking about selling your agency? →</a>
+          </div>
         </div>
 
         <div style="grid-column: span 8; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
@@ -382,8 +385,7 @@ const PAGES = {
           <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
             <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Prima Mode</h4>
             <p class="wf-body-small" style="color: #666; margin: 0;">Health & Beauty Amazon Brand Growth</p>
-          <div style="grid-column: span 12; margin-top: 32px; border-top: 1px solid #e2e8f0; padding-top: 24px; text-align: center;">
-          <a href="https://barrel-holdings.com" target="_blank" style="color: #0f172a; font-weight: 700; font-size: 14px; text-decoration: underline;">Thinking about selling your agency? →</a>
+          </div>
         </div>
       </section>
 
@@ -700,7 +702,7 @@ const PAGES = {
           </div>
 
           <!-- Share Strip -->
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #e2e8f0;">
+          <div class="wf-share-strip" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #e2e8f0;">
             <span style="font-size: 14px; font-weight: 700;">Send this to a founder friend:</span>
             <div style="display: flex; gap: 8px;">
               <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
@@ -1604,7 +1606,7 @@ const PAGES = {
 
       <!-- Hero Episode Block (dark background) -->
       <section class="grid-container" style="margin-bottom: 60px;">
-        <div style="grid-column: span 12; background: #0f172a; color: #fff; padding: 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center;">
+        <div class="wf-listen-hero-banner" style="grid-column: span 12; background: #0f172a; color: #fff; padding: 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center;">
           <div class="wf-placeholder-box" style="aspect-ratio: 1; width: 100%; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);">
             <span class="wf-placeholder-label" style="color: #fff; font-size: 24px; font-weight: 800;">EP.07</span>
           </div>
@@ -1651,7 +1653,7 @@ const PAGES = {
 
       <!-- All Episodes List -->
       <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="wf-episodes-feed-header" style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
           <div>
             <span class="wf-label">Episodes Feed</span>
             <h2 class="wf-h2">All Episodes</h2>
@@ -1834,7 +1836,7 @@ const PAGES = {
           <p class="wf-body-small" style="color:#888; margin-top: 4px;">[Shorts are already published on YouTube. Pull from @TheAgencyHabitsPodcast channel]</p>
         </div>
 
-        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+        <div class="wf-shorts-grid" style="grid-column: span 12; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
           <div style="border: 1px solid #e2e8f0; background: #fff; padding: 12px; text-align: center;">
             <div class="wf-placeholder-box" style="aspect-ratio: 9/16; width: 100%; margin-bottom: 12px;">
               <span class="wf-placeholder-label">[Short Video]</span>
@@ -1905,52 +1907,45 @@ const PAGES = {
       </section>
 
       <!-- Episode Header (Unified Hero with Gradient Background) -->
-      <section class="grid-container" style="margin-bottom: 60px; position: relative; overflow: hidden; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
+      <section class="grid-container" style="margin-bottom: 60px; position: relative; overflow: hidden; padding: 80px 0; border-bottom: 1px solid var(--wf-border-muted);">
         <!-- Background Layer with Opacity -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); opacity: 0.4; z-index: 1;"></div>
         
-        <div style="grid-column: span 12; display: grid; grid-template-columns: 1fr 2.5fr; gap: 48px; align-items: center; position: relative; z-index: 2;">
-          <div class="wf-placeholder-box" style="aspect-ratio: 1; width: 100%; background: #000; border: 1px solid #000; display: flex; align-items: center; justify-content: center;">
-            <span class="wf-placeholder-label" style="color: #fff; font-size: 32px; font-weight: 800;">EP.07</span>
+        <div style="grid-column: span 12; display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; z-index: 2; text-align: center;">
+          <span class="wf-category-tag" style="background: #000; color: #fff; border: none; font-size: 10px; font-weight: bold; letter-spacing: 1px; padding: 4px 12px;">Leadership</span>
+          <div style="font-size: 13px; color: #000; font-weight: bold;">EP.07 | 44 min | Published: June 2026</div>
+          <h1 class="wf-h1" style="margin: 8px 0; font-size: 38px; line-height: 1.2; max-width: 800px;">10 Essential Habits for Running a Successful Agency</h1>
+          
+          <!-- Audio Player Mockup -->
+          <div style="margin-top: 16px; border: 1px solid #000; background: #fff; padding: 16px; width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 12px; text-align: left;">
+            <div style="font-weight: bold; font-size: 10px; color: #666; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;">
+              <span>[AUDIO PLAYER]</span>
+              <span style="font-weight: normal; font-size: 9px; font-style: italic; color: #888;">[Audio player — Framer component. File uploaded via CMS per episode. Supports MP3, WAV, M4A, AAC.]</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 16px; cursor: pointer;">▶</span>
+              <div style="flex: 1; height: 4px; background: #ddd; position: relative;">
+                <div style="position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #000;"></div>
+              </div>
+              <span style="font-size: 12px; font-family: monospace;">00:00 / 44:00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; gap: 16px; font-size: 14px;">
+                <span style="cursor: pointer;">⏮10</span>
+                <span style="cursor: pointer;">▶</span>
+                <span style="cursor: pointer;">⏭10</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                <span>🔊────</span>
+              </div>
+            </div>
+            <div style="font-size: 10px; color: #888; font-style: italic;">File loaded from Framer CMS</div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 16px;">
-            <div style="display: flex; gap: 12px; align-items: center;">
-              <span class="wf-category-tag" style="background: #000; color: #fff; border: none;">Leadership</span>
-              <span style="font-size: 13px; color: #000; font-weight: bold;">EP.07 | 44 min | Published: June 2026</span>
-            </div>
-            <h1 class="wf-h1" style="margin: 0; font-size: 36px; line-height: 1.2;">10 Essential Habits for Running a Successful Agency</h1>
-            
-            <!-- Audio Player Mockup -->
-            <div style="margin-top: 12px; border: 1px solid #000; background: #fff; padding: 16px; width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 12px;">
-              <div style="font-weight: bold; font-size: 10px; color: #666; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;">
-                <span>[AUDIO PLAYER]</span>
-                <span style="font-weight: normal; font-size: 9px; font-style: italic; color: #888;">[Audio player — Framer component. File uploaded via CMS per episode. Supports MP3, WAV, M4A, AAC.]</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 16px; cursor: pointer;">▶</span>
-                <div style="flex: 1; height: 4px; background: #ddd; position: relative;">
-                  <div style="position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #000;"></div>
-                </div>
-                <span style="font-size: 12px; font-family: monospace;">00:00 / 44:00</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="display: flex; gap: 16px; font-size: 14px;">
-                  <span style="cursor: pointer;">⏮10</span>
-                  <span style="cursor: pointer;">▶</span>
-                  <span style="cursor: pointer;">⏭10</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
-                  <span>🔊────</span>
-                </div>
-              </div>
-              <div style="font-size: 10px; color: #888; font-style: italic;">File loaded from Framer CMS</div>
-            </div>
-            
-            <!-- Secondary Outbound Links -->
-            <div style="display: flex; gap: 24px; margin-top: 8px; font-size: 13px;">
-              <a href="https://spotify.com" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Also on Spotify →</a>
-              <a href="https://youtube.com" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Watch on YouTube →</a>
-            </div>
+          
+          <!-- Secondary Outbound Links -->
+          <div style="display: flex; gap: 24px; margin-top: 4px; font-size: 13px;">
+            <a href="https://spotify.com" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Also on Spotify →</a>
+            <a href="https://youtube.com" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Watch on YouTube →</a>
           </div>
         </div>
       </section>
@@ -2004,7 +1999,7 @@ const PAGES = {
 
       <!-- Share Strip -->
       <section class="grid-container" style="padding-bottom: 40px; border-bottom: 1px solid var(--wf-border-muted); margin-bottom: 40px;">
-        <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+        <div class="wf-share-strip" style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
           <span style="font-size: 14px; font-weight: 700;">Send this to a founder friend:</span>
           <div style="display: flex; gap: 8px;">
             <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
@@ -2359,21 +2354,57 @@ const PAGES = {
     render: () => `
       ${getHeaderHTML('foundation')}
 
-      <!-- Hero -->
-      <section class="grid-container" style="height: 820px; align-items: center; display: grid; border-bottom: 1px solid var(--wf-border-muted); padding-top: 0; padding-bottom: 0;">
-        <div style="grid-column: 2 / span 10; display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; text-align: center; height: 100%;">
-          <span style="border: 1px solid #000; padding: 4px 12px; font-size: 12px; font-weight: bold; text-transform: uppercase;">Takes just ~60 seconds</span>
-          <h1 class="wf-h1" style="max-width: 800px;">Build Your Agency's Strategic Foundation</h1>
-          <p class="wf-body-large" style="max-width: 600px;">Define your positioning, ecosystem, ICP, and service offering. Just paste your website URL. AI does the rest.</p>
-          
-          <div style="margin-top: 24px;">
+      <!-- Hero (Two-Column) -->
+      <section class="wf-section-pad grid-container" style="padding-top: 80px; padding-bottom: 80px; border-bottom: 1px solid var(--wf-border-muted); align-items: center;">
+        <!-- Left Column -->
+        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 24px; padding-right: 32px;">
+          <span style="border: 1px solid #000; padding: 4px 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; align-self: flex-start;">Free Positioning Audit</span>
+          <h1 class="wf-h1" style="font-size: 38px; line-height: 1.15; margin: 0;">Build Your Agency's Strategic Foundation</h1>
+          <p class="wf-body-large" style="color: #333; margin: 0;">Define your positioning, ecosystem, ICP, and service offering. Just paste your website URL. AI does the rest in ~60 seconds.</p>
+          <div style="margin-top: 8px;">
             <button class="wf-btn wf-btn-primary" style="height: 52px; padding: 0 32px; font-size: 16px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
-            <p class="wf-body-small" style="margin-top: 12px; color: #666;">No credit card required. Export your positioning audit as PDF.</p>
           </div>
-          
-          <div style="display: flex; gap: 24px; margin-top: 16px;">
-            <a href="#" style="color: #000; font-weight: bold; font-size: 13px;" onclick="document.getElementById('foundation-process').scrollIntoView({ behavior: 'smooth' }); return false;">See How It Works ↓</a>
+          <p class="wf-body-small" style="color: #666; margin: 0;">No credit card required. Export as PDF.</p>
+        </div>
+
+        <!-- Right Column: Decorative Audit Illustration -->
+        <div style="grid-column: span 7; background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1a2744 100%); border-radius: 4px; min-height: 340px; padding: 36px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+
+          <!-- Top label -->
+          <div style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 20px;">Sample Audit Preview</div>
+
+          <!-- Score dot top-right -->
+          <div style="position: absolute; top: 28px; right: 28px; width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.35);"></div>
           </div>
+
+          <!-- Top: Badge chips row -->
+          <div style="display: flex; gap: 10px; margin-bottom: 28px;">
+            <span style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase;">Positioning</span>
+            <span style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase;">ICP</span>
+          </div>
+
+          <!-- Middle: Simulated text rows -->
+          <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+            <div style="height: 8px; background: rgba(255,255,255,0.22); border-radius: 2px; width: 85%;"></div>
+            <div style="height: 8px; background: rgba(255,255,255,0.14); border-radius: 2px; width: 65%;"></div>
+            <div style="height: 8px; background: rgba(255,255,255,0.18); border-radius: 2px; width: 75%;"></div>
+            <div style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 2px; width: 50%;"></div>
+          </div>
+
+          <!-- Bottom: Progress bar -->
+          <div style="margin-top: 32px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px;">Audit Progress</span>
+              <span style="font-size: 9px; color: rgba(255,255,255,0.35);">~60s</span>
+            </div>
+            <div style="height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; width: 100%;">
+              <div style="height: 100%; width: 70%; background: rgba(255,255,255,0.4); border-radius: 2px;"></div>
+            </div>
+          </div>
+
+          <!-- Caption -->
+          <p style="margin: 20px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5;">Your positioning, ecosystem, ICP and service offering — structured in 60 seconds.</p>
         </div>
       </section>
 
@@ -2404,34 +2435,7 @@ const PAGES = {
         </div>
       </section>
 
-      <!-- See What You Get Section -->
-      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); background: #ffffff;">
-        <div style="grid-column: span 12; text-align: center; margin-bottom: 32px;">
-          <span class="wf-label">SEE WHAT YOU GET</span>
-          <h2 class="wf-h2">A real audit. In 60 seconds.</h2>
-          <p class="wf-body-small" style="color: #64748b; margin-top: 8px;">This is a real audit generated for a real agency in under 60 seconds.</p>
-        </div>
 
-        <div style="grid-column: span 12; position: relative; height: 350px; overflow: hidden; margin-bottom: 24px; border: 1px solid var(--wf-border-muted);">
-          <div class="wf-placeholder-box" style="height: 100%; width: 100%; filter: blur(5px); background: #fafafa; padding: 40px; display: flex; flex-direction: column; gap: 20px;">
-            <div style="display: flex; gap: 10px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-              <span style="font-weight: bold; padding: 4px 12px; background: #eee;">Positioning</span>
-              <span style="font-weight: bold; padding: 4px 12px; color: #888;">Ecosystem</span>
-              <span style="font-weight: bold; padding: 4px 12px; color: #888;">Ideal Customer (ICP)</span>
-              <span style="font-weight: bold; padding: 4px 12px; color: #888;">Service Offering</span>
-            </div>
-            <div>
-              <h4 style="margin: 0 0 10px 0;">Strategic Wedge: B2B Commerce for Enterprise Apparel</h4>
-              <p>Based on our crawling of website signals, client references, and structural case studies, we identify the wedge as high-scalability Shopify Plus configurations for high-volume apparel manufacturers.</p>
-            </div>
-          </div>
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0f172a; color: #fff; padding: 24px 32px; font-weight: bold; text-align: center; border-radius: 4px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3); width: calc(100% - 80px); max-width: 520px; z-index: 10;">
-            <span style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; margin-bottom: 8px;">Audit Sample Preview</span>
-            <span style="font-size: 16px; display: block; font-weight: 500; margin-bottom: 16px; line-height: 1.4;">Real audit includes detailed positioning statements, partner ecosystem alignment, ICP triggers, and tier service matrices.</span>
-            <button class="wf-btn wf-btn-primary" style="background: #38bdf8; color: #000; border: none; font-size: 13px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Positioning Audit →</button>
-          </div>
-        </div>
-      </section>
 
       <!-- Output Preview Tabs -->
       <section class="wf-section-pad grid-container">
@@ -2711,7 +2715,7 @@ const PAGES = {
 
       <!-- Past Events Grid with filtering -->
       <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted); background: #fafafa;">
-        <div style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="wf-archive-header" style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
           <div>
             <span class="wf-label">ARCHIVE</span>
             <h2 class="wf-h2">Past Sessions & Meet-ups</h2>
@@ -2986,19 +2990,19 @@ const PAGES = {
       }
 
       return `
-        \${getHeaderHTML('read')}
+        ${getHeaderHTML('read')}
         
         <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px;">
           <div style="grid-column: span 12; margin-bottom: 40px;">
             <a href="#" class="wf-body-small" onclick="navigateTo('read')" style="font-weight: 700; text-decoration: underline; display: inline-block; margin-bottom: 16px;">← Back to all topics</a>
-            <h1 class="wf-h1" style="font-size: 40px; margin-bottom: 12px;">\${category}</h1>
-            <p class="wf-body-large" style="max-width: 800px; color: #333;">\${introText}</p>
+            <h1 class="wf-h1" style="font-size: 40px; margin-bottom: 12px;">${category}</h1>
+            <p class="wf-body-large" style="max-width: 800px; color: #333;">${introText}</p>
           </div>
 
           <!-- Filters Row -->
           <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; padding-bottom: 16px; margin-bottom: 32px;">
             <div style="display: flex; gap: 8px; width: 100%; max-width: 480px;">
-              <input type="text" class="wf-input-text" placeholder="Search \${category} articles..." style="height: 38px; flex: 1;" />
+              <input type="text" class="wf-input-text" placeholder="Search ${category} articles..." style="height: 38px; flex: 1;" />
             </div>
             <div>
               <select class="wf-input-text" style="width: 150px; height: 38px; padding: 0 10px; appearance: auto;">
@@ -3011,7 +3015,7 @@ const PAGES = {
 
           <!-- Articles Grid (9 Articles) -->
           <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;">
-            \${gridHTML}
+            ${gridHTML}
           </div>
 
           <!-- Pagination -->
@@ -3025,11 +3029,11 @@ const PAGES = {
           </div>
 
           <!-- Contextual Tool -->
-          \${toolCardHTML}
+          ${toolCardHTML}
         </section>
 
-        \${getNewsletterCtaHTML()}
-        \${getFooterHTML()}
+        ${getNewsletterCtaHTML()}
+        ${getFooterHTML()}
       `;
     }
   }

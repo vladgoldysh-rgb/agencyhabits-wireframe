@@ -2,13 +2,19 @@
 
 const STATE = {
   activePageId: 'home',
-  showGrid: false,
   showAnnotations: true,
   podcastSearchQuery: '',
   podcastCurrentPage: 1,
   foundationActiveTab: 'positioning',
   showSectionNotes: true,
-  deviceView: 'desktop'
+  deviceView: 'desktop',
+  currentCategory: 'Business Development',
+  currentArticle: {
+    category: 'Business Development',
+    title: 'How to Scale Agency BD Beyond the Founder',
+    author: 'Peter Kang',
+    date: 'Apr 28, 2026'
+  }
 };
 
 // Global Nav HTML Helper
@@ -17,17 +23,12 @@ function getHeaderHTML(activePageId) {
     <header class="wf-nav">
       <a href="#" class="wf-logo" onclick="navigateTo('home')">AgencyHabits</a>
       <nav class="wf-nav-links">
-        <a href="#" class="wf-nav-link ${activePageId === 'articles' ? 'active' : ''}" onclick="navigateTo('articles')">Articles</a>
-        <a href="#" class="wf-nav-link ${activePageId === 'books' ? 'active' : ''}" onclick="navigateTo('books')">Book Recommendations</a>
-        <a href="#" class="wf-nav-link ${activePageId === 'tools' ? 'active' : ''}" onclick="navigateTo('tools')">Tools & Downloads</a>
-        <a href="#" class="wf-nav-link ${activePageId === 'podcast' ? 'active' : ''}" onclick="navigateTo('podcast')">Podcast</a>
-        <a href="#" class="wf-nav-link ${activePageId === 'about' ? 'active' : ''}" onclick="navigateTo('about')">About Us</a>
-        <a href="#" class="wf-nav-link ${activePageId === 'contact' ? 'active' : ''}" onclick="navigateTo('contact')">Contact Us</a>
+        <a href="#" class="wf-nav-link ${activePageId === 'read' ? 'active' : ''}" onclick="navigateTo('read')">Read</a>
+        <a href="#" class="wf-nav-link ${activePageId === 'listen' ? 'active' : ''}" onclick="navigateTo('listen')">Listen</a>
+        <a href="#" class="wf-nav-link ${activePageId === 'gather' ? 'active' : ''}" onclick="navigateTo('gather')">Gather</a>
+        <a href="#" class="wf-nav-link ${activePageId === 'tools' ? 'active' : ''}" onclick="navigateTo('tools')">Tools</a>
+        <a href="#" class="wf-nav-link ${activePageId === 'newsletter' ? 'active' : ''}" onclick="navigateTo('newsletter')">Newsletter</a>
       </nav>
-      <div style="display: flex; gap: 12px;">
-        <a href="#" class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px;" onclick="navigateTo('newsletter')">Newsletter</a>
-        <a href="#" class="wf-btn wf-btn-primary" style="height: 36px; padding: 0 16px;" onclick="navigateTo('foundation')">Foundation App</a>
-      </div>
     </header>
   `;
 }
@@ -38,13 +39,13 @@ function getNewsletterCtaHTML() {
     <section class="wf-newsletter-cta-band">
       <div class="wf-newsletter-cta-content">
         <span class="wf-label">Weekly Newsletter</span>
-        <h2 class="wf-h2" style="margin-bottom: 12px;">Join 1,500+ other agency operators and get behind-the-scenes content every week.</h2>
-        <p class="wf-body" style="margin-bottom: 24px;">Bonus: Download the Agency Positioning 1-pager that we share with our agency leaders at Barrel Holdings.</p>
+        <h2 class="wf-h2" style="margin-bottom: 12px;">Join 1,500+ founders running $750K–$3M agencies.</h2>
+        <p class="wf-body" style="margin-bottom: 24px;">Behind-the-scenes content every week. Bonus: Download the Agency Positioning 1-pager we share with our Barrel Holdings agency leaders.</p>
         <div class="wf-newsletter-form">
           <input type="email" class="wf-input-text" placeholder="Enter your email" />
           <button class="wf-btn wf-btn-primary" onclick="simulateFormSubmit(this, 'Subscribed!')">Subscribe</button>
         </div>
-        <p class="wf-body-small" style="margin-top: 12px; color: #888;">Newsletter integration via kit.com. Zero spam.</p>
+        <p class="wf-body-small" style="margin-top: 12px; color: #888;">No spam. Unsubscribe anytime. Integrated via kit.com.</p>
       </div>
     </section>
   `;
@@ -57,26 +58,37 @@ function getFooterHTML() {
       <div class="wf-footer-top">
         <div>
           <a href="#" class="wf-logo" onclick="navigateTo('home')" style="margin-bottom: 16px; display: inline-block;">AgencyHabits</a>
-          <p class="wf-body-small" style="max-width: 300px;">Learnings, ideas, and resources for agency operators drawn from Barrel Holdings companies.</p>
+          <p class="wf-body-small" style="max-width: 280px; color: #666;">Learnings, ideas, and resources for agency operators drawn from Barrel Holdings companies.</p>
         </div>
-        <div class="wf-footer-links">
-          <a href="#" class="wf-footer-link" onclick="navigateTo('home')">Home</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('articles')">Articles</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('books')">Book Recs</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('tools')">Tools & Downloads</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('about')">About Us</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('podcast')">Podcast</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('contact')">Contact Us</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('thelist')">The List</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('newsletter')">Newsletter</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('foundation')">Foundation App</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('kb')">Knowledge Base</a>
-          <a href="#" class="wf-footer-link" onclick="navigateTo('events')">Events</a>
+        <div>
+          <p class="wf-label" style="margin-bottom: 16px;">Explore</p>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="#" class="wf-footer-link" onclick="navigateTo('read')">Read</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('listen')">Listen</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('gather')">Gather</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('tools')">Tools</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('newsletter')">Newsletter</a>
+          </div>
+        </div>
+        <div>
+          <p class="wf-label" style="margin-bottom: 16px;">Resources</p>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="#" class="wf-footer-link" onclick="navigateTo('start_here')">Start Here</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('about')">About</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('contact')">Contact</a>
+            <a href="#" class="wf-footer-link" onclick="navigateTo('books')">Books</a>
+          </div>
+        </div>
+        <div>
+          <p class="wf-label" style="margin-bottom: 16px;">Barrel</p>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="https://barrel-holdings.com" target="_blank" class="wf-footer-link">Barrel Holdings →</a>
+            <a href="https://barrel-holdings.com" target="_blank" class="wf-footer-link">Sell your agency →</a>
+          </div>
         </div>
       </div>
       <div class="wf-footer-bottom">
         <span class="wf-footer-copyright">© 2026 AgencyHabits. A Barrel Holdings product. All rights reserved.</span>
-        <span class="wf-body-small">GA Tracking Enabled</span>
       </div>
     </footer>
   `;
@@ -120,14 +132,14 @@ const PAGES = {
   home: {
     title: 'HOME PAGE',
     annotations: [
-      { num: 1, title: 'Navigation Bar', body: 'Global header. Links to standard content sections. Custom buttons for Newsletter and Foundation App.', top: '40px', left: '160px' },
-      { num: 2, title: 'Hero Section', body: 'Editorial layout focusing on B2B media value proposition. Clear reference to parent organization (Barrel Holdings).', top: '180px', left: '120px' },
-      { num: 3, title: 'Embedded Newsletter Opt-In', body: 'Primary conversion point, repeated in the footer. Handled via kit.com embed with bonus magnet details.', top: '510px', left: '720px' },
-      { num: 4, title: 'Featured Content Grid', body: 'Highlights top articles with large visual weight on the latest piece, followed by a three-column grid.', top: '750px', left: '80px' },
-      { num: 5, title: 'Podcast Feature Player', body: 'Simulates audio player UX with episode summary and direct links to Apple/Spotify/YouTube.', top: '1420px', left: '80px' },
-      { num: 6, title: 'The List Segment', body: 'High-contrast typographic block driving traffic to the core 10 Habits methodology.', top: '1820px', left: '80px' },
-      { num: 7, title: 'Business Development Collection', body: 'Three lead magnet cards showcasing practical templates available for download/purchase.', top: '2150px', left: '80px' },
-      { num: 8, title: 'Ramp-style Ecosystem Layout', body: 'A modern multi-column teaser highlighting: Foundation (AI Audit Tool), Knowledge Base (AI Search), and Events.', top: '2720px', left: '80px' }
+      { num: 1, title: 'Navigation Bar', body: 'New nav: Read · Listen · Gather · Tools · Newsletter. About moved to footer.', top: '40px', left: '160px' },
+      { num: 2, title: 'Hero Section', body: 'ICP-specific reader signal. Single CTA: Start with the latest issue.', top: '180px', left: '120px' },
+      { num: 3, title: 'Barrel Portfolio Strip', body: 'Trust signal. 6 agency logos from Barrel Holdings network.', top: '530px', left: '200px' },
+      { num: 4, title: 'Latest Section', body: 'Three columns: last article / last podcast episode / next Knowledge Share.', top: '750px', left: '80px' },
+      { num: 5, title: 'Topics Tiles', body: '8 category tiles, each with category color gradient. Links to topic hubs on /read.', top: '1380px', left: '80px' },
+      { num: 6, title: 'Tools & Ecosystem', body: 'Ramp-style layout: Foundation App (large left) + BD Collection + Exit Checklist (two right).', top: '1920px', left: '80px' },
+      { num: 7, title: 'Newsletter CTA', body: 'One CTA, at the bottom only. ICP-specific copy: $750K–$3M founders.', top: '2520px', left: '720px' },
+      { num: 8, title: 'About Barrel', body: 'Portfolio logos + founder photo + quiet acquisition link.', top: '2980px', left: '80px' }
     ],
     render: () => `
       ${getHeaderHTML('home')}
@@ -135,244 +147,160 @@ const PAGES = {
       <!-- Section 1: Hero -->
       <section class="wf-section-pad grid-container" style="padding-top: 100px; padding-bottom: 100px;">
         <div style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; gap: 24px;">
-          <span class="wf-label">Welcome to AgencyHabits</span>
+          <span class="wf-label">For agency founders doing $750K–$3M</span>
           <h1 class="wf-h1">Go behind the scenes of real agency businesses.</h1>
           <p class="wf-body-large">AgencyHabits provides learnings, ideas, and resources for agency operators drawn from Barrel Holdings companies. Barrel Holdings acquires and grows agency businesses.</p>
           <div style="display: flex; gap: 16px; margin-top: 12px;">
-            <button class="wf-btn wf-btn-primary" onclick="navigateTo('newsletter')">Join the Newsletter</button>
-            <button class="wf-btn wf-btn-secondary" onclick="navigateTo('articles')">Explore Content</button>
+            <button class="wf-btn wf-btn-primary" onclick="navigateTo('newsletter')">Start with the latest issue →</button>
           </div>
         </div>
         <div style="grid-column: span 5;">
-          <div class="wf-placeholder-box" style="height: 400px; width: 100%;">
-            <span class="wf-placeholder-label">[Abstract Editorial Hero Image]</span>
+          <div class="wf-placeholder-box" style="height: 400px; width: 100%; background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+            <span class="wf-placeholder-label" style="color: #fff;">[Abstract Gradient Hero Image]</span>
           </div>
         </div>
       </section>
 
-      <!-- Section 2: Newsletter CTA -->
-      ${getNewsletterCtaHTML()}
-
-      <!-- Section 3: Featured Articles -->
-      <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
-          <div>
-            <span class="wf-label">From the Blog</span>
-            <h2 class="wf-h2">Featured Writing</h2>
+      <!-- Section 2: Barrel Portfolio Strip -->
+      <section style="padding: 40px 0; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); background: #f8fafc;">
+        <div class="grid-container" style="align-items: center;">
+          <div style="grid-column: span 12; text-align: center; margin-bottom: 24px;">
+            <span class="wf-body-small" style="text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700;">Content drawn from operators running these agencies:</span>
           </div>
-          <a href="#" onclick="navigateTo('articles')" style="color: #000; font-weight: 600; text-decoration: none;">Read More Articles →</a>
+          <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;" class="wf-portfolio-strip-logos">
+            <div style="font-weight: 800; font-size: 20px; color: #94a3b8; font-family: sans-serif;">BARREL</div>
+            <div style="font-weight: 800; font-size: 20px; color: #94a3b8; font-family: sans-serif;">BX STUDIO</div>
+            <div style="font-weight: 800; font-size: 20px; color: #94a3b8; font-family: sans-serif;">MATYX</div>
+            <div style="font-weight: 800; font-size: 20px; color: #94a3b8; font-family: sans-serif;">AO2</div>
+            <div style="font-weight: 800; font-size: 20px; color: #94a3b8; font-family: sans-serif;">VAULTED OAK</div>
+            <div style="font-weight: 800; font-size: 20px; color: #94a3b8; font-family: sans-serif;">PRIMA MODE</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Latest Section (3-column layout) -->
+      <section class="wf-section-pad grid-container">
+        <div style="grid-column: span 12; margin-bottom: 40px;">
+          <span class="wf-label">What's New</span>
+          <h2 class="wf-h2">Latest From the Platform</h2>
+        </div>
+
+        <!-- Col 1: Last Article -->
+        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('article_template')">
+          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+            <span class="wf-placeholder-label" style="color: #fff;">[Business Development Hub]</span>
+          </div>
+          <div class="wf-article-card-content">
+            <div>
+              <div class="wf-meta-row">
+                <span class="wf-category-tag">Business Development</span>
+                <span>Peter Kang</span>
+              </div>
+              <h3 class="wf-h3" style="margin-bottom: 12px; font-size: 18px;">How to Scale Agency BD Beyond the Founder</h3>
+              <p class="wf-body-small" style="color: #666; margin-bottom: 12px;">Peter Kang | Apr 28, 2026 | 6 min read</p>
+              <p class="wf-body-small">Most agencies plateau at the founder's capacity for sales. Here's the system we use...</p>
+            </div>
+            <span style="font-weight: 700; margin-top: 16px; font-size: 13px; text-decoration: underline;">Read →</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Last Podcast Episode -->
+        <div style="grid-column: span 4; cursor: pointer;" class="wf-article-card" onclick="navigateTo('episode_template')">
+          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">
+            <span class="wf-placeholder-label" style="color: #fff;">[Podcast Cover Art]</span>
+          </div>
+          <div class="wf-article-card-content" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between; height: 180px;">
+            <div>
+              <div class="wf-meta-row" style="margin-bottom: 8px;">
+                <span class="wf-category-tag" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: #fff; border: none; font-size: 9px; padding: 2px 6px;">Latest Episode</span>
+                <span style="font-size: 11px; color: #666;">44 min</span>
+              </div>
+              <h3 class="wf-h3" style="margin-bottom: 8px; font-size: 15px; line-height: 1.3; font-weight: 700;">EP.07 — 10 Essential Habits for Running a Successful Agency</h3>
+              <p class="wf-body-small" style="color: #555; font-size: 11px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 0;">Peter and Sei-Wook walk through the 10 habits that separate growing agencies from founder dependency...</p>
+            </div>
+            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Listen & Transcript →</span>
+          </div>
+        </div>
+
+        <!-- Col 3: Next Knowledge Share -->
+        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('gather')">
+          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #10b981 0%, #047857 100%);">
+            <span class="wf-placeholder-label" style="color: #fff;">[Knowledge Share Webinar]</span>
+          </div>
+          <div class="wf-article-card-content">
+            <div>
+              <div class="wf-meta-row">
+                <span class="wf-category-tag">Next Session</span>
+                <span style="color: #047857; font-weight: 700;">June 2026</span>
+              </div>
+              <h3 class="wf-h3" style="margin-bottom: 12px; font-size: 18px;">Agency Positioning Deep Dive</h3>
+              <p class="wf-body-small" style="color: #666; margin-bottom: 12px;">Online · Zoom · 60 min · Free</p>
+              <p class="wf-body-small">Join 39 registered agency operators for a live framework audit and group discussion.</p>
+            </div>
+            <span style="font-weight: 700; margin-top: 16px; font-size: 13px; text-decoration: underline;">Register →</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Topics - 8 tiles -->
+      <section class="wf-section-pad grid-container wf-topics-grid" style="background: #f8fafc; border-top: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 40px;">
+          <span class="wf-label">Explore by Topic</span>
+          <h2 class="wf-h2">Topics Hubs</h2>
         </div>
         
-        <!-- Hero Card -->
-        <div class="wf-article-card-large" onclick="navigateTo('article_template')" style="cursor: pointer; margin-bottom: 40px;">
-          <div class="wf-placeholder-box wf-article-card-image" style="height: 100%; min-height: 320px; grid-column: span 7;">
-            <span class="wf-placeholder-label">[Article Image: Defining ICP]</span>
-          </div>
-          <div class="wf-article-card-content" style="grid-column: span 5;">
-            <div>
-              <div class="wf-meta-row">
-                <span class="wf-category-tag">Marketing</span>
-                <span>Peter Kang</span>
-                <span>May 2026</span>
-              </div>
-              <h3 class="wf-h2" style="margin-bottom: 16px;">How to Define Your Agency's ICP (Beyond "B2B SaaS")</h3>
-              <p class="wf-body">A founder we know got asked at an industry dinner who her agency worked with. "B2B SaaS," she said. The person nodded politely and moved on...</p>
-            </div>
-            <span style="font-weight: 700; margin-top: 24px; text-decoration: underline;">Read Article →</span>
-          </div>
+        <!-- Tile 1 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Business Development</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
         </div>
-
-        <!-- 3 Grid Articles -->
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('articles')">
-          <div class="wf-placeholder-box wf-article-card-image">
-            <span class="wf-placeholder-label">[Article Thumbnail]</span>
-          </div>
-          <div class="wf-article-card-content">
-            <div>
-              <div class="wf-meta-row">
-                <span class="wf-category-tag">Business Development</span>
-              </div>
-              <h4 class="wf-h3" style="margin-bottom: 12px; font-size: 18px;">How to Scale Agency BD Beyond the Founder</h4>
-              <p class="wf-body-small">Peter Kang | Learn the operational habits required to transition sales from the founder to a scalable growth team.</p>
-            </div>
-            <span style="font-weight: 700; margin-top: 16px; font-size: 13px;">Read →</span>
-          </div>
+        <!-- Tile 2 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Finance</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
         </div>
-
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('articles')">
-          <div class="wf-placeholder-box wf-article-card-image">
-            <span class="wf-placeholder-label">[Article Thumbnail]</span>
-          </div>
-          <div class="wf-article-card-content">
-            <div>
-              <div class="wf-meta-row">
-                <span class="wf-category-tag">Business Development</span>
-              </div>
-              <h4 class="wf-h3" style="margin-bottom: 12px; font-size: 18px;">The Client Pruning Framework</h4>
-              <p class="wf-body-small">Establish rules for identifying, managing, and transitioning low-value clients off your agency roster.</p>
-            </div>
-            <span style="font-weight: 700; margin-top: 16px; font-size: 13px;">Read →</span>
-          </div>
+        <!-- Tile 3 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Leadership</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
         </div>
-
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('articles')">
-          <div class="wf-placeholder-box wf-article-card-image">
-            <span class="wf-placeholder-label">[Article Thumbnail]</span>
-          </div>
-          <div class="wf-article-card-content">
-            <div>
-              <div class="wf-meta-row">
-                <span class="wf-category-tag">Finance</span>
-              </div>
-              <h4 class="wf-h3" style="margin-bottom: 12px; font-size: 18px;">Agency Cash Flow: What the P&L Isn't Telling You</h4>
-              <p class="wf-body-small">Unlock the critical operating metrics that distinguish high-performing agencies from those on the brink.</p>
-            </div>
-            <span style="font-weight: 700; margin-top: 16px; font-size: 13px;">Read →</span>
-          </div>
+        <!-- Tile 4 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Positioning</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
+        </div>
+        
+        <!-- Row 2 -->
+        <!-- Tile 5 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Clients</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
+        </div>
+        <!-- Tile 6 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Talent</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
+        </div>
+        <!-- Tile 7 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Delivery</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
+        </div>
+        <!-- Tile 8 -->
+        <div style="grid-column: span 3; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); padding: 32px; height: 160px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff;" onclick="navigateTo('read')">
+          <h3 class="wf-h3" style="color: #fff; margin: 0;">Marketing</h3>
+          <span style="font-weight: 700; font-size: 14px;">Explore →</span>
         </div>
       </section>
 
-      <!-- Section 4: Podcast Section -->
-      <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end;">
-          <div>
-            <span class="wf-label">The AgencyHabits Podcast</span>
-            <h2 class="wf-h2">Listen to Real Lessons From Inside Agency Businesses</h2>
-          </div>
-          <a href="#" onclick="navigateTo('podcast')" style="color: #000; font-weight: 600; text-decoration: none;">All Episodes →</a>
-        </div>
-
-        <!-- Featured Player (Left) -->
-        <div style="grid-column: span 7; border: 1px solid var(--wf-border); padding: 32px; display: flex; gap: 24px; align-items: center; background: #fafafa;">
-          <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0;">
-            <span class="wf-placeholder-label">[Podcast Cover]</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            <span class="wf-label" style="font-size: 10px; margin-bottom: 0;">Latest Episode — EP.05</span>
-            <h3 class="wf-h3">How We'd Generate Leads If We Started Our Agency Today</h3>
-            <p class="wf-body-small">Peter Kang and Sei-Wook Kim unpack their fresh playbook for B2B relationship development in 2026. (45 min)</p>
-            <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
-              <button class="wf-btn wf-btn-primary" style="height: 36px;" onclick="navigateTo('podcast')">
-                <span class="wf-icon-placeholder wf-icon-circle" style="width: 14px; height: 14px; margin-right: 6px; border-color: #fff; background: transparent;"></span> Play Episode
-              </button>
-              <span style="font-size: 12px; color: #888;">Listen on: Spotify / Apple / YT</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Episodes (Right) -->
-        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 20px; justify-content: center;">
-          <div style="border-bottom: 1px solid var(--wf-border-muted); padding-bottom: 16px;">
-            <span class="wf-body-small" style="font-weight: 700;">EP.04</span>
-            <h4 class="wf-h4" style="margin: 4px 0;" onclick="navigateTo('podcast')">How Specialization Impacts Your Agency's Growth, Margins, and Valuation</h4>
-            <span class="wf-body-small">38 min</span>
-          </div>
-          <div style="border-bottom: 1px solid var(--wf-border-muted); padding-bottom: 16px;">
-            <span class="wf-body-small" style="font-weight: 700;">EP.03</span>
-            <h4 class="wf-h4" style="margin: 4px 0;" onclick="navigateTo('podcast')">Are You Calculating Your Agency's Profits Correctly?</h4>
-            <span class="wf-body-small">42 min</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 5: The List Promo -->
-      <section class="wf-section-pad grid-container" style="background: #000; color: #fff;">
-        <div style="grid-column: span 5; display: flex; align-items: center;">
-          <span style="font-family: Georgia, serif; font-size: 72px; font-weight: 900; letter-spacing: -2px;">The List</span>
-        </div>
-        <div style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; gap: 16px;">
-          <p class="wf-body-large" style="color: #ccc;">We wouldn't be called AgencyHabits without a list of habits to share, would we?</p>
-          <button class="wf-btn wf-btn-secondary" style="border-color: #fff; color: #fff; background: transparent; align-self: flex-start;" onclick="navigateTo('thelist')">Explore our habits →</button>
-        </div>
-      </section>
-
-      <!-- Section 6: Book Recommendations -->
-      <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end;">
-          <div>
-            <span class="wf-label">Our Book Recommendations</span>
-            <h2 class="wf-h2">Time-Tested Foundation Guides</h2>
-          </div>
-          <a href="#" onclick="navigateTo('books')" style="color: #000; font-weight: 600; text-decoration: none;">More Book Recommendations →</a>
-        </div>
-
-        <div style="grid-column: span 6;" class="wf-book-card">
-          <div class="wf-placeholder-box wf-book-cover">
-            <span class="wf-placeholder-label">[Book Cover]</span>
-          </div>
-          <div class="wf-book-info">
-            <div>
-              <h4 class="wf-h3" style="font-size: 18px;">Managing The Professional Service Firm</h4>
-              <span class="wf-body-small" style="font-style: italic;">David Maister</span>
-              <p class="wf-body" style="margin-top: 12px;">Time-tested foundational basics for running a professional services business.</p>
-            </div>
-            <a href="#" onclick="navigateTo('books')" style="color: #000; font-weight: 700; font-size: 13px; text-decoration: underline;">Learn More</a>
-          </div>
-        </div>
-
-        <div style="grid-column: span 6;" class="wf-book-card">
-          <div class="wf-placeholder-box wf-book-cover">
-            <span class="wf-placeholder-label">[Book Cover]</span>
-          </div>
-          <div class="wf-book-info">
-            <div>
-              <h4 class="wf-h3" style="font-size: 18px;">Straight-Line Leadership</h4>
-              <span class="wf-body-small" style="font-style: italic;">Dusan Djukich</span>
-              <p class="wf-body" style="margin-top: 12px;">No-nonsense principles on taking ownership and leading through action.</p>
-            </div>
-            <a href="#" onclick="navigateTo('books')" style="color: #000; font-weight: 700; font-size: 13px; text-decoration: underline;">Learn More</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 7: Business Development Collection -->
-      <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; text-align: center; margin-bottom: 48px;">
-          <span class="wf-label">Curated Resource Kits</span>
-          <h2 class="wf-h2" style="margin-top: 8px;">The Business Development Collection</h2>
-          <p class="wf-body" style="max-width: 600px; margin: 12px auto 0 auto;">A specially curated collection of documents to help inspire and systemize your business development activities.</p>
-        </div>
-
-        <div style="grid-column: span 4; border: 1px solid var(--wf-border); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; height: 320px;">
-          <div>
-            <div class="wf-icon-placeholder" style="margin-bottom: 16px;"></div>
-            <h4 class="wf-h3" style="margin-bottom: 8px;">Agency Lead Tracker</h4>
-            <p class="wf-body-small">Our best practices for categorizing lead sources and types to track exactly where opportunities originate.</p>
-          </div>
-          <button class="wf-btn wf-btn-secondary" style="width: 100%; height: 40px;" onclick="navigateTo('tools')">Download</button>
-        </div>
-
-        <div style="grid-column: span 4; border: 1px solid var(--wf-border); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; height: 320px;">
-          <div>
-            <div class="wf-icon-placeholder" style="margin-bottom: 16px;"></div>
-            <h4 class="wf-h3" style="margin-bottom: 8px;">New Business Intake Guide</h4>
-            <p class="wf-body-small">Field-tested discovery questions to get deep operational context from your initial client calls.</p>
-          </div>
-          <button class="wf-btn wf-btn-secondary" style="width: 100%; height: 40px;" onclick="navigateTo('tools')">Download</button>
-        </div>
-
-        <div style="grid-column: span 4; border: 1px solid var(--wf-border); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; height: 320px;">
-          <div>
-            <div class="wf-icon-placeholder" style="margin-bottom: 16px;"></div>
-            <h4 class="wf-h3" style="margin-bottom: 8px;">Winning Proposals & SOWs</h4>
-            <p class="wf-body-small">Real proposals for website design, branding, CRO, and retainers from our Barrel Holdings agencies.</p>
-          </div>
-          <button class="wf-btn wf-btn-primary" style="width: 100%; height: 40px;" onclick="navigateTo('bizdev_collection')">Learn More</button>
-        </div>
-
-        <div style="grid-column: span 12; text-align: center; margin-top: 40px;">
-          <a href="#" onclick="navigateTo('bizdev_collection')" style="color: #000; font-weight: 700; text-decoration: underline;">Win more deals for your agency →</a>
-        </div>
-      </section>
-
-      <!-- Section 8: Foundation + KB + Events (Ramp-style layout) -->
-      <section class="wf-section-pad grid-container" style="background: #f7f9fa; border-bottom: none;">
+      <!-- Section 5: Tools & Ecosystem - Ramp-style -->
+      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted);">
         <div style="grid-column: span 12; margin-bottom: 40px;">
           <span class="wf-label">The AgencyHabits Platform Ecosystem</span>
           <h2 class="wf-h2">Tools & Community</h2>
         </div>
 
-        <!-- Left column (tall card, ~60% width) -->
+        <!-- Left card (~60%) -->
         <div style="grid-column: span 7; border: 1px solid var(--wf-border); padding: 48px; background: #ffffff; display: flex; flex-direction: column; justify-content: space-between; min-height: 420px;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -382,407 +310,449 @@ const PAGES = {
             <h3 class="wf-h1" style="font-size: 32px; margin-bottom: 16px;">Build Your Agency's Strategic Foundation</h3>
             <p class="wf-body">Define your positioning, ecosystem, ICP, and service offering. Simply paste your website URL. AI reads between the lines and does the rest.</p>
           </div>
-          <button class="wf-btn wf-btn-primary" style="align-self: flex-start; margin-top: 32px;" onclick="navigateTo('foundation')">Get Your Free Positioning Audit →</button>
+          <button class="wf-btn wf-btn-primary" style="align-self: flex-start; margin-top: 32px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
         </div>
 
-        <!-- Right column (stacked cards, ~40% width) -->
+        <!-- Right column (~40%) -->
         <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 20px;">
-          <!-- Top Stacked Card -->
+          <!-- BD Collection Card -->
           <div style="border: 1px solid var(--wf-border); padding: 32px; background: #ffffff; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-              <span class="wf-label">Knowledge Base</span>
-              <h4 class="wf-h3" style="margin: 8px 0 12px 0;">Search everything AgencyHabits has ever published.</h4>
-              <p class="wf-body-small">AI-powered search across all articles, templates, and podcast transcripts.</p>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="wf-label">BD Collection</span>
+                <span style="border: 1px solid #e2e8f0; background: #f8fafc; padding: 2px 8px; font-size: 11px; font-weight: 700;">$599</span>
+              </div>
+              <h4 class="wf-h3" style="margin: 4px 0 12px 0;">Real proposals and SOWs from Barrel Holdings agencies.</h4>
             </div>
-            <a href="#" onclick="navigateTo('kb')" style="font-weight: 700; text-decoration: underline; margin-top: 16px; display: inline-block;">Explore →</a>
+            <a href="#" onclick="navigateTo('bizdev_collection')" style="font-weight: 700; text-decoration: underline; display: inline-block;">Learn More →</a>
           </div>
 
-          <!-- Bottom Stacked Card -->
+          <!-- Exit Checklist Card -->
           <div style="border: 1px solid var(--wf-border); padding: 32px; background: #ffffff; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
-              <span class="wf-label">Events</span>
-              <h4 class="wf-h3" style="margin: 8px 0 12px 0;">Monthly Knowledge Share</h4>
-              <p class="wf-body-small">Join fellow agency operators every month for live learning and structured discussion.</p>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="wf-label">Exit-Readiness Checklist</span>
+                <span style="border: 1px solid #e2e8f0; background: #f8fafc; padding: 2px 8px; font-size: 11px; font-weight: 700; color: #047857;">FREE</span>
+              </div>
+              <h4 class="wf-h3" style="margin: 4px 0 12px 0;">See your agency the way a buyer would.</h4>
             </div>
-            <a href="#" onclick="navigateTo('events')" style="font-weight: 700; text-decoration: underline; margin-top: 16px; display: inline-block;">See Upcoming Events →</a>
+            <a href="#" onclick="navigateTo('exit_checklist')" style="font-weight: 700; text-decoration: underline; display: inline-block;">Download →</a>
           </div>
         </div>
       </section>
 
-      <!-- Section 9: Footer Newsletter CTA -->
+      <!-- Section 6: Newsletter CTA -->
       ${getNewsletterCtaHTML()}
+
+      <!-- Section 7: About Barrel -->
+      <section class="wf-section-pad grid-container" style="background: #f8fafc; border-top: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 48px;">
+          <span class="wf-label">Built by Operators. For Operators.</span>
+          <h2 class="wf-h2">We run agencies. This is what we've learned.</h2>
+        </div>
+        
+        <div style="grid-column: span 4;">
+          <div class="wf-placeholder-box" style="height: 240px; margin-bottom: 16px;">
+            <span class="wf-placeholder-label">[Founder Photo: Peter + Sei-Wook]</span>
+          </div>
+          <p class="wf-body-small" style="color: #64748b; line-height: 1.6;">AgencyHabits is published by the team at Barrel Holdings - a portfolio of six agency businesses. Everything on this site comes from operators currently running the same plays.</p>
+          <div style="margin-top: 16px;">
+            <a href="https://barrel-holdings.com" target="_blank" style="color: #0f172a; font-weight: 700; font-size: 14px; text-decoration: underline; display: inline-block;">Thinking about selling your agency? →</a>
+          </div>
+        </div>
+
+        <div style="grid-column: span 8; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Barrel</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">CPG Commerce & Shopify Plus Partner</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">BX Studio</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">B2B Marketing & Webflow Websites</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Matyx</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Home Services SEO & Local Digital Marketing</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">AO2</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Amazon Operations & Retail Media Management</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Vaulted Oak</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Web Development & Technical Retainer Support</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Prima Mode</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Health & Beauty Amazon Brand Growth</p>
+          </div>
+        </div>
+      </section>
+
       ${getFooterHTML()}
     `
   },
-  articles: {
-    title: 'ARTICLES — LISTING',
+  read: {
+    title: 'READ (ARTICLES HUB)',
     annotations: [
-      { num: 1, title: 'Category Filter Tabs', body: 'Allows horizontal filtering across operational topics. Standard active/inactive states.', top: '160px', left: '160px' },
-      { num: 2, title: 'Search Bar', body: 'Right-aligned interactive search box simulating simple queries.', top: '160px', left: '1000px' },
-      { num: 3, title: 'Featured Article Card', body: 'A high-impact editorial card pulling in the main Marketing topic and Author data.', top: '230px', left: '160px' },
-      { num: 4, title: 'Grid Layout', body: 'Standard 3-column article listing with full real post data and category labels.', top: '650px', left: '80px' },
-      { num: 5, title: 'Pagination Module', body: 'Simple navigation widget to move between article list pages.', top: '1540px', left: '600px' }
+      { num: 1, title: 'Category Tiles', body: '8 clickable category tiles with custom category gradient backgrounds.', top: '150px', left: '160px' },
+      { num: 2, title: 'Smooth Scrolling', body: 'Clicking any tile scrolls to its respective category section below.', top: '220px', left: '160px' },
+      { num: 3, title: 'Category Row Feed', body: 'Each section showcases 3 article cards with category-specific covers.', top: '650px', left: '80px' }
     ],
-    render: () => `
-      ${getHeaderHTML('articles')}
-      
-      <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px;">
-        <div style="grid-column: span 12;">
-          <span class="wf-label">AgencyHabits Editorial</span>
-          <h1 class="wf-h1" style="margin-bottom: 32px;">Explore AgencyHabits Content</h1>
-        </div>
+    render: () => {
+      const categories = [
+        { id: 'bd', name: 'Business Development', gradient: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)', articles: [
+          { title: 'How to Scale Agency BD Beyond the Founder', author: 'Peter Kang', date: 'Apr 28, 2026' },
+          { title: 'The Client Pruning Framework', author: 'AgencyHabits', date: 'Apr 14, 2026' },
+          { title: 'What Does a Client Actually Buy When They Hire You?', author: 'AgencyHabits', date: 'Mar 17, 2026' }
+        ]},
+        { id: 'finance', name: 'Finance', gradient: 'linear-gradient(135deg, #eab308 0%, #ca8a04 100%)', articles: [
+          { title: "Agency Cash Flow: What the P&L Isn't Telling You", author: 'AgencyHabits', date: 'Mar 31, 2026' },
+          { title: "Reversing Your Agency's Eroding Profits", author: 'AgencyHabits', date: 'Jan 20, 2026' },
+          { title: "Are You Calculating Your Agency's Profits Correctly?", author: 'AgencyHabits', date: 'Dec 2025' }
+        ]},
+        { id: 'leadership', name: 'Leadership', gradient: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)', articles: [
+          { title: 'Specializing Requires Commitment', author: 'AgencyHabits', date: 'Jan 6, 2026' },
+          { title: 'The Org Chart Exercise Every Agency Founder Should Do', author: 'AgencyHabits', date: 'Nov 2025' },
+          { title: 'Mind the Bottom', author: 'AgencyHabits', date: 'Oct 2025' }
+        ]},
+        { id: 'positioning', name: 'Positioning', gradient: 'linear-gradient(135deg, #14b8a6 0%, #0f766e 100%)', articles: [
+          { title: 'How to Define Your Agency\'s ICP (Beyond "B2B SaaS")', author: 'Peter Kang', date: 'May 12, 2026' },
+          { title: 'The Three Agency Ecosystem Archetypes', author: 'AgencyHabits', date: 'Mar 3, 2026' },
+          { title: 'Specialization vs. Positioning', author: 'AgencyHabits', date: 'Feb 2026' }
+        ]},
+        { id: 'clients', name: 'Clients', gradient: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)', articles: [
+          { title: 'The Client Pruning Framework', author: 'AgencyHabits', date: 'Apr 14, 2026' },
+          { title: 'What Does a Client Actually Buy When They Hire You?', author: 'AgencyHabits', date: 'Mar 17, 2026' },
+          { title: 'Client Experience vs. Quality Work', author: 'AgencyHabits', date: 'Dec 2025' }
+        ]},
+        { id: 'talent', name: 'Talent', gradient: 'linear-gradient(135deg, #22c55e 0%, #15803d 100%)', articles: [
+          { title: 'Hiring Is the Highest-Leverage Thing You Do', author: 'AgencyHabits', date: 'Sep 2025' },
+          { title: 'When to Hire vs. When to Outsource', author: 'AgencyHabits', date: 'Aug 2025' },
+          { title: 'How to Build a Team That Doesn\'t Depend on You', author: 'AgencyHabits', date: 'Jul 2025' }
+        ]},
+        { id: 'delivery', name: 'Delivery', gradient: 'linear-gradient(135deg, #f97316 0%, #c2410c 100%)', articles: [
+          { title: 'How Agencies Lose Margin on Delivery', author: 'AgencyHabits', date: 'Nov 2025' },
+          { title: 'The Project Profitability Framework', author: 'AgencyHabits', date: 'Oct 2025' },
+          { title: 'SOPs That Actually Get Used', author: 'AgencyHabits', date: 'Sep 2025' }
+        ]},
+        { id: 'marketing', name: 'Marketing', gradient: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)', articles: [
+          { title: 'Why Your Agency Website Says Nothing', author: 'AgencyHabits', date: 'Feb 2026' },
+          { title: 'Content Marketing for Agency Operators', author: 'AgencyHabits', date: 'Jan 2026' },
+          { title: 'How to Build an Audience While Running a Business', author: 'AgencyHabits', date: 'Dec 2025' }
+        ]}
+      ];
 
-        <!-- Fundamental-style Featured Layout -->
-        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-bottom: 48px;">
-          <!-- Left: Large Featured Article Card (Span 8) -->
-          <div style="grid-column: span 8; border: 1px solid var(--wf-border); display: flex; flex-direction: column; position: relative; height: 480px; cursor: pointer;" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box" style="height: 100%; width: 100%; position: absolute; top:0; left:0; z-index: 1;">
-              <span class="wf-placeholder-label">[Featured Image: Defining ICP]</span>
-            </div>
-            <!-- Bottom text overlay -->
-            <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 12px;">
-              <div style="display: flex; gap: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase;">
-                <span style="background: #fff; color: #000; padding: 2px 8px;">Marketing</span>
-                <span>Peter Kang • May 12, 2026 • 8 min read</span>
-              </div>
-              <h2 class="wf-h1" style="color: #fff; font-size: 28px; line-height: 1.2; font-weight: 800; border: none; margin: 0; padding: 0;">How to Define Your Agency's ICP (Beyond "B2B SaaS")</h2>
-              <p class="wf-body-small" style="color: #ccc; margin-bottom: 0;">A founder we know got asked at an industry dinner who her agency worked with. "B2B SaaS," she said. The person nodded politely and moved on...</p>
-            </div>
+      let tilesHTML = '';
+      let sectionsHTML = '';
+
+      categories.forEach(cat => {
+        tilesHTML += `
+          <div style="grid-column: span 3; background: ${cat.gradient}; padding: 24px; height: 140px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; color: #fff; border-radius: 4px;" onclick="document.getElementById('category-${cat.id}').scrollIntoView({ behavior: 'smooth' })">
+            <h3 class="wf-h3" style="color: #fff; margin: 0; font-size: 16px;">${cat.name}</h3>
+            <span style="font-weight: 700; font-size: 13px;">Explore →</span>
           </div>
-          
-          <!-- Right: Two Stacked Featured Article Cards (Span 4) -->
-          <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 24px; height: 480px;">
-            <!-- Stacked Card 1 -->
-            <div style="flex: 1; border: 1px solid var(--wf-border); position: relative; cursor: pointer; overflow: hidden;" onclick="navigateTo('article_template')">
-              <div class="wf-placeholder-box" style="height: 100%; width: 100%; position: absolute; top:0; left:0; z-index: 1;">
-                <span class="wf-placeholder-label">[Thumbnail: Scale BD]</span>
+        `;
+
+        let cardsHTML = '';
+        cat.articles.forEach(art => {
+          cardsHTML += `
+            <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('${cat.name.replace(/'/g, "\\'")}', '${art.title.replace(/'/g, "\\'")}', '${art.author.replace(/'/g, "\\'")}', '${art.date.replace(/'/g, "\\'")}')">
+              <div class="wf-placeholder-box wf-article-card-image" style="background: ${cat.gradient}; height: 160px; display: flex; align-items: center; justify-content: center;">
+                <span class="wf-placeholder-label" style="color: rgba(255,255,255,0.75); font-size: 12px; font-weight: bold;">[${cat.name.toUpperCase()} COVER]</span>
               </div>
-              <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%, transparent 100%); z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 8px;">
-                <div style="display: flex; gap: 8px; font-size: 9px; font-weight: 700; text-transform: uppercase;">
-                  <span style="background: #fff; color: #000; padding: 1px 6px;">Business Dev</span>
-                  <span>Peter Kang • 6 min read</span>
+              <div class="wf-article-card-content" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between; height: 180px;">
+                <div>
+                  <div class="wf-meta-row" style="margin-bottom: 8px;">
+                    <span class="wf-category-tag" style="background: ${cat.gradient}; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">${cat.name.toUpperCase()}</span>
+                  </div>
+                  <h4 class="wf-h3" style="font-size: 15px; margin: 0 0 8px 0; line-height: 1.3; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${art.title}</h4>
+                  <span class="wf-body-small" style="color: #666; font-size: 11px;">by ${art.author} · ${art.date}</span>
                 </div>
-                <h3 class="wf-h3" style="color: #fff; font-size: 16px; line-height: 1.3; margin: 0;">How to Scale Agency BD Beyond the Founder</h3>
+                <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
               </div>
             </div>
-            
-            <!-- Stacked Card 2 -->
-            <div style="flex: 1; border: 1px solid var(--wf-border); position: relative; cursor: pointer; overflow: hidden;" onclick="navigateTo('article_template')">
-              <div class="wf-placeholder-box" style="height: 100%; width: 100%; position: absolute; top:0; left:0; z-index: 1;">
-                <span class="wf-placeholder-label">[Thumbnail: Client Pruning]</span>
-              </div>
-              <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%, transparent 100%); z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 8px;">
-                <div style="display: flex; gap: 8px; font-size: 9px; font-weight: 700; text-transform: uppercase;">
-                  <span style="background: #fff; color: #000; padding: 1px 6px;">Business Dev</span>
-                  <span>5 min read</span>
-                </div>
-                <h3 class="wf-h3" style="color: #fff; font-size: 16px; line-height: 1.3; margin: 0;">The Client Pruning Framework</h3>
-              </div>
+          `;
+        });
+
+        sectionsHTML += `
+          <div id="category-${cat.id}" style="grid-column: span 12; margin-top: 60px; scroll-margin-top: 100px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #000; padding-bottom: 12px; margin-bottom: 24px;">
+              <h2 class="wf-h2" style="margin: 0; font-size: 24px; text-transform: uppercase; font-family: sans-serif; letter-spacing: 1px;">${cat.name}</h2>
+              <a href="#" class="wf-body-small" style="font-weight: 700; text-decoration: underline;" onclick="STATE.currentCategory = '${cat.name.replace(/'/g, "\\'")}'; navigateTo('category_hub'); return false;">View all →</a>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;">
+              ${cardsHTML}
             </div>
           </div>
-        </div>
+        `;
+      });
 
-        <!-- Categories & Search Bar (Moved Under Featured Layout) -->
-        <div style="grid-column: span 12; margin-bottom: 40px;">
-          <div class="wf-filters" style="margin-top: 0; margin-bottom: 0;">
-            <div class="wf-filter-tabs">
-              <span class="wf-filter-tab active">All</span>
-              <span class="wf-filter-tab">Business Development</span>
-              <span class="wf-filter-tab">Marketing</span>
-              <span class="wf-filter-tab">Finance</span>
-              <span class="wf-filter-tab">Leadership</span>
-              <span class="wf-filter-tab">Clients</span>
-              <span class="wf-filter-tab">Positioning</span>
-              <span class="wf-filter-tab">Talent</span>
-            </div>
-            <div>
-              <input type="text" class="wf-input-text" placeholder="Search articles..." style="width: 260px; height: 38px;" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Grid of 9 Articles -->
-        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 24px;">
-          
-          <!-- Row 1 -->
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">How to Scale Agency BD Beyond the Founder</h4>
-                <span class="wf-body-small">Peter Kang | Apr 28, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Transitioning sales away from owner relationships requires clear operational habits.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
+      return `
+        ${getHeaderHTML('read')}
+        
+        <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px;">
+          <div style="grid-column: span 12; margin-bottom: 32px;">
+            <span class="wf-label">AgencyHabits Editorial</span>
+            <h1 class="wf-h1" style="font-size: 36px; margin-top: 8px;">Practical thinking for agency operators.</h1>
           </div>
 
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">The Client Pruning Framework</h4>
-                <span class="wf-body-small">Apr 14, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">How to build a client roster that grows alongside your team and financial targets.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
+          <!-- Category Tiles Grid -->
+          <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-bottom: 20px;" class="wf-topics-grid">
+            ${tilesHTML}
           </div>
 
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Finance</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">Agency Cash Flow: What the P&L Isn't Telling You</h4>
-                <span class="wf-body-small">Mar 31, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Why standard profitability metrics lie, and how to track actual cash health.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
+          <!-- Category Sections Feed -->
+          ${sectionsHTML}
+        </section>
 
-          <!-- Row 2 -->
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">What Does a Client Actually Buy When They Hire You?</h4>
-                <span class="wf-body-small">Mar 17, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Shift your selling perspective from deliverable outputs to operational outcomes.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
-
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">The Three Agency Ecosystem Archetypes</h4>
-                <span class="wf-body-small">Mar 3, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Positioning models that dictate your pricing, team ratios, and delivery mechanisms.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
-
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">Scaling Your Agency Beyond $2M</h4>
-                <span class="wf-body-small">Feb 17, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">The systems and hiring decisions needed to break past standard boutique bottlenecks.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
-
-          <!-- Row 3 -->
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">The Metrics That Matter for Your Agency</h4>
-                <span class="wf-body-small">Feb 3, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Avoid vanity metrics and focus on utilization, pipeline value, and client LTV.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
-
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Finance</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">Reversing Your Agency's Eroding Profits</h4>
-                <span class="wf-body-small">Jan 20, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Tactical levers to pull when margins shrink and client retention drops.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
-
-          <div class="wf-article-card" onclick="navigateTo('article_template')">
-            <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-            <div class="wf-article-card-content">
-              <div>
-                <div class="wf-meta-row"><span class="wf-category-tag">Leadership</span></div>
-                <h4 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">Specializing Requires Commitment</h4>
-                <span class="wf-body-small">Jan 6, 2026</span>
-                <p class="wf-body-small" style="margin-top: 10px;">Why choosing a niche is simple in theory, but operationalizing it takes real guts.</p>
-              </div>
-              <span style="font-weight: 700; margin-top: 20px; font-size: 13px;">Read →</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Pagination -->
-        <div style="grid-column: span 12; display: flex; justify-content: center; align-items: center; margin-top: 60px; gap: 16px;">
-          <span style="font-size: 14px; cursor: pointer; color: #888;">← Previous</span>
-          <span style="font-size: 14px; font-weight: 700; border-bottom: 2px solid #000; padding: 2px 6px;">1</span>
-          <span style="font-size: 14px; cursor: pointer; padding: 2px 6px;">2</span>
-          <span style="font-size: 14px; cursor: pointer; padding: 2px 6px;">3</span>
-          <span style="font-size: 14px; color: #888;">...</span>
-          <span style="font-size: 14px; cursor: pointer;">Next →</span>
-        </div>
-      </section>
-
-      ${getNewsletterCtaHTML()}
-      ${getFooterHTML()}
-    `
+        ${getNewsletterCtaHTML()}
+        ${getFooterHTML()}
+      `;
+    }
   },
   article_template: {
     title: 'ARTICLE TEMPLATE',
     annotations: [
-      { num: 1, title: 'Sticky Progress Bar', body: 'Stays anchored to the top of the browser viewport to indicate user reading scroll progress.', top: '5px', left: '400px' },
-      { num: 2, title: 'Article Header Block', body: 'Clear categorizing and metadata showing Author, Date, and estimated reading time.', top: '150px', left: '360px' },
-      { num: 3, title: 'Full-width Visual Placeholder', body: 'Designated hero block. Wide template style.', top: '350px', left: '80px' },
-      { num: 4, title: 'Max-width Content Body', body: 'Centered content body bounded to max ~700px to ensure premium readability standards.', top: '780px', left: '360px' },
-      { num: 5, title: 'Pull Quote Stylization', body: 'Distinct styling layout for quotes, providing editorial emphasis.', top: '920px', left: '330px' },
-      { num: 6, title: 'Framework Diagram Block', body: 'Embedded diagram placeholder mid-article.', top: '1560px', left: '360px' },
-      { num: 7, title: 'Keep Reading Segment', body: 'Three-column article recommendation module below main article content.', top: '1850px', left: '80px' }
+      { num: 1, title: 'TL;DR Block', body: 'Lets time-constrained founders scan key takeaways before reading the full piece.', top: '480px', left: '160px' },
+      { num: 2, title: 'Sticky TOC', body: 'Auto-generated from headers. Stays floating in the right rail on desktop.', top: '650px', left: '1000px' },
+      { num: 3, title: 'Founder Insight Callout', body: 'Peer-to-peer trenches voice from real agency experience.', top: '1020px', left: '120px' },
+      { num: 4, title: 'Numbers Callout Tile', body: 'Benchmark statistics pulled directly into a highlighted tile.', top: '1450px', left: '120px' },
+      { num: 5, title: 'Barrel Agency Sidebar', body: 'Trust signal citing real Barrel Holdings portfolio operations data.', top: '1850px', left: '680px' },
+      { num: 6, title: 'Mid-article Newsletter CTA', body: 'Inline newsletter subscription form at ~50% scroll height.', top: '2250px', left: '360px' },
+      { num: 7, title: 'Contextual Upsell Card', body: 'Custom recommendation driving traffic to the paid BD Collection resource.', top: '3480px', left: '80px' },
+      { num: 8, title: 'Sticky Podcast Sidebar', body: 'Desktop only. Displays a contextually relevant podcast episode in the right rail.', top: '880px', left: '1000px' }
     ],
-    render: () => `
-      <!-- Sticky Reading progress indicator simulation -->
-      <div class="wf-reading-progress-container">
-        <div class="wf-reading-progress-bar"></div>
-      </div>
+    render: () => {
+      const art = STATE.currentArticle || {
+        category: 'Business Development',
+        title: 'How to Scale Agency BD Beyond the Founder',
+        author: 'Peter Kang',
+        date: 'Apr 28, 2026'
+      };
       
-      ${getHeaderHTML('articles')}
-
-      <!-- Article Header -->
-      <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px; display: grid;">
-        <div style="grid-column: 1 / span 12; display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; max-width: 960px; width: 100%;">
-          <span class="wf-category-tag" style="margin-bottom: 16px; display: inline-block;">Marketing</span>
-          <h1 class="wf-h1" style="margin-bottom: 20px; text-align: center; width: 100%;">How to Define Your Agency's ICP (Beyond "B2B SaaS")</h1>
-          <div style="font-size: 14px; font-weight: 500; display: flex; justify-content: center; gap: 16px; color: #555; align-items: center; width: 100%;">
-            <span>By <strong>Peter Kang</strong></span>
-            <span>|</span>
-            <span>May 12, 2026</span>
-            <span>|</span>
-            <span>8 min read</span>
+      let categoryGradient = 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
+      let upsellHTML = '';
+      
+      const catUpper = art.category.toUpperCase();
+      if (catUpper === 'BUSINESS DEVELOPMENT') {
+        categoryGradient = 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)';
+        upsellHTML = `
+          <div style="margin-top: 48px; border: 1px solid #24463d; padding: 32px; background: #f0fdf4; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <span class="wf-label" style="color: #166534; margin-bottom: 4px;">RECOMMENDED FOR THIS TOPIC</span>
+              <h4 class="wf-h3" style="margin: 0; font-size: 18px;">The Business Development Collection</h4>
+              <p class="wf-body-small" style="margin: 4px 0 0 0; color: #475569;">Real, winning proposals and statements of work from Barrel Holdings agencies.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="font-size: 18px; font-weight: 800; display: block; margin-bottom: 8px;">$599</span>
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('bizdev_collection')">Learn More →</button>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Hero Image -->
-      <section class="grid-container" style="margin-bottom: 60px;">
-        <div style="grid-column: span 12;">
-          <div class="wf-placeholder-box" style="height: 480px; width: 100%;">
-            <span class="wf-placeholder-label">[Hero Image: Framework Visual]</span>
+        `;
+      } else if (catUpper === 'FINANCE') {
+        categoryGradient = 'linear-gradient(135deg, #eab308 0%, #ca8a04 100%)';
+        upsellHTML = `
+          <div style="margin-top: 48px; border: 1px solid #24463d; padding: 32px; background: #f0fdf4; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <span class="wf-label" style="color: #166534; margin-bottom: 4px;">RECOMMENDED FOR THIS TOPIC</span>
+              <h4 class="wf-h3" style="margin: 0; font-size: 18px;">The Exit-Readiness Checklist</h4>
+              <p class="wf-body-small" style="margin: 4px 0 0 0; color: #475569;">See your agency the way a buyer would. Free checklist download.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="font-size: 18px; font-weight: 800; display: block; margin-bottom: 8px; color: #10b981;">FREE</span>
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('exit_checklist')">Download →</button>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Content Body (Centered max-width columns) -->
-      <section class="grid-container" style="margin-bottom: 80px;">
-        <div style="grid-column: 3 / span 8; display: flex; flex-direction: column; gap: 28px;">
-          <p class="wf-body-large" style="font-weight: 500; line-height: 1.6; color: #000;">
-            A founder we know got asked at an industry dinner who her agency worked with. "B2B SaaS," she said. The person nodded politely and moved on. She realized later that's the same answer given by maybe 200 other agencies at that dinner. It's the answer given by agencies doing branding, agencies doing product strategy, and firms doing paid ads. It means nothing.
-          </p>
-
-          <div style="border-left: 4px solid #000; padding-left: 24px; margin: 20px 0; font-style: italic;">
-            <p class="wf-body-large" style="color: #000; font-weight: 600;">"B2B SaaS isn't an ICP. It's the first layer of one. And if that's where your answer stops, the downstream effects show up in every part of your business."</p>
+        `;
+      } else if (catUpper === 'POSITIONING') {
+        categoryGradient = 'linear-gradient(135deg, #14b8a6 0%, #0f766e 100%)';
+        upsellHTML = `
+          <div style="margin-top: 48px; border: 1px solid #24463d; padding: 32px; background: #f0fdf4; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <span class="wf-label" style="color: #166534; margin-bottom: 4px;">RECOMMENDED FOR THIS TOPIC</span>
+              <h4 class="wf-h3" style="margin: 0; font-size: 18px;">Foundation App positioning audit</h4>
+              <p class="wf-body-small" style="margin: 4px 0 0 0; color: #475569;">Get a free 60-second positioning audit for your agency.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="font-size: 18px; font-weight: 800; display: block; margin-bottom: 8px; color: #047857;">FREE</span>
+              <button class="wf-btn wf-btn-primary" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
+            </div>
           </div>
-
-          <h2 class="wf-h2">1. Firmographics</h2>
-          <p class="wf-body">The easy part. Industry, revenue stage, team size, geography, business model, tech stack. Most agencies we talk to stop here, and most stop too shallow. Knowing the revenue bracket matters because it establishes buying potential, but it doesn't give you the triggers that actually open doors.</p>
-
-          <h2 class="wf-h2">2. Buying Triggers</h2>
-          <p class="wf-body">Something like 99% of your prospects aren't in market at any given time. The question isn't "who do we want to reach?" It's "what pushes them from not-in-market to in-market?" Common triggers include funding rounds, key hires (like a new CMO), platform migrations, or entering a new market segment.</p>
-
-          <h2 class="wf-h2">3. Success Definition</h2>
-          <p class="wf-body">What is the client actually trying to achieve? Not what your agency is good at delivering. What moves the needle for them. If you sell SEO, their success definition isn't "higher rank." It's "reducing paid acquisition costs to stabilize margin." Align your positioning directly to this outcome.</p>
-
-          <h2 class="wf-h2">4. Buying Committee</h2>
-          <p class="wf-body">Who actually makes the decision? Who owns the budget? Who's the champion pushing internally? Who's the technical gatekeeper whose nod you need? Your marketing must provide artifacts that help your internal champion sell you up the ladder.</p>
-
-          <h2 class="wf-h2">5. Disqualifiers</h2>
-          <p class="wf-body">This is the Charlie Munger "invert, always invert" move. The first four dimensions define who you want. This one defines who you won't work with, even if they show up with money. By setting hard boundaries, you protect agency delivery margins and team morale.</p>
-
-          <div class="wf-placeholder-box" style="height: 320px; width: 100%; margin: 20px 0;">
-            <span class="wf-placeholder-label">[Framework Image: Five ICP Dimensions]</span>
+        `;
+      } else if (catUpper === 'LEADERSHIP') {
+        categoryGradient = 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)';
+        upsellHTML = `
+          <div style="margin-top: 48px; border: 1px solid #24463d; padding: 32px; background: #f0fdf4; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <span class="wf-label" style="color: #166534; margin-bottom: 4px;">RECOMMENDED FOR THIS TOPIC</span>
+              <h4 class="wf-h3" style="margin: 0; font-size: 18px;">The Annual Goal Setting Template</h4>
+              <p class="wf-body-small" style="margin: 4px 0 0 0; color: #475569;">Align your team on the targets that move your agency forward.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <span style="font-size: 18px; font-weight: 800; display: block; margin-bottom: 8px; color: #f59e0b;">FREE</span>
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('goal_template')">Download →</button>
+            </div>
           </div>
+        `;
+      } else if (catUpper === 'CLIENTS') {
+        categoryGradient = 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)';
+      } else if (catUpper === 'TALENT') {
+        categoryGradient = 'linear-gradient(135deg, #22c55e 0%, #15803d 100%)';
+      } else if (catUpper === 'DELIVERY') {
+        categoryGradient = 'linear-gradient(135deg, #f97316 0%, #c2410c 100%)';
+      } else if (catUpper === 'MARKETING') {
+        categoryGradient = 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)';
+      }
 
-          <p class="wf-body">Start with your last 10 clients. Take your ICP audit, not a brainstorm. Take your last 10 signed clients. For each one, fill in the five dimensions. Then look at the three or four best ones, the engagements where margins were high, the team was energized, and the work generated clear results.</p>
+      if (!upsellHTML) {
+        upsellHTML = `
+          <div style="margin-top: 48px; border: 1px solid #24463d; padding: 32px; background: #f0fdf4; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <span class="wf-label" style="color: #166534; margin-bottom: 4px;">RECOMMENDED RESOURCE</span>
+              <h4 class="wf-h3" style="margin: 0; font-size: 18px;">Weekly Newsletter</h4>
+              <p class="wf-body-small" style="margin: 4px 0 0 0; color: #475569;">Join 1,500+ founders running $750K–$3M agencies.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('newsletter')">Subscribe →</button>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+      <div style="position: sticky; top: 0; left: 0; width: 100%; height: 4px; background: #e2e8f0; z-index: 100;">
+        <div style="width: 45%; height: 100%; background: #24463d;"></div>
+      </div>
+
+      ${getHeaderHTML('read')}
+      
+      <!-- Article Header (Unified Hero with Gradient Background) -->
+      <section class="grid-container" style="padding-top: 80px; padding-bottom: 80px; position: relative; overflow: hidden; border-bottom: 1px solid var(--wf-border-muted); margin-bottom: 60px;">
+        <!-- Background Layer with Opacity -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: ${categoryGradient}; opacity: 0.4; z-index: 1;"></div>
+        
+        <div style="grid-column: span 12; display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; z-index: 2; text-align: center;">
+          <a href="#" class="wf-category-tag" onclick="navigateTo('read')" style="align-self: center; background: #000; color: #fff; border: none; font-size: 10px; font-weight: bold; letter-spacing: 1px; padding: 4px 12px;">${art.category.toUpperCase()}</a>
+          <h1 class="wf-h1" style="max-width: 800px; text-align: center; margin: 8px 0; font-size: 38px; line-height: 1.2;">${art.title}</h1>
           
-          <div style="margin-top: 40px; border-top: 1px solid var(--wf-border-muted); padding-top: 24px;">
-            <a href="#" onclick="navigateTo('articles')" style="color: #000; font-weight: 700; text-decoration: none;">← Back to Articles</a>
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
+            <div class="wf-icon-placeholder wf-icon-circle" style="width: 36px; height: 36px; background: #fff; border: 1px solid #000;"></div>
+            <div style="text-align: left;">
+              <span style="font-weight: 700; display: block; font-size: 14px; color: #000;">${art.author || 'Peter Kang'}</span>
+              <span style="font-size: 12px; color: #333;">Co-founder, Barrel Holdings · ${art.date} · 6 min read</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- What's Next / Recommendations -->
-      <section class="wf-section-pad grid-container" style="background: #fafafa;">
-        <div style="grid-column: span 12; margin-bottom: 32px;">
-          <span class="wf-label">Keep Reading</span>
-          <h2 class="wf-h2">Related Articles</h2>
-        </div>
-
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('articles')">
-          <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-          <div class="wf-article-card-content">
-            <div>
-              <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-              <h4 class="wf-h3" style="font-size: 16px; margin-bottom: 8px;">How to Scale Agency BD Beyond the Founder</h4>
-            </div>
-            <span style="font-weight: 700; margin-top: 16px; font-size: 13px;">Read →</span>
+      <!-- Main Layout: Content + Sticky Sidebar -->
+      <section class="grid-container" style="padding-bottom: 120px; align-items: start;">
+        <div style="grid-column: span 8; display: flex; flex-direction: column; gap: 32px;">
+          
+          <!-- TL;DR Block -->
+          <div style="border: 2px solid #000; padding: 24px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px;">
+            <span class="wf-label" style="margin-bottom: 0;">TL;DR</span>
+            <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;" class="wf-body">
+              <li>Review wins and losses to protect operational margins.</li>
+              <li>Systems outperform relationships in business development.</li>
+              <li>Defining the wedge is key to scaling beyond founder capacity.</li>
+            </ul>
+            <a href="#full-piece" style="font-size: 13px; font-weight: 700; color: #000; text-decoration: underline; margin-top: 8px;">Skip to full piece ↓</a>
           </div>
-        </div>
 
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('articles')">
-          <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-          <div class="wf-article-card-content">
-            <div>
-              <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-              <h4 class="wf-h3" style="font-size: 16px; margin-bottom: 8px;">The Client Pruning Framework</h4>
+          <div id="full-piece" class="wf-body" style="line-height: 1.8; display: flex; flex-direction: column; gap: 24px;">
+            <p class="wf-body-large">A founder we know doubled revenue in 18 months. Not by hiring a sales team. By getting ruthlessly clear on who they were for - and building a repeatable system around that clarity.</p>
+            <p>Most agency owners view sales as a dark art or a series of random lunch meetings. In reality, business development is a delivery system. Just like project management, it requires inputs, schedules, and accountability.</p>
+            
+            <!-- Founder Insight Callout Box -->
+            <div style="border-left: 4px solid #24463d; padding: 16px 24px; background: #f0fdf4; margin: 24px 0;">
+              <span class="wf-label" style="color: #166534; margin-bottom: 8px;">FROM THE TRENCHES</span>
+              <p style="font-style: italic; margin-bottom: 8px;" class="wf-body-large">"We spent three years taking every project that came our way. The moment we defined our ICP - and started saying no to everything outside it - our close rate went from 20% to 65%."</p>
+              <span style="font-size: 13px; font-weight: 700; color: #166534;">- Peter Kang, Barrel Holdings</span>
             </div>
-            <span style="font-weight: 700; margin-top: 16px; font-size: 13px;">Read →</span>
-          </div>
-        </div>
 
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateTo('articles')">
-          <div class="wf-placeholder-box wf-article-card-image"><span class="wf-placeholder-label">[Image Placeholder]</span></div>
-          <div class="wf-article-card-content">
-            <div>
-              <div class="wf-meta-row"><span class="wf-category-tag">Business Development</span></div>
-              <h4 class="wf-h3" style="font-size: 16px; margin-bottom: 8px;">The Three Agency Ecosystem Archetypes</h4>
+            <h2 class="wf-h2" style="font-size: 24px; margin-top: 24px;">1. Systematizing Operations</h2>
+            <p>Success requires structured, consistent plays. Founder-led sales are highly effective at first. The founder has the network, the authority, and the deep industry expertise. But it doesn't scale. Eventually, the founder runs out of time, and the agency hits a growth ceiling.</p>
+            
+            <!-- Numbers Callout Tile -->
+            <div style="background: #0f172a; color: #fff; padding: 32px; text-align: center; border-radius: 4px; margin: 24px 0;">
+              <span style="font-size: 64px; font-weight: 900; color: #f43f5e; display: block; line-height: 1;">80%</span>
+              <span style="font-size: 14px; color: #94a3b8; display: block; max-width: 480px; margin: 12px auto 0 auto;">of agency founders say BD is the highest-leverage thing they do - and the thing they are worst at systematizing.</span>
             </div>
-            <span style="font-weight: 700; margin-top: 16px; font-size: 13px;">Read →</span>
-          </div>
-        </div>
-      </section>
 
-      <!-- Newsletter Banner -->
-      <section class="wf-newsletter-cta-band">
-        <div class="wf-newsletter-cta-content">
-          <h2 class="wf-h2" style="margin-bottom: 12px;">Enjoyed this? Join 1,500+ agency operators getting behind-the-scenes content every week.</h2>
-          <div class="wf-newsletter-form">
-            <input type="email" class="wf-input-text" placeholder="Enter your email" />
-            <button class="wf-btn wf-btn-primary" onclick="simulateFormSubmit(this, 'Subscribed!')">Subscribe</button>
+            <h2 class="wf-h2" style="font-size: 24px; margin-top: 24px;">2. The ICP Prerequisite</h2>
+            <p>You cannot scale business development until you define your Ideal Customer Profile. If your team doesn't know exactly who you are selling to, they will waste time chasing bad opportunities. The best way to start is by looking at your data.</p>
+            
+            <!-- Barrel Agency Sidebar (small box) -->
+            <div style="border: 1px solid #cbd5e1; padding: 20px; background: #fff; margin: 24px 0; border-radius: 4px;">
+              <span class="wf-label" style="color: #475569; margin-bottom: 6px;">FROM A BARREL AGENCY</span>
+              <p class="wf-body-small" style="color: #475569; margin: 0;">"At Barrel, we rebuilt our new business process around a single ICP doc updated quarterly. Every team member knows it. Every proposal references it."</p>
+            </div>
+          </div>
+
+          <!-- Author Bio -->
+          <div style="display: flex; gap: 24px; padding: 32px; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; margin-top: 48px; background: #fafafa;">
+            <div class="wf-icon-placeholder wf-icon-circle" style="width: 64px; height: 64px; flex-shrink: 0;"></div>
+            <div>
+              <h4 class="wf-h4" style="margin-bottom: 8px;">Peter Kang</h4>
+              <p class="wf-body-small" style="color: #666; margin-bottom: 12px;">Peter has been building and running agencies since 2006. He co-founded Barrel, a digital agency serving CPG brands, and later started Barrel Holdings to acquire and grow agency businesses.</p>
+              <a href="#" onclick="navigateTo('read')" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">More articles by Peter →</a>
+            </div>
+          </div>
+
+          <!-- Share Strip -->
+          <div class="wf-share-strip" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #e2e8f0;">
+            <span style="font-size: 14px; font-weight: 700;">Send this to a founder friend:</span>
+            <div style="display: flex; gap: 8px;">
+              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
+              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">LinkedIn</button>
+              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">Twitter</button>
+            </div>
+          </div>
+
+          <!-- Contextual Upsell -->
+          ${upsellHTML}
+
+        </div>
+
+        <!-- Sticky Right Sidebar -->
+        <div style="grid-column: span 4; position: sticky; top: 100px; display: flex; flex-direction: column; gap: 32px; padding-left: 20px;" class="wf-article-sidebar">
+          <!-- Sticky TOC -->
+          <div style="border: 1px solid #e2e8f0; padding: 24px; background: #fff;">
+            <h4 class="wf-h4" style="font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Table of Contents</h4>
+            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;" class="wf-body-small">
+              <a href="#full-piece" style="color: #000; text-decoration: none; font-weight: 700;">1. Systematizing Operations</a>
+              <a href="#full-piece" style="color: #666; text-decoration: none;">2. The ICP Prerequisite</a>
+            </div>
+          </div>
+
+          <!-- Sticky Podcast Sidebar -->
+          <div style="border: 1px solid #e2e8f0; padding: 24px; background: #fff;">
+            <span class="wf-label">FROM THE PODCAST</span>
+            <div class="wf-placeholder-box" style="height: 120px; margin: 12px 0; background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-size: 11px;">[Podcast Cover]</span>
+            </div>
+            <h5 class="wf-h4" style="font-size: 14px; line-height: 1.3;">EP.07 — 10 Essential Habits for Running a Successful Agency</h5>
+            <span class="wf-body-small" style="color: #666; display: block; margin-top: 4px;">Duration: 44 min</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 16px;">
+              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="navigateTo('episode_template')">Listen & Transcript →</button>
+            </div>
           </div>
         </div>
       </section>
 
       ${getFooterHTML()}
-    `
+      `;
+    }
   },
   books: {
     title: 'BOOKS PAGE',
     annotations: [
       { num: 1, title: 'Topic Filter Tabs', body: 'Filter the 14 book recommendations by category (Finance, Sales, Leadership, etc.).', top: '150px', left: '160px' },
       { num: 2, title: 'Two-Column Grid', body: 'Displays books side-by-side with clear cover placeholders, descriptions, and details.', top: '230px', left: '80px' },
-      { num: 3, title: 'External Redirect Link', body: 'Links point out to purchase locations or detailed summaries.', top: '380px', left: '400px' }
+      { num: 3, title: 'External Redirect Link', body: 'Links point out to purchase locations or detailed summaries.', top: '380px', left: '400px' },
+      { num: 4, title: 'Footer-only Access', body: 'Books page accessed from footer only — not in main navigation.', top: '40px', left: '600px' }
     ],
     render: () => `
       ${getHeaderHTML('books')}
@@ -986,61 +956,177 @@ const PAGES = {
     `
   },
   tools: {
-    title: 'TOOLS & DOWNLOADS',
+    title: 'TOOLS & ECOSYSTEM',
     annotations: [
-      { num: 1, title: 'Stacked Product Grid', body: 'Alternates visual left / copy right for premium visual flow.', top: '220px', left: '80px' },
-      { num: 2, title: 'Buy CTA', body: 'Direct checkout integration for paid collections ($599).', top: '350px', left: '800px' },
-      { num: 3, title: 'Free Download Forms', body: 'Triggers navigation to sub-pages with structured email forms.', top: '650px', left: '300px' }
+      { num: 1, title: 'Stats Row', body: 'Lead with experience, not download counts. 100+ downloads is small — 20 years is strong.', top: '150px', left: '160px' },
+      { num: 2, title: 'Foundation + KB Side by Side', body: 'Two AI products, equal prominence.', top: '280px', left: '80px' },
+      { num: 3, title: 'Tools Grid', body: "Three cards. Each with who-it's-for + 3 benefit bullets + price.", top: '750px', left: '80px' },
+      { num: 4, title: 'Testimonials', body: 'Real quotes confirmed by client.', top: '1350px', left: '80px' },
+      { num: 5, title: 'Quiet Barrel Link', body: 'Appears in three places only: here, About, and Finance/Exit articles.', top: '1750px', left: '600px' }
     ],
     render: () => `
       ${getHeaderHTML('tools')}
 
-      <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px;">
-        <div style="grid-column: span 12; margin-bottom: 40px;">
-          <span class="wf-label">Barrel Holdings Assets</span>
-          <h1 class="wf-h1">Tools & Downloads</h1>
-          <p class="wf-body-large" style="margin-top: 8px;">Resources built from real Barrel Holdings agency operations.</p>
-        </div>
-
+      <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px; text-align: center;">
         <div style="grid-column: span 12;">
-          
-          <!-- Card 1 -->
-          <div class="wf-tool-card">
-            <div class="wf-placeholder-box wf-tool-image"><span class="wf-placeholder-label">[Product Mockup: Biz Dev Collection]</span></div>
-            <div class="wf-tool-content">
-              <span class="wf-label">Paid Resource Collection</span>
-              <h3 class="wf-h2" style="margin: 8px 0 16px 0;">The Business Development Collection</h3>
-              <p class="wf-body" style="margin-bottom: 24px;">Real, winning proposals and SOWs from Barrel Holdings agencies along with our New Biz Intake Guide and Agency Lead Tracker. Also includes the Agency Growth Engine Playbook.</p>
-              <div style="display: flex; gap: 16px; align-items: center;">
-                <button class="wf-btn wf-btn-primary" onclick="navigateTo('bizdev_collection')">Buy Now — $599</button>
-                <a href="#" style="color: #000; font-weight: 700; text-decoration: underline;" onclick="navigateTo('bizdev_collection')">Learn More</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="wf-tool-card wf-tool-card-reverse">
-            <div class="wf-placeholder-box wf-tool-image"><span class="wf-placeholder-label">[Product Cover: Exit-Readiness]</span></div>
-            <div class="wf-tool-content">
-              <span class="wf-label">Free Resource</span>
-              <h3 class="wf-h2" style="margin: 8px 0 16px 0;">The Exit-Readiness Checklist</h3>
-              <p class="wf-body" style="margin-bottom: 24px;">A comprehensive checklist to help you see your agency the way a buyer would, and close gaps that can increase the value of your agency.</p>
-              <button class="wf-btn wf-btn-primary" style="align-self: flex-start;" onclick="navigateTo('exit_checklist')">Free Download</button>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="wf-tool-card">
-            <div class="wf-placeholder-box wf-tool-image"><span class="wf-placeholder-label">[Product Cover: Goal Setting]</span></div>
-            <div class="wf-tool-content">
-              <span class="wf-label">Free Resource</span>
-              <h3 class="wf-h2" style="margin: 8px 0 16px 0;">The Annual Goal Setting Template</h3>
-              <p class="wf-body" style="margin-bottom: 24px;">A one-page template our Barrel Holdings agencies use to set, and stick to, their financial and strategic goals for the year ahead.</p>
-              <button class="wf-btn wf-btn-primary" style="align-self: flex-start;" onclick="navigateTo('goal_template')">Free Download</button>
-            </div>
-          </div>
-
+          <span class="wf-label">AgencyHabits Platform</span>
+          <h1 class="wf-h1" style="max-width: 800px; margin: 0 auto 24px auto;">Built from real Barrel Holdings agency operations.</h1>
         </div>
+      </section>
+
+      <!-- Stats Row -->
+      <section class="wf-section-pad grid-container" style="background: #000; color: #fff; text-align: center; padding-top: 40px; padding-bottom: 40px;">
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">20 Years</h3>
+          <span class="wf-label" style="color: #888;">Agency Experience</span>
+        </div>
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">1,500+</h3>
+          <span class="wf-label" style="color: #888;">Newsletter Subscribers</span>
+        </div>
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">60+</h3>
+          <span class="wf-label" style="color: #888;">Articles Published</span>
+        </div>
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">$599</h3>
+          <span class="wf-label" style="color: #888;">BD Collection</span>
+        </div>
+      </section>
+
+      <!-- Side-by-side AI tools -->
+      <section class="wf-section-pad grid-container">
+        <!-- Left: Foundation App -->
+        <div style="grid-column: span 6; border: 1px solid var(--wf-border); padding: 40px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span class="wf-label" style="margin-bottom: 0; color: #047857;">FOUNDATION APP · FREE</span>
+              <span style="border: 1px solid #000; padding: 2px 8px; font-size: 11px; font-weight: 700;">~60 seconds</span>
+            </div>
+            <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 12px;">Build Your Agency's Strategic Foundation</h3>
+            <p class="wf-body-small" style="color: #475569; margin-bottom: 16px;">Define your positioning, ecosystem, ICP, and service offering. Paste your URL. AI does the rest.</p>
+            <p class="wf-body-small" style="color: #94a3b8; font-style: italic;">Used by hundreds of agency owners</p>
+          </div>
+          <button class="wf-btn wf-btn-primary" style="align-self: flex-start; margin-top: 24px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
+        </div>
+
+        <!-- Right: Knowledge Base -->
+        <div style="grid-column: span 6; border: 1px solid var(--wf-border); padding: 40px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span class="wf-label" style="margin-bottom: 0; color: #0f172a;">KNOWLEDGE BASE · FREE · AI-POWERED</span>
+              <span style="border: 1px solid #cbd5e1; background: #f8fafc; padding: 2px 8px; font-size: 11px; font-weight: 700;">Beta</span>
+            </div>
+            <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 12px;">Search everything AgencyHabits has ever published.</h3>
+            <p class="wf-body-small" style="color: #475569; margin-bottom: 16px;">Ask any question about running, growing, or selling your agency. Get answers linked to source articles and podcast episodes.</p>
+          </div>
+          <button class="wf-btn wf-btn-secondary" style="align-self: flex-start; margin-top: 24px;" onclick="window.open('https://kb.agencyhabits.com', '_blank')">Search the Knowledge Base →</button>
+        </div>
+      </section>
+
+      <!-- Tools Grid -->
+      <section class="wf-section-pad grid-container" style="background: #f8fafc; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 40px; text-align: center;">
+          <span class="wf-label">Downloads & Resources</span>
+          <h2 class="wf-h2">All Operating Tools</h2>
+        </div>
+
+        <!-- Card 1: BD Collection -->
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 32px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 480px;">
+          <div>
+            <span class="wf-label" style="color: #3b82f6;">BUSINESS DEVELOPMENT</span>
+            <div class="wf-placeholder-box" style="height: 120px; margin: 16px 0; background: #eff6ff;">
+              <span class="wf-placeholder-label">[BD Collection Mockup]</span>
+            </div>
+            <h3 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">The Business Development Collection</h3>
+            <p class="wf-body-small" style="font-weight: 700; color: #475569; margin-bottom: 12px;">Who it's for: Agency founders doing $1M+ who are tired of losing deals to agencies half their quality.</p>
+            <ul class="wf-body-small" style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: #475569; margin-bottom: 0;">
+              <li>✓ Real winning proposals from Barrel Holdings agencies</li>
+              <li>✓ New business intake framework — 50 questions</li>
+              <li>✓ Agency Growth Engine Playbook</li>
+            </ul>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+              <span style="font-size: 18px; font-weight: 800; color: #0f172a;">$599</span>
+              <button class="wf-btn wf-btn-primary" style="height: 36px; padding: 0 16px; font-size: 13px;" onclick="navigateTo('bizdev_collection')">Learn More →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Exit Checklist -->
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 32px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 480px;">
+          <div>
+            <span class="wf-label" style="color: #10b981;">EXIT PLANNING</span>
+            <div class="wf-placeholder-box" style="height: 120px; margin: 16px 0; background: #ecfdf5;">
+              <span class="wf-placeholder-label">[Exit Checklist Mockup]</span>
+            </div>
+            <h3 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">The Exit-Readiness Checklist</h3>
+            <p class="wf-body-small" style="font-weight: 700; color: #475569; margin-bottom: 12px;">Who it's for: Founders who want to know what their agency is actually worth — and what's dragging the number down.</p>
+            <ul class="wf-body-small" style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: #475569; margin-bottom: 0;">
+              <li>✓ See your agency the way a buyer would</li>
+              <li>✓ Identifies valuation gaps before they cost you</li>
+              <li>✓ Built from real Barrel Holdings acquisition criteria</li>
+            </ul>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+              <span style="font-size: 18px; font-weight: 800; color: #10b981;">FREE</span>
+              <button class="wf-btn wf-btn-primary" style="height: 36px; padding: 0 16px; font-size: 13px;" onclick="navigateTo('exit_checklist')">Download →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Annual Goals -->
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 32px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 480px;">
+          <div>
+            <span class="wf-label" style="color: #f59e0b;">PLANNING</span>
+            <div class="wf-placeholder-box" style="height: 120px; margin: 16px 0; background: #fffbeb;">
+              <span class="wf-placeholder-label">[Goal Template Mockup]</span>
+            </div>
+            <h3 class="wf-h3" style="font-size: 18px; margin-bottom: 12px;">The Annual Goal Setting Template</h3>
+            <p class="wf-body-small" style="font-weight: 700; color: #475569; margin-bottom: 12px;">Who it's for: Founders heading into a new year who want a plan that doesn't get forgotten by March.</p>
+            <ul class="wf-body-small" style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: #475569; margin-bottom: 0;">
+              <li>✓ One page — no fluff</li>
+              <li>✓ The exact template Barrel Holdings agencies use</li>
+              <li>✓ Captures revenue, margin, and growth priorities</li>
+            </ul>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+              <span style="font-size: 18px; font-weight: 800; color: #f59e0b;">FREE</span>
+              <button class="wf-btn wf-btn-primary" style="height: 36px; padding: 0 16px; font-size: 13px;" onclick="navigateTo('goal_template')">Download →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; text-align: center; margin-bottom: 48px;">
+          <span class="wf-label">What Agency Founders Say</span>
+          <h2 class="wf-h2">Success Stories</h2>
+        </div>
+
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px; background: #fff;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"This was a no-brainer for me. Decades of agency sales secrets available for download? I'm shocked they were willing to share this wisdom at any price. I started using the templates that same day."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Max Bernstein, Consultant</span>
+        </div>
+
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px; background: #fff;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"AgencyHabits is actually the ONLY newsletter/website I actually follow as an agency founder. It is filled with actual practical tips for running your agency, and it had a direct impact on the growth of my agency."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Uros Mikic, CEO, Flow Ninja</span>
+        </div>
+
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px; background: #fff;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"The Business Development collection was really helpful for our team. It gave us great insight into where we're doing well and where we could sharpen things."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Jonathan Garyfalakis, CEO, Syatt Media</span>
+        </div>
+      </section>
+
+      <!-- Quiet Link -->
+      <section style="padding: 24px 0; text-align: center; border-bottom: 1px solid var(--wf-border-muted);">
+        <a href="https://barrel-holdings.com" target="_blank" style="color: #64748b; font-size: 13px; text-decoration: underline; font-weight: 700;">Built something worth selling? →</a>
       </section>
 
       ${getNewsletterCtaHTML()}
@@ -1068,6 +1154,7 @@ const PAGES = {
           <span class="wf-label">Exclusive Resources</span>
           <h1 class="wf-h1">The Business Development Collection</h1>
           <p class="wf-body">Real, winning proposals and SOWs from Barrel Holdings agencies along with our New Biz Intake Guide and Agency Lead Tracker. Also includes the Agency Growth Engine Playbook.</p>
+          <p class="wf-body-small" style="font-weight: 700; color: #0f172a;">Who it's for: Agency founders doing $1M+ who are tired of losing deals to agencies half their quality.</p>
           <div style="border: 1px solid #000; padding: 20px; background: #fafafa;">
             <p class="wf-body" style="font-weight: bold; margin-bottom: 12px; font-size: 18px;">Price: $599</p>
             <button class="wf-btn wf-btn-primary" style="width: 100%;" onclick="alert('Integrating Checkout Flow')">Buy Now — $599</button>
@@ -1077,6 +1164,23 @@ const PAGES = {
             <div style="font-size: 13px;">✓ <strong>Agency Lead Tracker</strong> — Source tracking framework.</div>
             <div style="font-size: 13px;">✓ <strong>Winning Proposals & SOWs</strong> — Website, SEO, CRO, & Design.</div>
             <div style="font-size: 13px;">✓ <strong>Agency Growth Engine Playbook</strong> — Growth operating systems.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Preview section (Blurred sample preview) -->
+      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; text-align: center; margin-bottom: 24px;">
+          <span class="wf-label">PREVIEW</span>
+          <h2 class="wf-h2">See What You Get</h2>
+        </div>
+        <div style="grid-column: span 12; position: relative; height: 300px; overflow: hidden;">
+          <div class="wf-placeholder-box" style="height: 100%; width: 100%; filter: blur(4px); background: #f1f5f9;">
+            <span class="wf-placeholder-label">[Confidential Proposal Details / Standard SOW Layout / Intake Questions]</span>
+          </div>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0f172a; color: #fff; padding: 16px 32px; font-weight: bold; text-align: center; border-radius: 4px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); width: calc(100% - 80px); max-width: 480px;">
+            <span style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin-bottom: 4px;">Sample Preview</span>
+            <span style="font-size: 16px; display: block;">Detailed SOW and Proposal templates unlocked upon purchase</span>
           </div>
         </div>
       </section>
@@ -1109,6 +1213,29 @@ const PAGES = {
           <span style="font-size: 32px; font-weight: 700; color: #aaa;">04</span>
           <h3 class="wf-h3" style="margin-bottom: 8px;">Agency Growth Engine Playbook</h3>
           <p class="wf-body-small">"A complete operating model for agency growth built on five linked systems — Foundation, Expertise, Relationship Development, Pipeline, and Delivery."</p>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); background: #ffffff;">
+        <div style="grid-column: span 12; text-align: center; margin-bottom: 48px;">
+          <span class="wf-label">What Agency Founders Say</span>
+          <h2 class="wf-h2">Testimonials</h2>
+        </div>
+
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px; background: #f8fafc;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"This was a no-brainer for me. Decades of agency sales secrets available for download? I'm shocked they were willing to share this wisdom at any price. I started using the templates that same day."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Max Bernstein, Consultant</span>
+        </div>
+
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px; background: #f8fafc;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"AgencyHabits is actually the ONLY newsletter/website I actually follow as an agency founder. It is filled with actual practical tips for running your agency, and it had a direct impact on the growth of my agency."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Uros Mikic, CEO, Flow Ninja</span>
+        </div>
+
+        <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px; background: #f8fafc;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"The Business Development collection was really helpful for our team. It gave us great insight into where we're doing well and where we could sharpen things."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Jonathan Garyfalakis, CEO, Syatt Media</span>
         </div>
       </section>
 
@@ -1182,6 +1309,25 @@ const PAGES = {
         </div>
       </section>
 
+      <!-- What's Inside & When to Use -->
+      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); background: #ffffff;">
+        <div style="grid-column: span 6;">
+          <h3 class="wf-h3" style="margin-bottom: 16px;">What's Inside</h3>
+          <ul class="wf-body-small" style="padding-left: 20px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 0;">
+            <li><strong>Financial Benchmarks:</strong> Gross margin targets, client concentration limits, and revenue predictability ratios.</li>
+            <li><strong>Operational Audits:</strong> Standard operating procedures check, project profitability tracking, and utilization rates.</li>
+            <li><strong>Legal & Corporate Docs:</strong> Core employee agreement reviews, client contract terms, and IP ownership audit.</li>
+            <li><strong>Leadership Scorecard:</strong> Evaluating dependency on founders for sales, operations, and key client relations.</li>
+          </ul>
+        </div>
+        <div style="grid-column: span 6;">
+          <h3 class="wf-h3" style="margin-bottom: 16px;">When to Use This</h3>
+          <p class="wf-body-small" style="margin-bottom: 12px;"><strong>12-18 Months Before Sale:</strong> The ideal runway to fix systemic issues like high client concentration or weak key employees. Altering these metrics takes time.</p>
+          <p class="wf-body-small" style="margin-bottom: 12px;"><strong>During Strategic Planning:</strong> Even if you don't intend to sell, running this audit annually keeps your business healthy, highly profitable, and robust.</p>
+          <p class="wf-body-small" style="margin-bottom: 0;"><strong>Before Raising Debt or Capital:</strong> Creditors and institutional investors look at the exact same variables when valuing your operational cash flows.</p>
+        </div>
+      </section>
+
       <section class="wf-section-pad grid-container" style="min-height: 500px; align-items: center; display: grid; background: #fafafa; border-bottom: none;">
         <div style="grid-column: 3 / span 8; text-align: center; display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; height: 100%;">
           <p class="wf-body-large" style="font-weight: 500; font-style: italic; margin-bottom: 24px;">
@@ -1230,6 +1376,25 @@ const PAGES = {
         </div>
       </section>
 
+      <!-- What's Inside & How Barrel Agencies Use It -->
+      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); background: #ffffff;">
+        <div style="grid-column: span 6;">
+          <h3 class="wf-h3" style="margin-bottom: 16px;">What's Inside</h3>
+          <ul class="wf-body-small" style="padding-left: 20px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 0;">
+            <li><strong>Financial Targets:</strong> Simple grids to map target revenue, net margins, and monthly billable expectations.</li>
+            <li><strong>Strategic Focus Areas:</strong> 3-4 key objectives for the year, with direct owner accountability assigned to each.</li>
+            <li><strong>Operational Milestones:</strong> Quarterly checkpoints to ensure your strategic priorities don't get lost in the day-to-day.</li>
+            <li><strong>Growth Benchmarks:</strong> Pipeline volume and conversion goals needed to feed your financial objectives.</li>
+          </ul>
+        </div>
+        <div style="grid-column: span 6;">
+          <h3 class="wf-h3" style="margin-bottom: 16px;">How Barrel Agencies Use It</h3>
+          <p class="wf-body-small" style="margin-bottom: 12px;"><strong>Q4 Prep Session:</strong> In October, each agency GM drafts this one-pager. We iterate on the draft to align on next year's targets.</p>
+          <p class="wf-body-small" style="margin-bottom: 12px;"><strong>Monthly Board Meetings:</strong> We print this one-pager and place it at the top of every monthly board pack to track progress.</p>
+          <p class="wf-body-small" style="margin-bottom: 0;"><strong>Quarterly Course Corrections:</strong> If market conditions shift, we adjust the key focus areas, keeping the core financial target fixed.</p>
+        </div>
+      </section>
+
       <section class="wf-section-pad grid-container" style="min-height: 500px; align-items: center; display: grid; background: #fafafa; border-bottom: none;">
         <div style="grid-column: 3 / span 8; text-align: center; display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; height: 100%;">
           <p class="wf-body-large" style="font-weight: 500; font-style: italic; margin-bottom: 24px;">
@@ -1248,8 +1413,10 @@ const PAGES = {
     annotations: [
       { num: 1, title: 'Founder Letter', body: 'Typewriter-styled layout presenting Peter and Sei-Wook\'s intro text.', top: '120px', left: '160px' },
       { num: 2, title: 'Origin Story Section', body: 'Outlines history of Barrel Holdings agency operations.', top: '650px', left: '80px' },
-      { num: 3, title: 'Team Bios Grid', body: 'Clean layout for founder headshots and operational profiles.', top: '920px', left: '80px' },
-      { num: 4, title: 'Stats Indicator Row', body: 'Four major data values aligned horizontally.', top: '1350px', left: '80px' }
+      { num: 3, title: 'Team Bios Grid', body: 'Three people: Peter, Sei-Wook, Ivona. Client confirmed Ivona on About page.', top: '920px', left: '80px' },
+      { num: 4, title: 'Stats Indicator Row', body: 'Do not hardcode episode count — TBD from client.', top: '1350px', left: '80px' },
+      { num: 5, title: 'Barrel Portfolio', body: 'Client to confirm canonical current list before launch.', top: '1550px', left: '80px' },
+      { num: 6, title: 'Acquisition Link', body: 'One of three deliberate placements. Quiet text, not a CTA button.', top: '1850px', left: '600px' }
     ],
     render: () => `
       ${getHeaderHTML('about')}
@@ -1288,33 +1455,43 @@ const PAGES = {
       <!-- Section 3: Team Profiles -->
       <section class="wf-section-pad grid-container">
         <div style="grid-column: span 12; margin-bottom: 40px;">
-          <span class="wf-label">The Founders</span>
-          <h2 class="wf-h2">Our Leadership Team</h2>
+          <span class="wf-label">The Team</span>
+          <h2 class="wf-h2">Our Leadership & Operations</h2>
         </div>
 
-        <div style="grid-column: span 6; display: flex; gap: 24px; border: 1px solid #000; padding: 24px;">
-          <div class="wf-placeholder-box" style="width: 140px; height: 180px; flex-shrink: 0;">
-            <span class="wf-placeholder-label">[Headshot]</span>
+        <!-- Peter Kang -->
+        <div style="grid-column: span 4; display: flex; flex-direction: column; border: 1px solid #000; padding: 24px; gap: 16px;">
+          <div class="wf-placeholder-box" style="width: 100%; height: 180px;">
+            <span class="wf-placeholder-label">[Headshot: Peter Kang]</span>
           </div>
-          <div style="display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <h3 class="wf-h3">Peter Kang</h3>
-              <span class="wf-body-small" style="font-weight: bold;">Co-founder, Barrel Holdings</span>
-              <p class="wf-body-small" style="margin-top: 10px; line-height: 1.4;">Peter has been building and running agencies since 2006. He co-founded Barrel, a digital agency serving CPG and e-commerce brands, and later started Barrel Holdings to acquire and grow agency businesses.</p>
-            </div>
+          <div>
+            <h3 class="wf-h3" style="font-size: 18px; margin-bottom: 4px;">Peter Kang</h3>
+            <span class="wf-body-small" style="font-weight: bold; display: block; margin-bottom: 8px;">Co-founder, Barrel Holdings</span>
+            <p class="wf-body-small" style="line-height: 1.4; margin: 0;">Peter has been building and running agencies since 2006. He co-founded Barrel, a digital agency serving CPG and e-commerce brands, and later started Barrel Holdings to acquire and grow agency businesses.</p>
           </div>
         </div>
 
-        <div style="grid-column: span 6; display: flex; gap: 24px; border: 1px solid #000; padding: 24px;">
-          <div class="wf-placeholder-box" style="width: 140px; height: 180px; flex-shrink: 0;">
-            <span class="wf-placeholder-label">[Headshot]</span>
+        <!-- Sei-Wook Kim -->
+        <div style="grid-column: span 4; display: flex; flex-direction: column; border: 1px solid #000; padding: 24px; gap: 16px;">
+          <div class="wf-placeholder-box" style="width: 100%; height: 180px;">
+            <span class="wf-placeholder-label">[Headshot: Sei-Wook Kim]</span>
           </div>
-          <div style="display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <h3 class="wf-h3">Sei-Wook Kim</h3>
-              <span class="wf-body-small" style="font-weight: bold;">Co-founder, Barrel Holdings</span>
-              <p class="wf-body-small" style="margin-top: 10px; line-height: 1.4;">Sei-Wook co-founded Barrel alongside Peter and has spent nearly two decades building client relationships and leading agency operations. He brings a deep understanding of how agencies grow and scale.</p>
-            </div>
+          <div>
+            <h3 class="wf-h3" style="font-size: 18px; margin-bottom: 4px;">Sei-Wook Kim</h3>
+            <span class="wf-body-small" style="font-weight: bold; display: block; margin-bottom: 8px;">Co-founder, Barrel Holdings</span>
+            <p class="wf-body-small" style="line-height: 1.4; margin: 0;">Sei-Wook co-founded Barrel alongside Peter and has spent nearly two decades building client relationships and leading agency operations. He brings a deep understanding of how agencies grow and scale.</p>
+          </div>
+        </div>
+
+        <!-- Ivona Namjesnik -->
+        <div style="grid-column: span 4; display: flex; flex-direction: column; border: 1px solid #000; padding: 24px; gap: 16px;">
+          <div class="wf-placeholder-box" style="width: 100%; height: 180px;">
+            <span class="wf-placeholder-label">[Headshot: Ivona Namjesnik]</span>
+          </div>
+          <div>
+            <h3 class="wf-h3" style="font-size: 18px; margin-bottom: 4px;">Ivona Namjesnik</h3>
+            <span class="wf-body-small" style="font-weight: bold; display: block; margin-bottom: 8px;">General Manager, AgencyHabits</span>
+            <p class="wf-body-small" style="line-height: 1.4; margin: 0;">Ivona oversees all AgencyHabits content, products, and community — including the podcast, Knowledge Shares, and tools.</p>
           </div>
         </div>
       </section>
@@ -1330,7 +1507,7 @@ const PAGES = {
           <span class="wf-label" style="color: #888;">Agency Experience</span>
         </div>
         <div style="grid-column: span 3;">
-          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">5</h3>
+          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">[Episode Count]</h3>
           <span class="wf-label" style="color: #888;">Podcast Episodes</span>
         </div>
         <div style="grid-column: span 3;">
@@ -1339,229 +1516,500 @@ const PAGES = {
         </div>
       </section>
 
-      <!-- Section 5: Testimonials -->
-      <section class="wf-section-pad grid-container" style="border-bottom: none;">
+      <!-- Section 5: Barrel Portfolio -->
+      <section class="wf-section-pad grid-container" style="background: #f8fafc; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 32px; text-align: center;">
+          <span class="wf-label">Our Agencies</span>
+          <h2 class="wf-h2">The Barrel Holdings Portfolio</h2>
+          <p class="wf-body-small" style="color: #64748b; margin-top: 8px;">AgencyHabits content is drawn from operators currently running these businesses.</p>
+        </div>
+        
+        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Barrel</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">CPG Commerce & Shopify</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">BX Studio</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">B2B Websites & Marketing</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Matyx</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Home Services Digital Marketing</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">AO2</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Amazon and Retail Media</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Vaulted Oak</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Web Development & Support</p>
+          </div>
+          <div style="border: 1px solid #e2e8f0; padding: 20px; background: #fff;">
+            <h4 class="wf-h4" style="margin-bottom: 4px; font-size: 16px;">Prima Mode</h4>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Health & Beauty Amazon</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: Testimonials -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted);">
         <div style="grid-column: span 12; text-align: center; margin-bottom: 48px;">
           <span class="wf-label">Testimonials</span>
-          <h2 class="wf-h2">What Other Operators Say</h2>
+          <h2 class="wf-h2">What Agency Founders Say</h2>
         </div>
 
         <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px;">
-          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"Peter and Sei-Wook have been a great resource for agency owners. I've learnt a lot from their experience of running agencies at scale."</p>
-          <span class="wf-label" style="font-size: 11px;">— Agency Operator</span>
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"This was a no-brainer for me. Decades of agency sales secrets available for download? I'm shocked they were willing to share this wisdom at any price. I started using the templates that same day."</p>
+          <span class="wf-label" style="font-size: 11px;">— Max Bernstein, Consultant</span>
         </div>
 
         <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px;">
-          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"Having listened to their podcast and gone through the content on the site, it has given me a lot of confidence in how I run my agency."</p>
-          <span class="wf-label" style="font-size: 11px;">— Agency Founder</span>
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"AgencyHabits is actually the ONLY newsletter/website I actually follow as an agency founder. It is filled with actual practical tips for running your agency, and it had a direct impact on the growth of my agency."</p>
+          <span class="wf-label" style="font-size: 11px;">— Uros Mikic, CEO, Flow Ninja</span>
         </div>
 
         <div style="grid-column: span 4; border: 1px solid var(--wf-border-muted); padding: 24px;">
-          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"I find it rare to hear from those who've actually done it and still do it today. Excited for the future of this resource."</p>
-          <span class="wf-label" style="font-size: 11px;">— Agency Owner</span>
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 16px;">"The Business Development collection was really helpful for our team. It gave us great insight into where we're doing well and where we could sharpen things."</p>
+          <span class="wf-label" style="font-size: 11px;">— Jonathan Garyfalakis, CEO, Syatt Media</span>
         </div>
+      </section>
+
+      <!-- Section 7: Quiet Acquisition Link -->
+      <section style="padding: 24px 0; text-align: center; border-bottom: 1px solid var(--wf-border-muted);">
+        <a href="https://barrel-holdings.com" target="_blank" style="color: #64748b; font-size: 13px; text-decoration: underline; font-weight: 700;">Thinking about selling your agency? → barrel-holdings.com</a>
       </section>
 
       ${getNewsletterCtaHTML()}
       ${getFooterHTML()}
     `
   },
-  podcast: {
-    title: 'PODCAST PAGE',
+  listen: {
+    title: 'LISTEN (PODCAST HUB)',
     annotations: [
-      { num: 1, title: 'Hero Audio Player Block', body: 'Displays podcast cover, EP description, and duration alongside player buttons.', top: '150px', left: '80px' },
-      { num: 2, title: 'Hosts Overview', body: 'Profiles Peter and Sei-Wook as the primary hosts.', top: '510px', left: '80px' },
-      { num: 3, title: 'Full Episodes Feed', body: 'Lists all five available episodes with standard play icons, durations, and details.', top: '780px', left: '80px' },
-      { num: 4, title: 'Distribution Opt-In', body: 'Subscribers can join direct mail distribution lists for new episode updates.', top: '1540px', left: '80px' }
+      { num: 1, title: 'Hero Episode', body: 'Latest episode. Links out to Spotify/YouTube — no embedded player for performance.', top: '180px', left: '600px' },
+      { num: 2, title: 'Host Intro', body: 'Compact bios for Peter, Sei-Wook, and Ivona to build trust.', top: '560px', left: '160px' },
+      { num: 3, title: 'Episode Cards', body: 'Includes duration, topic badge, and 3 key takeaways.', top: '880px', left: '80px' },
+      { num: 4, title: 'Category Gradients', body: 'Distinct category color gradient covers matching the articles.', top: '1020px', left: '200px' },
+      { num: 5, title: 'YouTube Shorts', body: 'Scrollable row of vertical quick takes pulled from YouTube channel.', top: '1580px', left: '80px' },
+      { num: 6, title: 'Subscribe Row', body: 'All major streaming platforms plus email subscription in one footer row.', top: '1850px', left: '480px' }
     ],
     render: () => `
-      ${getHeaderHTML('podcast')}
+      ${getHeaderHTML('listen')}
 
-      <!-- Podcast Featured Section (Fundamental-style) -->
-      <section class="wf-section-pad grid-container" style="padding-top: 60px;">
-        <div style="grid-column: span 12; margin-bottom: 32px;">
-          <span class="wf-label">Featured Episodes</span>
-          <h2 class="wf-h2">The AgencyHabits Podcast</h2>
+      <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px;">
+        <div style="grid-column: span 12;">
+          <span class="wf-label">AgencyHabits Podcast</span>
+          <h1 class="wf-h1">Real conversations from operators currently running the same play.</h1>
         </div>
-        
-        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-bottom: 40px;">
-          <!-- Left Large Card (EP.05) -->
-          <div style="grid-column: span 8; border: 1px solid var(--wf-border); display: flex; flex-direction: column; position: relative; height: 480px; cursor: pointer;">
-            <div class="wf-placeholder-box" style="height: 100%; width: 100%; position: absolute; top:0; left:0; z-index: 1;">
-              <span class="wf-placeholder-label">[Episode Cover: EP.05]</span>
-            </div>
-            <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 12px;">
-              <div style="display: flex; gap: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase;">
-                <span style="background: #fff; color: #000; padding: 2px 8px;">EP.05 (Latest)</span>
-                <span>45 mins duration</span>
-              </div>
-              <h2 class="wf-h1" style="color: #fff; font-size: 28px; line-height: 1.2; font-weight: 800;">How We'd Generate Leads If We Started Our Agency Today</h2>
-              <p class="wf-body-small" style="color: #ccc; margin-bottom: 0;">Peter and Sei-Wook share the exact lead generation tactics they'd prioritize if they were starting fresh — from LinkedIn outreach to referral systems to building an audience.</p>
-              <div style="display: flex; gap: 12px; margin-top: 8px;">
-                <span style="background:#fff; color:#000; padding:6px 12px; font-weight:bold; font-size:12px; display:inline-flex; align-items:center;"><span class="wf-icon-placeholder wf-icon-circle" style="width:10px; height:10px; margin-right:6px; border-color:#000; background:transparent;"></span> Play Episode</span>
-              </div>
-            </div>
+      </section>
+
+      <!-- Hero Episode Block (dark background) -->
+      <section class="grid-container" style="margin-bottom: 60px;">
+        <div class="wf-listen-hero-banner" style="grid-column: span 12; background: #0f172a; color: #fff; padding: 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center;">
+          <div class="wf-placeholder-box" style="aspect-ratio: 1; width: 100%; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);">
+            <span class="wf-placeholder-label" style="color: #fff; font-size: 24px; font-weight: 800;">EP.07</span>
           </div>
-
-          <!-- Right Stacked Cards (EP.04 & EP.03) -->
-          <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 24px; height: 480px;">
-            <!-- Stacked EP.04 -->
-            <div style="flex: 1; border: 1px solid var(--wf-border); position: relative; cursor: pointer; overflow: hidden;">
-              <div class="wf-placeholder-box" style="height: 100%; width: 100%; position: absolute; top:0; left:0; z-index: 1;">
-                <span class="wf-placeholder-label">[EP.04 Cover]</span>
-              </div>
-              <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%, transparent 100%); z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 8px;">
-                <div style="display: flex; gap: 8px; font-size: 9px; font-weight: 700; text-transform: uppercase;">
-                  <span style="background: #fff; color: #000; padding: 1px 6px;">EP.04</span>
-                  <span>38 mins</span>
-                </div>
-                <h3 class="wf-h3" style="color: #fff; font-size: 15px; line-height: 1.3; margin: 0;">How Specialization Impacts Your Agency's Growth...</h3>
-              </div>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <span style="background: #3b82f6; color: #fff; padding: 2px 8px; font-size: 11px; font-weight: 700; text-transform: uppercase;">Latest Episode</span>
+              <span style="font-size: 13px; color: #94a3b8;">44 min</span>
+              <span style="font-size: 13px; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px;">Leadership</span>
             </div>
-
-            <!-- Stacked EP.03 -->
-            <div style="flex: 1; border: 1px solid var(--wf-border); position: relative; cursor: pointer; overflow: hidden;">
-              <div class="wf-placeholder-box" style="height: 100%; width: 100%; position: absolute; top:0; left:0; z-index: 1;">
-                <span class="wf-placeholder-label">[EP.03 Cover]</span>
-              </div>
-              <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%, transparent 100%); z-index: 2; color: #fff; display: flex; flex-direction: column; gap: 8px;">
-                <div style="display: flex; gap: 8px; font-size: 9px; font-weight: 700; text-transform: uppercase;">
-                  <span style="background: #fff; color: #000; padding: 1px 6px;">EP.03</span>
-                  <span>42 mins</span>
-                </div>
-                <h3 class="wf-h3" style="color: #fff; font-size: 15px; line-height: 1.3; margin: 0;">Are You Calculating Your Agency's Profits Correctly?</h3>
-              </div>
+            <h2 class="wf-h1" style="color: #fff; font-size: 28px; line-height: 1.2; margin: 0; cursor: pointer;" onclick="navigateTo('episode_template')">EP.07 — 10 Essential Habits for Running a Successful Agency</h2>
+            <p class="wf-body" style="color: #cbd5e1; margin: 0;">Peter and Sei-Wook walk through the 10 habits that separate growing agencies from ones stuck in founder dependency.</p>
+            <div style="display: flex; gap: 16px; margin-top: 12px;">
+              <button class="wf-btn wf-btn-primary" style="background: #a855f7; color: #fff; border: none;" onclick="navigateTo('episode_template')">Listen & Transcript →</button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Host Intro -->
-      <section class="wf-section-pad grid-container" style="background: #fafafa;">
-        <div style="grid-column: span 12; margin-bottom: 32px;">
+      <!-- Host Intro Row -->
+      <section class="wf-section-pad grid-container" style="background: #fafafa; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 32px; text-align: center;">
           <span class="wf-label">About the Hosts</span>
-          <h2 class="wf-h2">Meet Peter & Sei-Wook</h2>
+          <h2 class="wf-h2">Hosted by Agency Operators</h2>
         </div>
-        
-        <div style="grid-column: span 6; display: flex; gap: 20px; align-items: center;">
-          <div class="wf-placeholder-box" style="width: 100px; height: 100px; border-radius: 50%;"><span class="wf-placeholder-label">[Peter]</span></div>
-          <div>
-            <h4 class="wf-h3">Peter Kang</h4>
-            <p class="wf-body-small">"We share exact insights because we believe agency operators deserve real transparent operational data."</p>
-          </div>
+        <div style="grid-column: span 4; text-align: center; padding: 20px;">
+          <div class="wf-placeholder-box" style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 16px auto;"><span class="wf-placeholder-label">[Peter]</span></div>
+          <h4 class="wf-h4" style="margin-bottom: 4px;">Peter Kang</h4>
+          <span class="wf-body-small" style="font-weight: 700; color: #666; display: block; margin-bottom: 8px;">Co-founder, Barrel Holdings</span>
+          <p class="wf-body-small" style="color: #666;">"We share exact insights because we believe agency operators deserve real transparent operational data."</p>
         </div>
-
-        <div style="grid-column: span 6; display: flex; gap: 20px; align-items: center;">
-          <div class="wf-placeholder-box" style="width: 100px; height: 100px; border-radius: 50%;"><span class="wf-placeholder-label">[Sei-Wook]</span></div>
-          <div>
-            <h4 class="wf-h3">Sei-Wook Kim</h4>
-            <p class="wf-body-small">"Our podcast focuses entirely on the operating mechanics behind agencies, not the standard theory."</p>
-          </div>
+        <div style="grid-column: span 4; text-align: center; padding: 20px;">
+          <div class="wf-placeholder-box" style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 16px auto;"><span class="wf-placeholder-label">[Sei-Wook]</span></div>
+          <h4 class="wf-h4" style="margin-bottom: 4px;">Sei-Wook Kim</h4>
+          <span class="wf-body-small" style="font-weight: 700; color: #666; display: block; margin-bottom: 8px;">Co-founder, Barrel Holdings</span>
+          <p class="wf-body-small" style="color: #666;">"Our podcast focuses entirely on the operating mechanics behind agencies, not the standard theory."</p>
+        </div>
+        <div style="grid-column: span 4; text-align: center; padding: 20px;">
+          <div class="wf-placeholder-box" style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 16px auto;"><span class="wf-placeholder-label">[Ivona]</span></div>
+          <h4 class="wf-h4" style="margin-bottom: 4px;">Ivona Namjesnik</h4>
+          <span class="wf-body-small" style="font-weight: 700; color: #666; display: block; margin-bottom: 8px;">General Manager, AgencyHabits</span>
+          <p class="wf-body-small" style="color: #666;">"We structure each episode to address specific bottlenecks that founders face at the $750K-$3M stage."</p>
         </div>
       </section>
 
-      <!-- Latest Episodes Feed -->
+      <!-- All Episodes List -->
       <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="wf-episodes-feed-header" style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <span class="wf-label">Archive</span>
+            <span class="wf-label">Episodes Feed</span>
             <h2 class="wf-h2">All Episodes</h2>
           </div>
-          <div>
-            <input type="text" class="wf-input-text" placeholder="Search episodes..." style="width: 260px; height: 38px;" />
+          <div style="display: flex; gap: 12px;">
+            <input type="text" class="wf-input-text" placeholder="Search episodes..." style="width: 240px; height: 38px;" onkeyup="filterPodcastArchive(this.value)" />
+            <select class="wf-input-text" style="width: 160px; height: 38px; padding: 0 10px; appearance: auto;">
+              <option>Newest</option>
+              <option>Oldest</option>
+              <option>Most Popular</option>
+            </select>
           </div>
         </div>
 
-        <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid #000;">
-            <div style="display: flex; align-items: center; gap: 20px;">
-              <span style="font-family: Georgia, serif; font-size: 20px; font-weight: bold; width: 60px;">EP.05</span>
-              <div class="wf-placeholder-box" style="width: 50px; height: 50px;"><span class="wf-placeholder-label">[Play]</span></div>
+        <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 24px;">
+          <!-- EP.07 -->
+          <div class="podcast-ep-item" data-title="EP.07 — 10 Essential Habits for Running a Successful Agency" style="border: 1px solid #cbd5e1; display: flex; padding: 24px; gap: 24px; background: #fff; cursor: pointer;" onclick="navigateTo('episode_template')">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold;">EP.07</span>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
               <div>
-                <h4 class="wf-h4">How We'd Generate Leads If We Started Our Agency Today</h4>
-                <span class="wf-body-small">45 mins</span>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: bold; font-size: 13px;">EP.07</span>
+                  <span style="font-size: 12px; color: #64748b;">44 min</span>
+                  <span class="wf-category-tag" style="padding: 1px 6px; font-size: 10px;">Leadership</span>
+                </div>
+                <h3 class="wf-h3" style="font-size: 18px; margin: 0 0 12px 0;">10 Essential Habits for Running a Successful Agency</h3>
+                <div style="font-size: 13px; color: #475569;">
+                  <strong>Key Takeaways:</strong>
+                  <ul style="margin: 4px 0 0 0; padding-left: 20px;">
+                    <li>After-action reviews compound faster than you think</li>
+                    <li>Weekly BD meetings only work if they're structured</li>
+                    <li>The "mind the bottom" habit is the hardest and most important</li>
+                  </ul>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <span style="font-weight: 700; font-size: 13px; text-decoration: underline;">Listen & Transcript →</span>
               </div>
             </div>
-            <button class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px;">Listen</button>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid #000;">
-            <div style="display: flex; align-items: center; gap: 20px;">
-              <span style="font-family: Georgia, serif; font-size: 20px; font-weight: bold; width: 60px;">EP.04</span>
-              <div class="wf-placeholder-box" style="width: 50px; height: 50px;"><span class="wf-placeholder-label">[Play]</span></div>
-              <div>
-                <h4 class="wf-h4">How Specialization Impacts Your Agency's Growth, Margins, and Valuation</h4>
-                <span class="wf-body-small">38 mins | <span style="border: 1px solid #000; padding: 1px 4px; font-size: 10px; font-weight: bold;">Most Listened</span></span>
-              </div>
+          <!-- EP.06 (Placeholder / TBD Note) -->
+          <div class="podcast-ep-item" data-title="EP.06 — Coming Soon" style="border: 1px solid #e2e8f0; display: flex; padding: 24px; gap: 24px; background: #fafafa; opacity: 0.8;">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: #e2e8f0;">
+              <span class="wf-placeholder-label" style="color: #64748b; font-weight: bold;">EP.06</span>
             </div>
-            <button class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px;">Listen</button>
+            <div style="display: flex; flex-direction: column; justify-content: center; flex: 1;">
+              <span class="wf-label" style="color: #64748b;">UPCOMING EPISODE</span>
+              <h3 class="wf-h3" style="font-size: 18px; margin: 4px 0 8px 0; color: #64748b;">EP.06 — [Title TBD]</h3>
+              <p class="wf-body-small" style="color: #94a3b8; margin: 0;">[Episode titles and details TBD — client to provide full episode list]</p>
+            </div>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid #000;">
-            <div style="display: flex; align-items: center; gap: 20px;">
-              <span style="font-family: Georgia, serif; font-size: 20px; font-weight: bold; width: 60px;">EP.03</span>
-              <div class="wf-placeholder-box" style="width: 50px; height: 50px;"><span class="wf-placeholder-label">[Play]</span></div>
+          <!-- EP.05 -->
+          <div class="podcast-ep-item" data-title="EP.05 — How We'd Generate Leads If We Started Our Agency Today" style="border: 1px solid #cbd5e1; display: flex; padding: 24px; gap: 24px; background: #fff; cursor: pointer;" onclick="navigateTo('episode_template')">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold;">EP.05</span>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
               <div>
-                <h4 class="wf-h4">Are You Calculating Your Agency's Profits Correctly?</h4>
-                <span class="wf-body-small">42 mins</span>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: bold; font-size: 13px;">EP.05</span>
+                  <span style="font-size: 12px; color: #64748b;">45 min</span>
+                  <span class="wf-category-tag" style="padding: 1px 6px; font-size: 10px; background: #3b82f6;">Business Development</span>
+                </div>
+                <h3 class="wf-h3" style="font-size: 18px; margin: 0 0 12px 0;">How We'd Generate Leads If We Started Our Agency Today</h3>
+                <div style="font-size: 13px; color: #475569;">
+                  <strong>Key Takeaways:</strong>
+                  <ul style="margin: 4px 0 0 0; padding-left: 20px;">
+                    <li>LinkedIn outbound still works if you're specific enough</li>
+                    <li>Referral systems need to be asked for, not waited for</li>
+                    <li>Building an audience is a 2-year play, not a quarter</li>
+                  </ul>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <span style="font-weight: 700; font-size: 13px; text-decoration: underline;">Listen & Transcript →</span>
               </div>
             </div>
-            <button class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px;">Listen</button>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid #000;">
-            <div style="display: flex; align-items: center; gap: 20px;">
-              <span style="font-family: Georgia, serif; font-size: 20px; font-weight: bold; width: 60px;">EP.02</span>
-              <div class="wf-placeholder-box" style="width: 50px; height: 50px;"><span class="wf-placeholder-label">[Play]</span></div>
+          <!-- EP.04 -->
+          <div class="podcast-ep-item" data-title="EP.04 — How Specialization Impacts Your Agency's Growth, Margins, and Valuation" style="border: 1px solid #cbd5e1; display: flex; padding: 24px; gap: 24px; background: #fff; cursor: pointer;" onclick="navigateTo('episode_template')">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold;">EP.04</span>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
               <div>
-                <h4 class="wf-h4">Our Approach to Agency Acquisitions: Valuation Drivers and Deal Breakers</h4>
-                <span class="wf-body-small">35 mins | <span style="border: 1px solid #000; padding: 1px 4px; font-size: 10px; font-weight: bold;">Most Listened</span></span>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: bold; font-size: 13px;">EP.04</span>
+                  <span style="font-size: 12px; color: #64748b;">38 min</span>
+                  <span class="wf-category-tag" style="padding: 1px 6px; font-size: 10px; background: #14b8a6;">Positioning</span>
+                </div>
+                <h3 class="wf-h3" style="font-size: 18px; margin: 0 0 12px 0;">How Specialization Impacts Your Agency's Growth, Margins, and Valuation</h3>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <span style="font-weight: 700; font-size: 13px; text-decoration: underline;">Listen & Transcript →</span>
               </div>
             </div>
-            <button class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px;">Listen</button>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid #000;">
-            <div style="display: flex; align-items: center; gap: 20px;">
-              <span style="font-family: Georgia, serif; font-size: 20px; font-weight: bold; width: 60px;">EP.01</span>
-              <div class="wf-placeholder-box" style="width: 50px; height: 50px;"><span class="wf-placeholder-label">[Play]</span></div>
+          <!-- EP.03 -->
+          <div class="podcast-ep-item" data-title="EP.03 — Are You Calculating Your Agency's Profits Correctly?" style="border: 1px solid #cbd5e1; display: flex; padding: 24px; gap: 24px; background: #fff; cursor: pointer;" onclick="navigateTo('episode_template')">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold;">EP.03</span>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
               <div>
-                <h4 class="wf-h4">The Barrel Holdings Origin Story: Building a Portfolio of Agencies</h4>
-                <span class="wf-body-small">22 mins</span>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: bold; font-size: 13px;">EP.03</span>
+                  <span style="font-size: 12px; color: #64748b;">42 min</span>
+                  <span class="wf-category-tag" style="padding: 1px 6px; font-size: 10px; background: #eab308;">Finance</span>
+                </div>
+                <h3 class="wf-h3" style="font-size: 18px; margin: 0 0 12px 0;">Are You Calculating Your Agency's Profits Correctly?</h3>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <span style="font-weight: 700; font-size: 13px; text-decoration: underline;">Listen & Transcript →</span>
               </div>
             </div>
-            <button class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px;">Listen</button>
+          </div>
+
+          <!-- EP.02 -->
+          <div class="podcast-ep-item" data-title="EP.02 — Our Approach to Agency Acquisitions: Valuation Drivers and Deal Breakers" style="border: 1px solid #cbd5e1; display: flex; padding: 24px; gap: 24px; background: #fff; cursor: pointer;" onclick="navigateTo('episode_template')">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold;">EP.02</span>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+              <div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: bold; font-size: 13px;">EP.02</span>
+                  <span style="font-size: 12px; color: #64748b;">35 min</span>
+                  <span class="wf-category-tag" style="padding: 1px 6px; font-size: 10px; background: #eab308;">Finance</span>
+                  <span style="background: #ef4444; color:#fff; padding: 1px 6px; font-size: 9px; font-weight: bold; text-transform: uppercase;">Most Listened</span>
+                </div>
+                <h3 class="wf-h3" style="font-size: 18px; margin: 0 0 12px 0;">Our Approach to Agency Acquisitions: Valuation Drivers and Deal Breakers</h3>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <span style="font-weight: 700; font-size: 13px; text-decoration: underline;">Listen & Transcript →</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- EP.01 -->
+          <div class="podcast-ep-item" data-title="EP.01 — The Barrel Holdings Origin Story: Building a Portfolio of Agencies" style="border: 1px solid #cbd5e1; display: flex; padding: 24px; gap: 24px; background: #fff; cursor: pointer;" onclick="navigateTo('episode_template')">
+            <div class="wf-placeholder-box" style="width: 160px; height: 160px; flex-shrink: 0; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold;">EP.01</span>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+              <div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+                  <span style="font-weight: bold; font-size: 13px;">EP.01</span>
+                  <span style="font-size: 12px; color: #64748b;">22 min</span>
+                  <span class="wf-category-tag" style="padding: 1px 6px; font-size: 10px; background: #a855f7;">Leadership</span>
+                </div>
+                <h3 class="wf-h3" style="font-size: 18px; margin: 0 0 12px 0;">The Barrel Holdings Origin Story: Building a Portfolio of Agencies</h3>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <span style="font-weight: 700; font-size: 13px; text-decoration: underline;">Listen & Transcript →</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Pagination -->
-        <div style="grid-column: span 12; display: flex; justify-content: center; align-items: center; margin-top: 60px; gap: 16px;">
-          <span style="font-size: 14px; cursor: pointer; color: #888;">← Previous</span>
-          <span style="font-size: 14px; font-weight: 700; border-bottom: 2px solid #000; padding: 2px 6px;">1</span>
-          <span style="font-size: 14px; cursor: pointer; padding: 2px 6px;">2</span>
-          <span style="font-size: 14px; color: #888;">...</span>
-          <span style="font-size: 14px; cursor: pointer;">Next →</span>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 48px; gap: 16px;">
+          <span id="podcast-page-prev" style="font-size: 14px; cursor: pointer; color: #888;">← Previous</span>
+          <span id="podcast-page-1" style="font-size: 14px; font-weight: 700; border-bottom: 2px solid #000; padding: 2px 6px; cursor: pointer;" onclick="changePodcastPage(1)">1</span>
+          <span id="podcast-page-2" style="font-size: 14px; padding: 2px 6px; cursor: pointer;" onclick="changePodcastPage(2)">2</span>
+          <span id="podcast-page-next" style="font-size: 14px; cursor: pointer; color: #000;">Next →</span>
         </div>
       </section>
 
-      <!-- Podcast Subscribe CTA -->
-      <section class="wf-newsletter-cta-band" style="border-bottom: none; background: #fafafa;">
-        <div class="wf-newsletter-cta-content">
-          <span class="wf-label">Subscribe Now</span>
-          <h2 class="wf-h2" style="margin-bottom: 16px;">Listen to real lessons from inside agency businesses.</h2>
-          <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 32px;">
-            <button class="wf-btn wf-btn-secondary" onclick="alert('Open Spotify')">Spotify</button>
-            <button class="wf-btn wf-btn-secondary" onclick="alert('Open Apple Podcasts')">Apple Podcasts</button>
-            <button class="wf-btn wf-btn-secondary" onclick="alert('Open YouTube')">YouTube</button>
+      <!-- YouTube Shorts Section -->
+      <section class="wf-section-pad grid-container" style="background: #fafafa; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 32px;">
+          <span class="wf-label">SHORTS</span>
+          <h2 class="wf-h2">Quick takes from the podcast</h2>
+          <p class="wf-body-small" style="color:#888; margin-top: 4px;">[Shorts are already published on YouTube. Pull from @TheAgencyHabitsPodcast channel]</p>
+        </div>
+
+        <div class="wf-shorts-grid" style="grid-column: span 12; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+          <div style="border: 1px solid #e2e8f0; background: #fff; padding: 12px; text-align: center;">
+            <div class="wf-placeholder-box" style="aspect-ratio: 9/16; width: 100%; margin-bottom: 12px;">
+              <span class="wf-placeholder-label">[Short Video]</span>
+            </div>
+            <h4 style="font-size: 13px; margin: 0 0 4px 0; line-height: 1.3;">Why Positioning Exercises Fail</h4>
+            <span style="font-size: 11px; color: #888;">58s</span>
           </div>
-          <p class="wf-body-small" style="margin-bottom: 12px; font-weight: bold;">Get new episodes in your inbox</p>
-          <div class="wf-newsletter-form">
-            <input type="email" class="wf-input-text" placeholder="Enter your email" />
-            <button class="wf-btn wf-btn-primary" onclick="simulateFormSubmit(this, 'Subscribed!')">Subscribe</button>
+          <div style="border: 1px solid #e2e8f0; background: #fff; padding: 12px; text-align: center;">
+            <div class="wf-placeholder-box" style="aspect-ratio: 9/16; width: 100%; margin-bottom: 12px;">
+              <span class="wf-placeholder-label">[Short Video]</span>
+            </div>
+            <h4 style="font-size: 13px; margin: 0 0 4px 0; line-height: 1.3;">The Truth About Client Pruning</h4>
+            <span style="font-size: 11px; color: #888;">42s</span>
+          </div>
+          <div style="border: 1px solid #e2e8f0; background: #fff; padding: 12px; text-align: center;">
+            <div class="wf-placeholder-box" style="aspect-ratio: 9/16; width: 100%; margin-bottom: 12px;">
+              <span class="wf-placeholder-label">[Short Video]</span>
+            </div>
+            <h4 style="font-size: 13px; margin: 0 0 4px 0; line-height: 1.3;">Scale BD Without the Founder</h4>
+            <span style="font-size: 11px; color: #888;">55s</span>
+          </div>
+          <div style="border: 1px solid #e2e8f0; background: #fff; padding: 12px; text-align: center;">
+            <div class="wf-placeholder-box" style="aspect-ratio: 9/16; width: 100%; margin-bottom: 12px;">
+              <span class="wf-placeholder-label">[Short Video]</span>
+            </div>
+            <h4 style="font-size: 13px; margin: 0 0 4px 0; line-height: 1.3;">How We Value Agencies</h4>
+            <span style="font-size: 11px; color: #888;">60s</span>
           </div>
         </div>
       </section>
 
+      <!-- Subscribe Row -->
+      <section class="wf-section-pad grid-container" style="text-align: center; border-bottom: none;">
+        <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 24px; align-items: center;">
+          <h2 class="wf-h2" style="margin: 0;">Listen to real lessons from inside agency businesses.</h2>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://spotify.com" target="_blank" class="wf-btn wf-btn-secondary" style="height: 44px; line-height: 42px;">Spotify →</a>
+            <a href="https://podcasts.apple.com" target="_blank" class="wf-btn wf-btn-secondary" style="height: 44px; line-height: 42px;">Apple Podcasts →</a>
+            <a href="https://youtube.com" target="_blank" class="wf-btn wf-btn-secondary" style="height: 44px; line-height: 42px;">YouTube Channel →</a>
+          </div>
+          <div style="border-top: 1px solid #e2e8f0; width: 100%; max-width: 480px; margin-top: 24px; padding-top: 24px;">
+            <p class="wf-body-small" style="font-weight: bold; margin-bottom: 12px;">Get new episodes in your inbox:</p>
+            <div class="wf-newsletter-form">
+              <input type="email" class="wf-input-text" placeholder="Enter your email" style="margin-bottom: 0;" />
+              <button class="wf-btn wf-btn-primary" onclick="simulateFormSubmit(this, 'Subscribed!')">Subscribe</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      ${getFooterHTML()}
+    `
+  },
+  episode_template: {
+    title: 'EPISODE DETAIL TEMPLATE',
+    annotations: [
+      { num: 1, title: 'Key Takeaways', body: '3 bullets at top, scannable for time-constrained founders.', top: '480px', left: '160px' },
+      { num: 2, title: 'Transcript', body: 'Full transcript available for every episode — powers Knowledge Base AI.', top: '880px', left: '160px' },
+      { num: 3, title: 'Related Articles', body: 'Cross-links podcast content to blog articles on same topic.', top: '1550px', left: '80px' }
+    ],
+    render: () => `
+      ${getHeaderHTML('listen')}
+
+      <section class="wf-section-pad grid-container" style="padding-top: 40px; padding-bottom: 20px;">
+        <div style="grid-column: span 12;">
+          <a href="#" class="wf-body-small" onclick="navigateTo('listen')" style="font-weight: 700; text-decoration: underline; display: inline-block; margin-bottom: 24px;">← Back to all episodes</a>
+        </div>
+      </section>
+
+      <!-- Episode Header (Unified Hero with Gradient Background) -->
+      <section class="grid-container" style="margin-bottom: 60px; position: relative; overflow: hidden; padding: 80px 0; border-bottom: 1px solid var(--wf-border-muted);">
+        <!-- Background Layer with Opacity -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); opacity: 0.4; z-index: 1;"></div>
+        
+        <div style="grid-column: span 12; display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; z-index: 2; text-align: center;">
+          <span class="wf-category-tag" style="background: #000; color: #fff; border: none; font-size: 10px; font-weight: bold; letter-spacing: 1px; padding: 4px 12px;">Leadership</span>
+          <div style="font-size: 13px; color: #000; font-weight: bold;">EP.07 | 44 min | Published: June 2026</div>
+          <h1 class="wf-h1" style="margin: 8px 0; font-size: 38px; line-height: 1.2; max-width: 800px;">10 Essential Habits for Running a Successful Agency</h1>
+          
+          <!-- Audio Player Mockup -->
+          <div style="margin-top: 16px; border: 1px solid #000; background: #fff; padding: 16px; width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 12px; text-align: left;">
+            <div style="font-weight: bold; font-size: 10px; color: #666; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;">
+              <span>[AUDIO PLAYER]</span>
+              <span style="font-weight: normal; font-size: 9px; font-style: italic; color: #888;">[Audio player — Framer component. File uploaded via CMS per episode. Supports MP3, WAV, M4A, AAC.]</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 16px; cursor: pointer;">▶</span>
+              <div style="flex: 1; height: 4px; background: #ddd; position: relative;">
+                <div style="position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: #000;"></div>
+              </div>
+              <span style="font-size: 12px; font-family: monospace;">00:00 / 44:00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; gap: 16px; font-size: 14px;">
+                <span style="cursor: pointer;">⏮10</span>
+                <span style="cursor: pointer;">▶</span>
+                <span style="cursor: pointer;">⏭10</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                <span>🔊────</span>
+              </div>
+            </div>
+            <div style="font-size: 10px; color: #888; font-style: italic;">File loaded from Framer CMS</div>
+          </div>
+          
+          <!-- Secondary Outbound Links -->
+          <div style="display: flex; gap: 24px; margin-top: 4px; font-size: 13px;">
+            <a href="https://spotify.com" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Also on Spotify →</a>
+            <a href="https://youtube.com" target="_blank" style="color: #000; font-weight: bold; text-decoration: underline;">Watch on YouTube →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Takeaways -->
+      <section class="wf-section-pad grid-container" style="background: #f8fafc; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); margin-bottom: 48px;">
+        <div style="grid-column: span 12;">
+          <span class="wf-label">Key Takeaways</span>
+          <ul class="wf-body" style="padding-left: 20px; display: flex; flex-direction: column; gap: 12px; margin: 12px 0 0 0;">
+            <li><strong>After-action reviews compound:</strong> Taking 15 minutes to review wins and losses after a project yields better SOPs and keeps teams from repeating identical margin mistakes.</li>
+            <li><strong>Structure weekly BD:</strong> Meetings fail when they are loose chats. Run them like pipeline delivery check-ins with clear CRM columns, dates, and assigned owners.</li>
+            <li><strong>Mind the Bottom:</strong> Founders fail when they drag out staff underperformance. Addressing friction points early protects margins and team alignment.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Description & Transcript -->
+      <section class="grid-container" style="margin-bottom: 80px;">
+        <div style="grid-column: span 8; display: flex; flex-direction: column; gap: 32px;">
+          <div>
+            <h3 class="wf-h3" style="font-size: 20px; margin-bottom: 12px;">Episode Description</h3>
+            <p class="wf-body">In this episode, Peter Kang and Sei-Wook Kim deep dive into the operational habits that separate growing agency businesses from founder-dependent plateaus. Drawing from their experiences at Barrel Holdings companies, they breakdown the exact weekly, monthly, and quarterly schedules they mandate for all portfolio GMs.</p>
+          </div>
+
+          <div style="border-top: 1px solid #e2e8f0; padding-top: 32px;">
+            <h3 class="wf-h3" style="font-size: 20px; margin-bottom: 16px;">Full Transcript</h3>
+            <p class="wf-body-small" style="color: #64748b; font-style: italic; margin-bottom: 24px;">[Transcripts available for all episodes — provided by client. Powers KB AI.]</p>
+            <div style="border: 1px solid #e2e8f0; padding: 32px; background: #fafafa; font-family: inherit; font-size: 14px; line-height: 1.6; height: 350px; overflow-y: scroll; display: flex; flex-direction: column; gap: 16px;">
+              <p><strong>[00:02] Peter Kang:</strong> Welcome back to the AgencyHabits podcast. Today Sei-Wook and I are talking about habits. Specifically, the operating rhythm of agency businesses. Sei-Wook, when you think about why GMs get stuck in founder-dependency, what is the first thing that breaks?</p>
+              <p><strong>[01:15] Sei-Wook Kim:</strong> It's always the calendar, Peter. The GM starts firefighting. They spend all day in Slack, and they stop doing the proactive reviews. No after-actions, no pipeline management. It's all reactive.</p>
+              <p><strong>[02:44] Peter Kang:</strong> Exactly. And the thing about habits is doing them once doesn't matter. You have to build them into the company's weekly schedule so they are automatic...</p>
+              <p><strong>[05:12] Sei-Wook Kim:</strong> Let's talk about the Weekly BD meeting. This is a classic example. Most agencies do them, but they're basically just status chats. "Oh, did you email Bob?" "Yeah, I will tomorrow." That is not a business development meeting. That is an updates chat...</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="grid-column: span 4; padding-left: 24px; position: sticky; top: 100px;">
+          <h4 class="wf-h4" style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;">Related Articles</h4>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="border: 1px solid #e2e8f0; padding: 16px; background: #fff; cursor: pointer;" onclick="navigateTo('article_template')">
+              <span class="wf-label" style="font-size: 9px; color: #a855f7;">Leadership</span>
+              <h5 class="wf-h4" style="margin: 4px 0 0 0; font-size: 14px; line-height: 1.3;">Specializing Requires Commitment</h5>
+            </div>
+            <div style="border: 1px solid #e2e8f0; padding: 16px; background: #fff; cursor: pointer;" onclick="navigateTo('article_template')">
+              <span class="wf-label" style="font-size: 9px; color: #3b82f6;">Business Development</span>
+              <h5 class="wf-h4" style="margin: 4px 0 0 0; font-size: 14px; line-height: 1.3;">How to Scale Agency BD Beyond the Founder</h5>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Share Strip -->
+      <section class="grid-container" style="padding-bottom: 40px; border-bottom: 1px solid var(--wf-border-muted); margin-bottom: 40px;">
+        <div class="wf-share-strip" style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+          <span style="font-size: 14px; font-weight: 700;">Send this to a founder friend:</span>
+          <div style="display: flex; gap: 8px;">
+            <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
+            <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">LinkedIn</button>
+            <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">Twitter/X</button>
+          </div>
+        </div>
+      </section>
+
+      ${getNewsletterCtaHTML()}
       ${getFooterHTML()}
     `
   },
@@ -1585,21 +2033,22 @@ const PAGES = {
           </div>
           
           <div style="border-left: 2px solid #000; padding-left: 16px; font-style: italic;">
-            <p class="wf-body-small" style="color: #000;">"Having listened to their podcast and gone through the content on the site, it has given me a lot of confidence." — Agency Founder</p>
+            <p class="wf-body-small" style="color: #000;">"AgencyHabits is actually the ONLY newsletter/website I actually follow as an agency founder." — Uros Mikic, CEO, Flow Ninja</p>
           </div>
 
           <div style="border-left: 2px solid #000; padding-left: 16px; font-style: italic;">
-            <p class="wf-body-small" style="color: #000;">"Peter and Sei-Wook have been a great resource for agency owners." — Agency Operator</p>
+            <p class="wf-body-small" style="color: #000;">"Peter and Sei-Wook have been a great resource for agency owners." — Max Bernstein, Consultant</p>
           </div>
 
           <div>
             <span class="wf-label" style="font-size: 10px; margin-bottom: 12px;">Operating Portfolio Agencies</span>
-            <div style="display: flex; gap: 16px; align-items: center; opacity: 0.5;">
-              <span class="wf-icon-placeholder" style="width: 60px; height: 30px;"><span style="font-size: 9px; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Logo</span></span>
-              <span class="wf-icon-placeholder" style="width: 60px; height: 30px;"><span style="font-size: 9px; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Logo</span></span>
-              <span class="wf-icon-placeholder" style="width: 60px; height: 30px;"><span style="font-size: 9px; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Logo</span></span>
-              <span class="wf-icon-placeholder" style="width: 60px; height: 30px;"><span style="font-size: 9px; position: absolute; top:50%; left:50%; transform:translate(-50%,-50%);">Logo</span></span>
+            <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+              <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 16px; font-weight: 800; font-size: 12px; color: #94a3b8; font-family: sans-serif;">BARREL</div>
+              <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 16px; font-weight: 800; font-size: 12px; color: #94a3b8; font-family: sans-serif;">BX STUDIO</div>
+              <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 16px; font-weight: 800; font-size: 12px; color: #94a3b8; font-family: sans-serif;">MATYX</div>
+              <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 16px; font-weight: 800; font-size: 12px; color: #94a3b8; font-family: sans-serif;">AO2</div>
             </div>
+            <p class="wf-body-small" style="color: #888; margin-top: 8px; font-style: italic;">[Real logos to be provided by client — Barrel, BX Studio, Matyx, AO2, Vaulted Oak, Prima Mode]</p>
           </div>
         </div>
 
@@ -1679,162 +2128,6 @@ const PAGES = {
       ${getFooterHTML()}
     `
   },
-  thelist: {
-    title: 'THE LIST PAGE',
-    annotations: [
-      { num: 1, title: 'Introduction Layout', body: 'Outlines the concept of compounding habits to drive agency value.', top: '150px', left: '160px' },
-      { num: 2, title: 'Numbered Habits Item List', body: 'Features large serif numbers (1-10) with two-paragraph descriptions and detailed layouts.', top: '350px', left: '160px' },
-      { num: 3, title: 'Interspersed Image Placeholders', body: 'Visual placeholders broken up every 3 habits to structure typography-heavy layout.', top: '1350px', left: '160px' }
-    ],
-    render: () => `
-      ${getHeaderHTML('thelist')}
-
-      <section class="grid-container" style="height: 820px; align-items: center; display: grid; border-bottom: 1px solid var(--wf-border-muted); padding-top: 0; padding-bottom: 0;">
-        <div style="grid-column: 3 / span 8; text-align: center; display: flex; flex-direction: column; gap: 20px; justify-content: center; align-items: center; height: 100%;">
-          <span class="wf-label" style="letter-spacing: 2px; font-size: 14px;">Methodology</span>
-          <h1 class="wf-h1" style="font-family: Georgia, serif; font-size: 64px;">The List</h1>
-          <p class="wf-body-large" style="color: #000; font-weight: 500;">"The thing about habits is that doing them just once doesn't really amount to much. The key is to work these into your business so that they are easily repeatable and recurring."</p>
-          <p class="wf-body">Below are ten habits to get you started. Over time, these activities will compound and create substantial long-term value for your agency, improving alignment, margins, and pipeline flow.</p>
-          <div style="border: 1px dashed #000; padding: 16px; background: #fafafa; font-family: Courier, monospace; font-size: 13px; text-align: left; margin-top: 16px; max-width: 600px; width: 100%;">
-            <strong>[INTERACTIVE SPEC NOTE]</strong>: This page will feature scroll-triggered animations. As the user scrolls, each habit step text block will activate, and the corresponding bottom image will animate/morph into view to make the vertical scroll journey highly engaging.
-          </div>
-        </div>
-      </section>
-
-      <!-- Numbered List of Habits -->
-      <section class="grid-container" style="margin-bottom: 80px;">
-        <div style="grid-column: 3 / span 8;">
-          
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">01</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">After-Action Reviews</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">After a project or once a quarter for retainers, get together with those involved and find out: what went well, what's not going well, and what can we do to improve? Document these & disseminate learnings to the entire team.</p>
-              <p class="wf-body">Let these reviews drive continuous improvement initiatives within the agency, leading to new SOPs, smoother client communication, and better team collaboration.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: After-Action Reviews]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">02</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Weekly Business Development Meeting</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Get together once a week with relevant team members to check in on all active opportunities (new business & existing clients). Align on the status, blockages, and next steps for each opportunity.</p>
-              <p class="wf-body">Check in on progress towards financial goals and reflect on recent wins/losses to takeaway concrete pipeline learnings.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: BD Pipeline Matrix]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">03</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Monthly Team Meeting</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Hold a monthly gathering with the entire agency to share important updates and, more importantly, celebrate launches, client wins, and commendable individual performance.</p>
-              <p class="wf-body">Prepare structured slides, highlight specific individuals, and involve different team presenters to build momentum and shared purpose.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Team Celebration Session]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">04</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Weekly Outreach Emails</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Regardless of your other marketing efforts, take a few minutes each week to send a pre-determined number of outbound emails to prospects, past partners, or industry peers.</p>
-              <p class="wf-body">Consistently hit your outbound quota (2, 5, or 10 per week) without skipping weeks. The compound effects will yield a regular flow of inquiries.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Relationship Tracking Template]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">05</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Monthly Newsletter Email</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Build a structured mailing list of clients, friends, advisors, and advocates. Send a monthly email keeping them in the loop about client work, projects launched, or thought leadership.</p>
-              <p class="wf-body">This simple habit keeps your agency top-of-mind for referrals when opportunities arise in their networks.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Campaign Analytics Screenshot]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">06</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Weekly Client Account Check-In</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Conduct a weekly alignment call with all account managers or running client leaders to review the client roster and flag operational risks early.</p>
-              <p class="wf-body">Discuss client health, budget utilization, and scope drift to protect delivery margins before problems escalate.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Client Health Matrix]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">07</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Quarterly Business Review</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">For key clients, holding a quarterly review helps set the strategic tone. Review achievements from the past quarter, check impact metrics, and align on upcoming roadmaps.</p>
-              <p class="wf-body">This elevates the agency from a simple vendor to a strategic partner integrated into the client's growth.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Executive Roadmap Slide]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">08</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Mind the Bottom</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">This habit is all about identifying and managing underperformers inside the agency business. Act quickly to identify friction and skill gaps.</p>
-              <p class="wf-body">Take structured steps to place employees on PIPs or transition them out to protect team culture and delivery quality.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Performance Review Scaffold]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: 1px solid var(--wf-border-muted);">
-            <div>
-              <div class="wf-list-item-num">09</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Client Feedback Surveys</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Establish a continuous practice to send client surveys after projects or on a fixed quarterly cycle to score responsiveness, quality, and overall service.</p>
-              <p class="wf-body">Use standard metrics (e.g. Net Promoter Score) to benchmark client sentiment objectively.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Survey Questionnaire Template]</span>
-            </div>
-          </div>
-
-          <div class="wf-list-item" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 540px; padding: 60px 0; border-bottom: none;">
-            <div>
-              <div class="wf-list-item-num">10</div>
-              <h2 class="wf-h2" style="margin-bottom: 12px;">Annual/Quarterly Goals & Priorities</h2>
-              <p class="wf-body" style="margin-bottom: 12px;">Make time each quarter (and more dedicated time before the new year) to set financial goals (revenue, profit targets, bookings) and strategic priorities.</p>
-              <p class="wf-body">Define key metrics, allocate resources, and establish accountability milestones for the upcoming operating period.</p>
-            </div>
-            <div class="wf-placeholder-box" style="height: 240px; width: 100%; margin-top: 32px; flex-shrink: 0;">
-              <span class="wf-placeholder-label">[Image Placeholder: Strategy Alignment Document]</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-        </div>
-      </section>
-
-      ${getNewsletterCtaHTML()}
-      ${getFooterHTML()}
-    `
-  },
   newsletter: {
     title: 'NEWSLETTER PAGE',
     annotations: [
@@ -1865,10 +2158,10 @@ const PAGES = {
           <span class="wf-label">What You'll Get</span>
           <h2 class="wf-h2">A Look Inside</h2>
           <div style="font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px;">
-            <div style="display:flex; gap:8px;"><span>✓</span> <span>Weekly articles on operations, positioning, and BD</span></div>
-            <div style="display:flex; gap:8px;"><span>✓</span> <span>Behind-the-scenes insights from Barrel Holdings agencies</span></div>
-            <div style="display:flex; gap:8px;"><span>✓</span> <span>Tools, templates, and checklists (most of them free)</span></div>
-            <div style="display:flex; gap:8px;"><span>✓</span> <span>Early access to new content and products</span></div>
+            <div style="display:flex; gap:8px;"><span>✓</span> <span>Weekly frameworks from operators currently in the seat</span></div>
+            <div style="display:flex; gap:8px;"><span>✓</span> <span>Real numbers, real stories — no "scale to 7-figures" hype</span></div>
+            <div style="display:flex; gap:8px;"><span>✓</span> <span>Tools and templates you can use the same week</span></div>
+            <div style="display:flex; gap:8px;"><span>✓</span> <span>Early access to new resources and events</span></div>
           </div>
         </div>
         <div style="grid-column: span 7;">
@@ -1878,37 +2171,41 @@ const PAGES = {
             </div>
             <span class="wf-body-small" style="font-weight: bold; color: #888;">Subject: How we think about agency positioning</span>
             <p class="wf-body-small" style="margin-top: 8px;">"This week, we're sharing the framework our agency leaders at Barrel Holdings use to define their positioning..."</p>
+            <a href="https://crafty-teacher-5104.kit.com/profile" target="_blank" class="wf-btn wf-btn-secondary" style="height: 36px; padding: 0 16px; line-height: 34px; margin-top: 12px; display: inline-block;">Read a sample issue →</a>
           </div>
         </div>
       </section>
 
       <!-- Past issues Archive -->
       <section class="wf-section-pad grid-container" style="border-bottom: none;">
-        <div style="grid-column: span 12; margin-bottom: 32px;">
-          <span class="wf-label">Past Issues</span>
-          <h2 class="wf-h2">Recent Newsletters</h2>
+        <div style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span class="wf-label">Past Issues</span>
+            <h2 class="wf-h2">Recent Newsletters</h2>
+          </div>
+          <a href="https://crafty-teacher-5104.kit.com/profile" target="_blank" class="wf-btn wf-btn-secondary" style="height: 38px; padding: 0 16px; line-height: 36px;">View full archive →</a>
         </div>
 
         <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #ddd;">
             <span class="wf-body-small" style="width: 120px; font-weight: bold;">May 19, 2026</span>
             <span class="wf-body" style="flex: 1; font-weight: 600;">How we think about agency positioning</span>
-            <a href="#" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
+            <a href="https://crafty-teacher-5104.kit.com/profile" target="_blank" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #ddd;">
             <span class="wf-body-small" style="width: 120px; font-weight: bold;">May 12, 2026</span>
             <span class="wf-body" style="flex: 1; font-weight: 600;">The metrics that actually matter</span>
-            <a href="#" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
+            <a href="https://crafty-teacher-5104.kit.com/profile" target="_blank" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #ddd;">
             <span class="wf-body-small" style="width: 120px; font-weight: bold;">May 05, 2026</span>
             <span class="wf-body" style="flex: 1; font-weight: 600;">Behind the scenes of an agency acquisition</span>
-            <a href="#" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
+            <a href="https://crafty-teacher-5104.kit.com/profile" target="_blank" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #ddd;">
             <span class="wf-body-small" style="width: 120px; font-weight: bold;">Apr 28, 2026</span>
             <span class="wf-body" style="flex: 1; font-weight: 600;">How to prune your client roster</span>
-            <a href="#" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
+            <a href="https://crafty-teacher-5104.kit.com/profile" target="_blank" style="color: #000; font-weight: bold; font-size: 13px; text-decoration: none;">Read →</a>
           </div>
         </div>
       </section>
@@ -1916,35 +2213,198 @@ const PAGES = {
       ${getFooterHTML()}
     `
   },
+  start_here: {
+    title: 'START HERE',
+    annotations: [
+      { num: 1, title: 'Page Purpose', body: 'Curated entrance for first-time visitors. Accessed from footer only — not in main nav.', top: '40px', left: '160px' },
+      { num: 2, title: 'Article Order', body: 'Confirmed by client: Is Your Agency a Ponzi Scheme? / Scaling Beyond $2M / Scale Agency BD.', top: '350px', left: '80px' },
+      { num: 3, title: 'Featured Episode', body: 'EP.07 confirmed by client as best entry point for new listeners.', top: '880px', left: '80px' }
+    ],
+    render: () => `
+      ${getHeaderHTML('start_here')}
+
+      <!-- Hero -->
+      <section class="wf-section-pad grid-container" style="padding-top: 80px; padding-bottom: 60px; border-bottom: 1px solid var(--wf-border-muted); text-align: center;">
+        <div style="grid-column: 3 / span 8; display: flex; flex-direction: column; gap: 16px; justify-content: center; align-items: center;">
+          <h1 class="wf-h1" style="font-size: 48px;">New here? Start with these.</h1>
+          <p class="wf-body-large" style="max-width: 620px;">If you run a $750K–$3M agency and you're tired of figuring it out alone — here's where to begin.</p>
+        </div>
+      </section>
+
+      <!-- Section 1: Curated Reads -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 40px; text-align: center;">
+          <span class="wf-label" style="letter-spacing: 2px;">READ THESE FIRST</span>
+        </div>
+
+        <!-- Card 1 -->
+        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('Finance', 'Is Your Agency a Ponzi Scheme?', 'AgencyHabits', 'Dec 2025')">
+          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); height: 160px; display: flex; align-items: center; justify-content: center;">
+            <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[FINANCE COVER]</span>
+          </div>
+          <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
+            <div>
+              <div class="wf-meta-row" style="margin-bottom: 8px;">
+                <span class="wf-category-tag" style="background: #eab308; color: #fff; border: none; padding: 2px 8px; font-size: 9px;">FINANCE</span>
+              </div>
+              <h3 class="wf-h3" style="font-size: 16px; margin: 0 0 8px 0; line-height: 1.3;">Is Your Agency a Ponzi Scheme?</h3>
+              <p class="wf-body-small" style="color: #555; font-size: 12px; margin-bottom: 16px;">The uncomfortable question every founder should ask about their revenue model.</p>
+            </div>
+            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('Business Development', 'Scaling Your Agency Beyond $2M', 'AgencyHabits', 'May 2026')">
+          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); height: 160px; display: flex; align-items: center; justify-content: center;">
+            <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[BUSINESS DEVELOPMENT COVER]</span>
+          </div>
+          <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
+            <div>
+              <div class="wf-meta-row" style="margin-bottom: 8px;">
+                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; padding: 2px 8px; font-size: 9px;">BUSINESS DEVELOPMENT</span>
+              </div>
+              <h3 class="wf-h3" style="font-size: 16px; margin: 0 0 8px 0; line-height: 1.3;">Scaling Your Agency Beyond $2M</h3>
+              <p class="wf-body-small" style="color: #555; font-size: 12px; margin-bottom: 16px;">The systems, hires, and mindset shifts that separate agencies that plateau from those that don't.</p>
+            </div>
+            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('Business Development', 'How to Scale Agency BD Beyond the Founder', 'Peter Kang', 'Apr 28, 2026')">
+          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); height: 160px; display: flex; align-items: center; justify-content: center;">
+            <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[BUSINESS DEVELOPMENT COVER]</span>
+          </div>
+          <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
+            <div>
+              <div class="wf-meta-row" style="margin-bottom: 8px;">
+                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; padding: 2px 8px; font-size: 9px;">BUSINESS DEVELOPMENT</span>
+              </div>
+              <h3 class="wf-h3" style="font-size: 16px; margin: 0 0 8px 0; line-height: 1.3;">How to Scale Agency BD Beyond the Founder</h3>
+              <p class="wf-body-small" style="color: #555; font-size: 12px; margin-bottom: 16px;">Most agencies plateau at the founder's capacity for sales. Here's the system we use.</p>
+            </div>
+            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Featured Episode -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted); background: #fafafa;">
+        <div style="grid-column: span 12; margin-bottom: 24px; text-align: center;">
+          <span class="wf-label" style="letter-spacing: 2px;">THEN LISTEN TO THIS</span>
+        </div>
+
+        <div style="grid-column: 2 / span 10; display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; background: #fff; border: 1px solid #cbd5e1; padding: 40px;">
+          <div class="wf-placeholder-box" style="aspect-ratio: 1; width: 100%; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);">
+            <span class="wf-placeholder-label" style="color: #fff; font-size: 24px; font-weight: 800;">EP.07</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <span class="wf-category-tag" style="background: #a855f7; color: #fff; border: none;">Leadership</span>
+              <span style="font-size: 13px; color: #64748b;">44 min</span>
+            </div>
+            <h3 class="wf-h3" style="font-size: 22px; margin: 0; line-height: 1.3; cursor: pointer;" onclick="navigateTo('episode_template')">EP.07 — 10 Essential Habits for Running a Successful Agency</h3>
+            <p class="wf-body-small" style="color: #555; margin: 0;">This is the best first listen — broad enough to be useful wherever you are right now. [Confirmed by client as best entry point for new listeners]</p>
+            <div style="display: flex; gap: 16px; margin-top: 8px;">
+              <button class="wf-btn wf-btn-primary" style="font-size: 13px; padding: 0 20px; height: 40px;" onclick="navigateTo('episode_template')">Listen & Transcript →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Foundation App CTA -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; margin-bottom: 24px; text-align: center;">
+          <span class="wf-label" style="letter-spacing: 2px;">AND RUN THIS</span>
+        </div>
+
+        <div style="grid-column: 2 / span 10; border: 1px solid #cbd5e1; padding: 40px; background: #fff; text-align: center; display: flex; flex-direction: column; gap: 16px; align-items: center;">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <span class="wf-label" style="color: #047857; margin: 0;">Foundation App</span>
+            <span style="border: 1px solid #000; padding: 2px 8px; font-size: 10px; font-weight: bold; text-transform: uppercase;">Free</span>
+            <span style="border: 1px solid #666; padding: 2px 8px; font-size: 10px; font-weight: bold; text-transform: uppercase; color: #666;">~60 seconds</span>
+          </div>
+          <h3 class="wf-h3" style="font-size: 24px; margin: 0;">Before anything else — get a 60-second positioning audit.</h3>
+          <p class="wf-body-small" style="color: #555; max-width: 600px; margin: 0;">Paste your URL, AI does the rest. It crawls your public signals, maps your partners, and drafts your core strategy.</p>
+          <button class="wf-btn wf-btn-primary" style="height: 48px; padding: 0 24px; margin-top: 8px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
+        </div>
+      </section>
+
+      <!-- Section 4: Newsletter CTA -->
+      <div style="background: #f1f5f9; padding: 20px 0; border-bottom: 1px solid #cbd5e1;">
+        <div style="text-align: center; font-weight: bold; font-size: 12px; letter-spacing: 2px; color: #64748b; margin-bottom: -40px; margin-top: 40px; position: relative; z-index: 10;">
+          IF NOTHING ELSE — GET THE WEEKLY EMAIL
+        </div>
+        ${getNewsletterCtaHTML()}
+      </div>
+
+      ${getFooterHTML()}
+    `
+  },
   foundation: {
     title: 'FOUNDATION APP PAGE',
     annotations: [
-      { num: 1, title: 'Positioning Audit Hero', body: 'Prompts users to enter their URL for a free 60-second positioning audit.', top: '150px', left: '160px' },
+      { num: 1, title: 'Positioning Audit Hero', body: 'External redirect link to foundation.agencyhabits.com', top: '150px', left: '160px' },
       { num: 2, title: 'Problem/Solution Matrix', body: 'Two-column layout matching common pain points to Foundation tool features.', top: '560px', left: '80px' },
-      { num: 3, title: 'Output Preview Tabs', body: 'Tabs showcase the 4 dimensions of audit output (Positioning, Ecosystem, ICP, Service Offering).', top: '1050px', left: '80px' },
-      { num: 4, title: 'Three-Step Process Flow', body: 'Horizontal layout walking through URL Scan, AI Analysis, and PDF generation.', top: '1560px', left: '80px' }
+      { num: 3, title: 'Sample Output', body: 'Large blurred/placeholder audit output showing the 4 dimensions of the positioning matrix.', top: '920px', left: '80px' },
+      { num: 4, title: 'Output Preview Tabs', body: 'Tabs showcase the 4 dimensions of audit output (Positioning, Ecosystem, ICP, Service Offering).', top: '1350px', left: '80px' },
+      { num: 5, title: 'Three-Step Process Flow', body: 'Horizontal layout walking through URL Scan, AI Analysis, and PDF generation.', top: '1850px', left: '80px' }
     ],
     render: () => `
       ${getHeaderHTML('foundation')}
 
-      <!-- Hero -->
-      <section class="grid-container" style="height: 820px; align-items: center; display: grid; border-bottom: 1px solid var(--wf-border-muted); padding-top: 0; padding-bottom: 0;">
-        <div style="grid-column: 2 / span 10; display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center; text-align: center; height: 100%;">
-          <span style="border: 1px solid #000; padding: 4px 12px; font-size: 12px; font-weight: bold; text-transform: uppercase;">Takes just ~60 seconds</span>
-          <h1 class="wf-h1" style="max-width: 800px;">Build Your Agency's Strategic Foundation</h1>
-          <p class="wf-body-large" style="max-width: 600px;">Define your positioning, ecosystem, ICP, and service offering. Just paste your website URL. AI does the rest.</p>
-          
-          <div style="border: 2px solid #000; padding: 24px; background: #fff; width: 100%; max-width: 600px; margin-top: 24px;">
-            <div style="display: flex; gap: 12px;">
-              <input type="text" class="wf-input-text" placeholder="https://youragency.com" style="height: 52px; flex: 1;" />
-              <button class="wf-btn wf-btn-primary" style="height: 52px;" onclick="alert('Redirecting to foundation.agencyhabits.com')">Get Your Free Positioning Audit →</button>
+      <!-- Hero (Two-Column) -->
+      <section class="wf-section-pad grid-container" style="padding-top: 80px; padding-bottom: 80px; border-bottom: 1px solid var(--wf-border-muted); align-items: center;">
+        <!-- Left Column -->
+        <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 24px; padding-right: 32px;">
+          <span style="border: 1px solid #000; padding: 4px 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; align-self: flex-start;">Free Positioning Audit</span>
+          <h1 class="wf-h1" style="font-size: 38px; line-height: 1.15; margin: 0;">Build Your Agency's Strategic Foundation</h1>
+          <p class="wf-body-large" style="color: #333; margin: 0;">Define your positioning, ecosystem, ICP, and service offering. Just paste your website URL. AI does the rest in ~60 seconds.</p>
+          <div style="margin-top: 8px;">
+            <button class="wf-btn wf-btn-primary" style="height: 52px; padding: 0 32px; font-size: 16px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
+          </div>
+          <p class="wf-body-small" style="color: #666; margin: 0;">No credit card required. Export as PDF.</p>
+        </div>
+
+        <!-- Right Column: Decorative Audit Illustration -->
+        <div style="grid-column: span 7; background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1a2744 100%); border-radius: 4px; min-height: 340px; padding: 36px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+
+          <!-- Top label -->
+          <div style="font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 20px;">Sample Audit Preview</div>
+
+          <!-- Score dot top-right -->
+          <div style="position: absolute; top: 28px; right: 28px; width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.35);"></div>
+          </div>
+
+          <!-- Top: Badge chips row -->
+          <div style="display: flex; gap: 10px; margin-bottom: 28px;">
+            <span style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase;">Positioning</span>
+            <span style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); font-size: 9px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 10px; border-radius: 2px; text-transform: uppercase;">ICP</span>
+          </div>
+
+          <!-- Middle: Simulated text rows -->
+          <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+            <div style="height: 8px; background: rgba(255,255,255,0.22); border-radius: 2px; width: 85%;"></div>
+            <div style="height: 8px; background: rgba(255,255,255,0.14); border-radius: 2px; width: 65%;"></div>
+            <div style="height: 8px; background: rgba(255,255,255,0.18); border-radius: 2px; width: 75%;"></div>
+            <div style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 2px; width: 50%;"></div>
+          </div>
+
+          <!-- Bottom: Progress bar -->
+          <div style="margin-top: 32px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px;">Audit Progress</span>
+              <span style="font-size: 9px; color: rgba(255,255,255,0.35);">~60s</span>
             </div>
-            <p class="wf-body-small" style="margin-top: 12px; color: #666;">No credit card required. Export your positioning audit as PDF.</p>
+            <div style="height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; width: 100%;">
+              <div style="height: 100%; width: 70%; background: rgba(255,255,255,0.4); border-radius: 2px;"></div>
+            </div>
           </div>
-          
-          <div style="display: flex; gap: 24px; margin-top: 16px;">
-            <a href="#" style="color: #000; font-weight: bold; font-size: 13px;" onclick="alert('Scrolls down to how it works')">See How It Works ↓</a>
-          </div>
+
+          <!-- Caption -->
+          <p style="margin: 20px 0 0 0; font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5;">Your positioning, ecosystem, ICP and service offering — structured in 60 seconds.</p>
         </div>
       </section>
 
@@ -1975,10 +2435,12 @@ const PAGES = {
         </div>
       </section>
 
+
+
       <!-- Output Preview Tabs -->
       <section class="wf-section-pad grid-container">
         <div style="grid-column: span 12; text-align: center; margin-bottom: 40px;">
-          <span class="wf-label">See What You Get</span>
+          <span class="wf-label">AUDIT STRUCTURE</span>
           <h2 class="wf-h2">Standard Audit Output Structure</h2>
         </div>
 
@@ -2003,7 +2465,7 @@ const PAGES = {
       </section>
 
       <!-- How it Works Flow -->
-      <section class="wf-section-pad grid-container" style="background: #fafafa;">
+      <section id="foundation-process" class="wf-section-pad grid-container" style="background: #fafafa; scroll-margin-top: 100px;">
         <div style="grid-column: span 12; text-align: center; margin-bottom: 48px;">
           <span class="wf-label">Process Flow</span>
           <h2 class="wf-h2">How It Works</h2>
@@ -2017,7 +2479,7 @@ const PAGES = {
 
         <div style="grid-column: span 4; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px;">
           <div class="wf-icon-placeholder wf-icon-circle" style="width: 48px; height: 48px;"></div>
-          <h4 class="wf-h3">2. AI Analyzes Your Positioning</h4>
+          <h4 class="wf-h3">2. AI Analyzed Your Positioning</h4>
           <p class="wf-body-small">Our AI reads between the lines of your website to identify your category, wedge, ICP, and service model. No questionnaire required.</p>
         </div>
 
@@ -2029,22 +2491,38 @@ const PAGES = {
       </section>
 
       <!-- Stats Row -->
-      <section class="wf-section-pad grid-container" style="text-align: center;">
+      <section class="wf-section-pad grid-container" style="text-align: center; background: #fafafa; border-top: 1px solid var(--wf-border-muted); border-bottom: 1px solid var(--wf-border-muted); padding-top: 40px; padding-bottom: 40px;">
         <div style="grid-column: span 3;">
-          <h3 class="wf-h2">~60 Secs</h3>
+          <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 8px;">~60 seconds</h3>
           <span class="wf-label">Audit Time</span>
         </div>
         <div style="grid-column: span 3;">
-          <h3 class="wf-h2">$10K+</h3>
+          <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 8px;">$10K+ value</h3>
           <span class="wf-label">Manual Audit Value</span>
         </div>
         <div style="grid-column: span 3;">
-          <h3 class="wf-h2">4 Dimensions</h3>
-          <span class="wf-label">Positioning Matrix</span>
+          <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 8px;">4 key dimensions</h3>
+          <span class="wf-label">Key Dimensions</span>
         </div>
         <div style="grid-column: span 3;">
-          <h3 class="wf-h2">Hundreds</h3>
+          <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 8px;">Hundreds</h3>
           <span class="wf-label">Of Audits Run</span>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="wf-section-pad grid-container" style="background: #ffffff; border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; text-align: center; margin-bottom: 32px;">
+          <span class="wf-label">FEEDBACK</span>
+          <h2 class="wf-h2">What Agency Owners Say</h2>
+        </div>
+        <div style="grid-column: span 6; border: 1px solid var(--wf-border-muted); padding: 24px; background: #fafafa;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 12px;">"This is the clearest my positioning has ever been. I had it done in under two minutes."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Agency Owner</span>
+        </div>
+        <div style="grid-column: span 6; border: 1px solid var(--wf-border-muted); padding: 24px; background: #fafafa;">
+          <p class="wf-body-small" style="font-style: italic; margin-bottom: 12px;">"We used this to prep for a pitch and it changed how we talked about ourselves."</p>
+          <span class="wf-label" style="font-size: 11px; margin-bottom: 0;">— Founder</span>
         </div>
       </section>
 
@@ -2053,7 +2531,7 @@ const PAGES = {
         <div style="grid-column: 3 / span 8; display: flex; flex-direction: column; gap: 24px; align-items: center;">
           <h2 class="wf-h2" style="color: #fff;">Ready to See Your Positioning?</h2>
           <p class="wf-body" style="color: #ccc; max-width: 600px;">The work that usually costs $10K+ and takes weeks — you'll have a working draft in ~60 seconds.</p>
-          <button class="wf-btn wf-btn-secondary" style="border-color: #fff; color: #fff; background: transparent; height: 52px; padding: 0 32px;" onclick="alert('Redirecting to foundation.agencyhabits.com')">Get Your Free Positioning Audit →</button>
+          <button class="wf-btn wf-btn-secondary" style="border-color: #fff; color: #fff; background: transparent; height: 52px; padding: 0 32px;" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Free Positioning Audit →</button>
         </div>
       </section>
 
@@ -2063,52 +2541,77 @@ const PAGES = {
   kb: {
     title: 'KNOWLEDGE BASE PAGE',
     annotations: [
-      { num: 1, title: 'AI Search Hero', body: 'Offers search query box with note explaining external Next.js app redirects.', top: '150px', left: '160px' },
+      { num: 1, title: 'AI Search Hero', body: 'Offers search description with external redirect button to kb.agencyhabits.com.', top: '150px', left: '160px' },
       { num: 2, title: 'Three Feature Cards', body: 'Breaks down features: Ask Any Question, Real Content Database, Linked Sources.', top: '510px', left: '80px' }
     ],
     render: () => `
       ${getHeaderHTML('kb')}
 
       <!-- Hero -->
-      <section class="grid-container" style="height: 820px; align-items: center; display: grid; border-bottom: 1px solid var(--wf-border-muted); padding-top: 0; padding-bottom: 0;">
-        <div style="grid-column: 3 / span 8; display: flex; flex-direction: column; gap: 24px; align-items: center; justify-content: center; text-align: center; height: 100%;">
+      <section class="wf-section-pad grid-container" style="padding-top: 80px; padding-bottom: 80px; border-bottom: 1px solid var(--wf-border-muted); align-items: center;">
+        <!-- Left Column -->
+        <div style="grid-column: span 6; display: flex; flex-direction: column; gap: 24px; padding-right: 24px;">
           <span class="wf-label" style="letter-spacing: 2px;">Searchable Archives</span>
-          <h1 class="wf-h1">Everything AgencyHabits Has Ever Published — Searchable.</h1>
-          <p class="wf-body-large">An AI-powered knowledge base built on every article, podcast transcript, and resource from AgencyHabits. Ask any question, get structured answers with sources.</p>
+          <h1 class="wf-h1" style="font-size: 38px; line-height: 1.15; margin: 0;">Everything AgencyHabits Has Ever Published — Searchable.</h1>
+          <p class="wf-body-large" style="color: #333; margin: 0;">An AI-powered knowledge base built on every article, podcast transcript, and resource from AgencyHabits. Ask any question, get structured answers with sources.</p>
           
-          <div style="border: 2px solid #000; padding: 24px; background: #fff; width: 100%; max-width: 600px; margin-top: 16px;">
-            <div style="display: flex; gap: 12px;">
-              <input type="text" class="wf-input-text" placeholder="Ask a question (e.g., 'How to define ICP?')" style="height: 52px; flex: 1;" />
-              <button class="wf-btn wf-btn-primary" style="height: 52px;" onclick="alert('Redirects to AI search tool')">Search →</button>
-            </div>
-            <p class="wf-body-small" style="margin-top: 12px; color: #888;">[External tool — URL to be confirmed with client before launch]</p>
+          <div style="margin-top: 8px;">
+            <button class="wf-btn wf-btn-primary" style="height: 52px; padding: 0 32px; font-size: 16px;" onclick="window.open('https://kb.agencyhabits.com', '_blank')">Search the Knowledge Base →</button>
+          </div>
+
+          <div style="margin-top: 8px;">
+            <p class="wf-body-small" style="color: #666; margin: 0;">Built on full transcripts from [X] podcast episodes + 60+ articles</p>
+            <p class="wf-body-small" style="color: #999; font-size: 11px; margin: 4px 0 0 0;">[Episode count TBD — client to confirm]</p>
+          </div>
+        </div>
+
+        <!-- Right Column (Product Demo) -->
+        <div style="grid-column: span 6; border: 1px solid #cbd5e1; padding: 32px; background: #f8fafc; border-radius: 4px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; align-items: center;">
+            <span class="wf-label" style="color: #64748b; margin: 0; font-size: 10px;">SAMPLE OUTPUT</span>
+            <span style="font-size: 11px; color: #94a3b8; font-family: monospace;">9355ms · GPT-4o-mini</span>
+          </div>
+          <div>
+            <p class="wf-body" style="font-weight: bold; margin-bottom: 12px; font-size: 15px; color: #000;">Q: "What makes agencies lose clients?"</p>
+            <p class="wf-body-small" style="line-height: 1.6; color: #333; margin: 0;">
+              A: Several factors contribute to agencies losing clients:<br/>
+              • Unresponsive account management — clients sense it before quality drops<br/>
+              • Poor communication and expectation setting during onboarding<br/>
+              • Rigid pricing models that don\'t adapt to client needs<br/>
+              • Perceived lack of clear ROI from agency work
+            </p>
+          </div>
+          <div style="border-top: 1px solid #e2e8f0; padding-top: 12px; display: flex; flex-direction: column; gap: 6px;">
+            <span class="wf-label" style="font-size: 9px; color: #64748b; margin-bottom: 2px; display: block;">SOURCES</span>
+            <a href="https://kb.agencyhabits.com/episodes/ep-10" target="_blank" style="color: #007acc; font-weight: bold; text-decoration: underline; font-size: 12px; display: block;">Episode 10: Why Agencies Lose Clients →</a>
+            <a href="https://kb.agencyhabits.com/episodes/ep-33" target="_blank" style="color: #007acc; font-weight: bold; text-decoration: underline; font-size: 12px; display: block;">Episode 33: Your Agency\'s ICP →</a>
           </div>
         </div>
       </section>
 
       <!-- Feature cards -->
-      <section class="wf-section-pad grid-container" style="background: #fafafa; border-bottom: none;">
-        <div style="grid-column: span 4; border: 1px solid #000; padding: 32px; background: #fff; height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+      <section class="wf-section-pad grid-container" style="background: #fafafa; border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 4; border: 1px solid #cbd5e1; padding: 32px; background: #fff; height: 260px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 4px;">
           <div>
-            <div class="wf-icon-placeholder" style="margin-bottom: 16px;"></div>
-            <h4 class="wf-h3" style="margin-bottom: 8px;">Ask Any Question</h4>
-            <p class="wf-body-small">Type any question about running, growing, or selling your agency and get custom summaries.</p>
+            <div class="wf-icon-placeholder wf-icon-circle" style="width: 40px; height: 40px; margin-bottom: 16px;"></div>
+            <h4 class="wf-h3" style="margin-bottom: 8px; font-size: 16px;">Ask Any Question</h4>
+            <p class="wf-body-small" style="color: #555;">Type any question about running, growing, or selling your agency and get custom summaries.</p>
           </div>
         </div>
 
-        <div style="grid-column: span 4; border: 1px solid #000; padding: 32px; background: #fff; height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="grid-column: span 4; border: 1px solid #cbd5e1; padding: 32px; background: #fff; height: 260px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 4px;">
           <div>
-            <div class="wf-icon-placeholder" style="margin-bottom: 16px;"></div>
-            <h4 class="wf-h3" style="margin-bottom: 8px;">Get Answers from Real Content</h4>
-            <p class="wf-body-small">Answers are generated entirely from actual AgencyHabits articles, podcast transcripts, and resources.</p>
+            <div class="wf-icon-placeholder wf-icon-circle" style="width: 40px; height: 40px; margin-bottom: 16px;"></div>
+            <h4 class="wf-h3" style="margin-bottom: 8px; font-size: 16px;">Get Answers from Real Content</h4>
+            <p class="wf-body-small" style="color: #555;">Answers are generated entirely from actual AgencyHabits articles, podcast transcripts, and resources.</p>
           </div>
         </div>
 
-        <div style="grid-column: span 4; border: 1px solid #000; padding: 32px; background: #fff; height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="grid-column: span 4; border: 1px solid #cbd5e1; padding: 32px; background: #fff; height: 260px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 4px;">
           <div>
-            <div class="wf-icon-placeholder" style="margin-bottom: 16px;"></div>
-            <h4 class="wf-h3" style="margin-bottom: 8px;">Linked to Original Sources</h4>
-            <p class="wf-body-small">Every generated answer links back to the original source article or episode so you can go deeper.</p>
+            <div class="wf-icon-placeholder wf-icon-circle" style="width: 40px; height: 40px; margin-bottom: 16px;"></div>
+            <h4 class="wf-h3" style="margin-bottom: 8px; font-size: 16px;">Linked to Original Sources</h4>
+            <p class="wf-body-small" style="color: #555;">Every generated answer links back to the original source article or episode so you can go deeper.</p>
           </div>
         </div>
       </section>
@@ -2116,141 +2619,425 @@ const PAGES = {
       <!-- Final CTA -->
       <section class="wf-section-pad grid-container" style="text-align: center; border-bottom: none;">
         <div style="grid-column: span 12;">
-          <button class="wf-btn wf-btn-primary" onclick="alert('Opening external Search')">Explore the Knowledge Base →</button>
+          <button class="wf-btn wf-btn-primary" style="height: 52px; padding: 0 32px;" onclick="window.open('https://kb.agencyhabits.com', '_blank')">Explore the Knowledge Base →</button>
         </div>
       </section>
 
       ${getFooterHTML()}
     `
   },
-  events: {
-    title: 'EVENTS PAGE',
+  gather: {
+    title: 'GATHER (EVENTS HUB)',
     annotations: [
-      { num: 1, title: 'Event Hero', body: 'Introduces monthly webinar / workshop gatherings. Register CTA triggers bottom form.', top: '150px', left: '160px' },
-      { num: 2, title: 'Upcoming Events Grid', body: 'Lists future webinars with client note for dynamic date scheduling.', top: '480px', left: '80px' },
-      { num: 3, title: 'Past Sessions Archive', body: 'Shows recording availability of past events (e.g. Revenue Generation).', top: '780px', left: '80px' }
+      { num: 1, title: 'Benefits Row', body: 'Short bullets answering \'why should I come?\' for the ICP.', top: '240px', left: '160px' },
+      { num: 2, title: 'Knowledge Share Section', body: 'Separate from general events. This is their flagship format — 39 sign-ups.', top: '450px', left: '160px' },
+      { num: 3, title: 'Luma Embed', body: 'Client will create lu.ma/agencyhabits. Embed shows both Knowledge Shares and meet-ups automatically.', top: '920px', left: '80px' },
+      { num: 4, title: 'Past Events Grid', body: 'Knowledge Shares have YouTube recordings. New York + London meet-ups confirmed.', top: '1280px', left: '80px' },
+      { num: 5, title: 'City Form', body: 'Simple: Name + Email + City. Client confirmed they want this.', top: '1900px', left: '160px' }
     ],
     render: () => `
-      ${getHeaderHTML('events')}
+      ${getHeaderHTML('gather')}
 
       <!-- Hero -->
-      <section class="wf-section-pad grid-container" style="padding-top: 80px;">
-        <div style="grid-column: span 7; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
-          <span class="wf-label">Monthly Operators Meeting</span>
-          <h1 class="wf-h1">Monthly Knowledge Share</h1>
-          <p class="wf-body-large">A monthly gathering for agency operators to learn, share, and connect.</p>
-          <p class="wf-body-small" style="color: #666;">[Format TBD — confirm with client: webinar / live event / workshop]</p>
-          <button class="wf-btn wf-btn-primary" style="align-self: flex-start; margin-top: 12px;" onclick="document.getElementById('event-form-section').scrollIntoView({behavior:'smooth'})">Register for Next Event →</button>
-        </div>
-        <div style="grid-column: span 5;">
-          <div class="wf-placeholder-box" style="height: 280px; width: 100%;">
-            <span class="wf-placeholder-label">[Event Graphic Placeholder]</span>
-          </div>
+      <section class="wf-section-pad grid-container" style="padding-top: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--wf-border-muted);">
+        <div style="grid-column: span 12; text-align: center;">
+          <span class="wf-label" style="letter-spacing: 2px;">AgencyHabits Events</span>
+          <h1 class="wf-h1" style="font-family: Georgia, serif; font-size: 56px; line-height: 1.1; margin-top: 12px;">Monthly Knowledge Share</h1>
+          <p class="wf-body-large" style="margin-top: 16px; color: #333;">A monthly gathering for agency operators to learn, share, and connect.</p>
         </div>
       </section>
 
-      <!-- Upcoming events -->
-      <section class="wf-section-pad grid-container" style="background: #fafafa;">
-        <div style="grid-column: span 12; margin-bottom: 32px;">
-          <span class="wf-label">Live Sessions</span>
-          <h2 class="wf-h2">Upcoming Sessions</h2>
-          <p class="wf-body-small" style="color:#888; margin-top: 4px;">[Real event dates and titles to be provided by client]</p>
+      <!-- Benefits Row -->
+      <section class="wf-section-pad grid-container" style="padding-top: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--wf-border-muted); background: #fafafa;">
+        <div style="grid-column: span 3; border-right: 1px solid #ddd; padding: 12px 24px 12px 0;">
+          <div style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">Learn from Peers</div>
+          <p class="wf-body-small">Learn from operators currently running the same play.</p>
         </div>
+        <div style="grid-column: span 3; border-right: 1px solid #ddd; padding: 12px 24px;">
+          <div style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">Actionable SOPs</div>
+          <p class="wf-body-small">Get frameworks you can use the next week.</p>
+        </div>
+        <div style="grid-column: span 3; border-right: 1px solid #ddd; padding: 12px 24px;">
+          <div style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">Same-Stage Founders</div>
+          <p class="wf-body-small">Connect with founders at the same stage ($750K-$3M).</p>
+        </div>
+        <div style="grid-column: span 3; padding: 12px 0 12px 24px;">
+          <div style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">100% Free</div>
+          <p class="wf-body-small">Free - online and in-person sessions.</p>
+        </div>
+      </section>
 
-        <div style="grid-column: span 6; border: 1px solid #000; padding: 32px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; height: 260px;">
+      <!-- Flagship Knowledge Share Section -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted); align-items: stretch;">
+        <!-- Left Column: Next Session -->
+        <div style="grid-column: span 6; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #cbd5e1; padding: 40px; background: #fff; border-radius: 4px;">
           <div>
-            <span class="wf-body-small" style="font-weight: bold; color: #888;">June 2026</span>
-            <h3 class="wf-h3" style="margin: 8px 0;">Agency Positioning Deep Dive</h3>
-            <p class="wf-body-small">Online Webinar | 60 mins | Interactive Q&A. Learn how to map Category, Wedges, and Target ICP.</p>
-          </div>
-          <button class="wf-btn wf-btn-secondary" style="align-self: flex-start; height: 36px; padding: 0 16px;" onclick="document.getElementById('event-form-section').scrollIntoView({behavior:'smooth'})">Register →</button>
-        </div>
-
-        <div style="grid-column: span 6; border: 1px solid #000; padding: 32px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; height: 260px; opacity: 0.7;">
-          <div>
-            <span class="wf-body-small" style="font-weight: bold; color: #888;">July 2026</span>
-            <h3 class="wf-h3" style="margin: 8px 0;">[Title TBD]</h3>
-            <p class="wf-body-small">Format TBD | Operator Discussion Group. Dynamic topic updates upcoming.</p>
-          </div>
-          <span style="font-size: 13px; font-weight: bold; color: #888;">Details Coming Soon</span>
-        </div>
-      </section>
-
-      <!-- Past Sessions -->
-      <section class="wf-section-pad grid-container">
-        <div style="grid-column: span 12; margin-bottom: 32px;">
-          <span class="wf-label">Archive</span>
-          <h2 class="wf-h2">Past Sessions</h2>
-          <p class="wf-body-small" style="color:#888; margin-top: 4px;">[Archive content to be confirmed with client]</p>
-        </div>
-
-        <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 12px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #ddd;">
-            <span class="wf-body-small" style="width: 100px; font-weight: bold;">May 2026</span>
-            <span class="wf-body" style="flex: 1; font-weight: 600;">Revenue Generation Habits</span>
-            <span class="wf-body-small" style="background: #eee; padding: 2px 8px; border: 1px solid #000;">Recording Available</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid #ddd;">
-            <span class="wf-body-small" style="width: 100px; font-weight: bold;">April 2026</span>
-            <span class="wf-body" style="flex: 1; font-weight: 600;">How to Think About Agency Pricing</span>
-            <span class="wf-body-small" style="background: #eee; padding: 2px 8px; border: 1px solid #000;">Recording Available</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Registration Form Section -->
-      <section id="event-form-section" class="wf-section-pad grid-container" style="min-height: 540px; align-items: center; display: grid; background: #fafafa; border-bottom: none;">
-        <div style="grid-column: 3 / span 6; display: flex; flex-direction: column; justify-content: center; height: 100%;">
-          <div style="border: 2px solid #000; padding: 40px; background: #ffffff;">
-            <h3 class="wf-h2" style="font-size: 22px; margin-bottom: 8px; text-align: center;">Save My Spot</h3>
-            <p class="wf-body-small" style="margin-bottom: 24px; text-align: center;">Register for the next live Knowledge Share. kit.com email integration.</p>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-              <div>
-                <label class="wf-label">Name</label>
-                <input type="text" class="wf-input-text" placeholder="Your name" />
-              </div>
-              <div>
-                <label class="wf-label">Email</label>
-                <input type="email" class="wf-input-text" placeholder="Enter your email" />
-              </div>
-              <button class="wf-btn wf-btn-primary" onclick="simulateFormSubmit(this, 'Registered!')">Save My Spot</button>
+            <span class="wf-label" style="color: #3b82f6; margin-bottom: 16px; display: inline-block;">NEXT SESSION · June 2026</span>
+            <h2 class="wf-h2" style="font-family: Georgia, serif; font-size: 30px; margin: 0 0 12px 0; line-height: 1.25;">Agency Positioning Deep Dive</h2>
+            <p class="wf-body-small" style="margin-bottom: 16px; color: #333;">How to audit your messaging, define your core wedge, and structure your client service tiers for maximum margin.</p>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-family: Courier, monospace; font-size: 13px; color: #555; margin-bottom: 24px;">
+              <div>Format: Online · Zoom · 60 min · Free</div>
+              <div style="font-weight: bold; color: #000;">39 people registered</div>
             </div>
+          </div>
+          <div>
+            <button class="wf-btn wf-btn-primary" style="align-self: flex-start; height: 48px; padding: 0 24px;" onclick="window.open('https://lu.ma/agencyhabits', '_blank')">Register via Luma →</button>
+            <span class="wf-body-small" style="color: #888; font-style: italic; display: block; margin-top: 8px; font-size: 11px;">[RSVP via Luma — lu.ma/agencyhabits — client creating this calendar]</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Last Session Recap -->
+        <div style="grid-column: span 6; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #cbd5e1; padding: 40px; background: #fafafa; border-radius: 4px;">
+          <div>
+            <span class="wf-label" style="color: #666; margin-bottom: 16px; display: inline-block;">LAST SESSION RECAP</span>
+            <h2 class="wf-h2" style="font-family: Georgia, serif; font-size: 30px; margin: 0 0 12px 0; line-height: 1.25;">Knowledge Share #4 — Revenue Generation Habits</h2>
+            <p class="wf-body-small" style="margin-bottom: 24px; color: #555; line-height: 1.5;">The outreach cadences, pipeline meetings, and review schedules used by Barrel agencies to build predictable pipelines.</p>
+          </div>
+          <div>
+            <a href="https://youtu.be/kVuxABUqZrY" target="_blank" class="wf-btn wf-btn-secondary" style="align-self: flex-start; text-decoration: none; display: inline-block; text-align: center; line-height: 46px; height: 48px; padding: 0 24px;">Watch the recap →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Upcoming Events — Luma Embed -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted); background: #ffffff;">
+        <div style="grid-column: span 12; margin-bottom: 24px;">
+          <span class="wf-label">ALL UPCOMING EVENTS</span>
+          <h2 class="wf-h2">Luma Calendar</h2>
+        </div>
+        <div style="grid-column: span 12; border: 2px dashed #000; padding: 60px; text-align: center; background: #f8fafc;">
+          <span style="font-size: 40px; display: block; margin-bottom: 12px;">[Calendar Icon]</span>
+          <h4 class="wf-h4" style="font-size: 16px; margin-bottom: 8px;">[Luma Calendar Embed Placeholder]</h4>
+          <p class="wf-body-small" style="color: #666; max-width: 600px; margin: 0 auto 16px auto;">lu.ma/agencyhabits embed widget showing all upcoming Knowledge Shares and local operator meet-ups.</p>
+          <span class="wf-body-small" style="color: #888; font-style: italic; display: block;">[Luma calendar embed — lu.ma/agencyhabits — to be created by client. Shows both Knowledge Shares and meet-ups.]</span>
+        </div>
+      </section>
+
+      <!-- Past Events Grid with filtering -->
+      <section class="wf-section-pad grid-container" style="border-bottom: 1px solid var(--wf-border-muted); background: #fafafa;">
+        <div class="wf-archive-header" style="grid-column: span 12; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <span class="wf-label">ARCHIVE</span>
+            <h2 class="wf-h2">Past Sessions & Meet-ups</h2>
+          </div>
+          <!-- Filter Controls -->
+          <div style="display: flex; gap: 8px;">
+            <select id="gather-filter-type" class="wf-input-text" style="height: 40px; padding: 0 12px; width: 180px; appearance: auto;" onchange="filterGatherEvents()">
+              <option value="all">All Types</option>
+              <option value="knowledge_share">Knowledge Shares</option>
+              <option value="meetup">Meet-ups</option>
+            </select>
+            <select id="gather-filter-city" class="wf-input-text" style="height: 40px; padding: 0 12px; width: 150px; appearance: auto;" onchange="filterGatherEvents()">
+              <option value="all">All Cities</option>
+              <option value="online">Online</option>
+              <option value="new_york">New York</option>
+              <option value="london">London</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;" id="gather-events-grid">
+          <!-- Card 1 -->
+          <div class="gather-event-card" data-type="knowledge_share" data-city="online" style="grid-column: span 4; border: 1px solid #000; background: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 280px;">
+            <div>
+              <span class="wf-label" style="background: #e0f2fe; color: #0369a1; padding: 2px 6px; font-size: 10px;">KNOWLEDGE SHARE · ONLINE</span>
+              <span class="wf-body-small" style="display: block; margin-top: 12px; color: #666; font-weight: bold;">May 2026</span>
+              <h4 class="wf-h4" style="margin-top: 8px; font-family: Georgia, serif; line-height: 1.3;">Knowledge Share #4 — Revenue Generation Habits</h4>
+            </div>
+            <a href="https://youtu.be/kVuxABUqZrY" target="_blank" style="font-size: 13px; font-weight: bold; color: #000; text-decoration: underline; margin-top: 12px;">Watch recap →</a>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="gather-event-card" data-type="knowledge_share" data-city="online" style="grid-column: span 4; border: 1px solid #000; background: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 280px;">
+            <div>
+              <span class="wf-label" style="background: #e0f2fe; color: #0369a1; padding: 2px 6px; font-size: 10px;">KNOWLEDGE SHARE · ONLINE</span>
+              <span class="wf-body-small" style="display: block; margin-top: 12px; color: #666; font-weight: bold;">April 2026</span>
+              <h4 class="wf-h4" style="margin-top: 8px; font-family: Georgia, serif; line-height: 1.3;">Knowledge Share #3 — Service Tiers & Margin Expansion</h4>
+            </div>
+            <a href="https://youtu.be/m47PcqH1VXM" target="_blank" style="font-size: 13px; font-weight: bold; color: #000; text-decoration: underline; margin-top: 12px;">Watch recap →</a>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="gather-event-card" data-type="knowledge_share" data-city="online" style="grid-column: span 4; border: 1px solid #000; background: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 280px;">
+            <div>
+              <span class="wf-label" style="background: #e0f2fe; color: #0369a1; padding: 2px 6px; font-size: 10px;">KNOWLEDGE SHARE · ONLINE</span>
+              <span class="wf-body-small" style="display: block; margin-top: 12px; color: #666; font-weight: bold;">March 2026</span>
+              <h4 class="wf-h4" style="margin-top: 8px; font-family: Georgia, serif; line-height: 1.3;">Knowledge Share #2 — How to Scale Agency Business Development</h4>
+            </div>
+            <a href="https://youtu.be/-Os03l5DLYE" target="_blank" style="font-size: 13px; font-weight: bold; color: #000; text-decoration: underline; margin-top: 12px;">Watch recap →</a>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="gather-event-card" data-type="knowledge_share" data-city="online" style="grid-column: span 4; border: 1px solid #000; background: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 280px;">
+            <div>
+              <span class="wf-label" style="background: #e0f2fe; color: #0369a1; padding: 2px 6px; font-size: 10px;">KNOWLEDGE SHARE · ONLINE</span>
+              <span class="wf-body-small" style="display: block; margin-top: 12px; color: #666; font-weight: bold;">February 2026</span>
+              <h4 class="wf-h4" style="margin-top: 8px; font-family: Georgia, serif; line-height: 1.3;">Knowledge Share #1 — Defining Your Strategic Ideal Customer Profile</h4>
+            </div>
+            <a href="https://youtu.be/VEahl_2yKiw" target="_blank" style="font-size: 13px; font-weight: bold; color: #000; text-decoration: underline; margin-top: 12px;">Watch recap →</a>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="gather-event-card" data-type="meetup" data-city="new_york" style="grid-column: span 4; border: 1px solid #000; background: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 280px;">
+            <div>
+              <span class="wf-label" style="background: #fef3c7; color: #d97706; padding: 2px 6px; font-size: 10px;">MEET-UP · NEW YORK</span>
+              <span class="wf-body-small" style="display: block; margin-top: 12px; color: #666; font-weight: bold;">2026</span>
+              <h4 class="wf-h4" style="margin-top: 8px; font-family: Georgia, serif; line-height: 1.3;">New York Operator Meet-up</h4>
+              <div class="wf-placeholder-box" style="height: 80px; width: 100%; margin-top: 12px; background: #f1f5f9;"><span class="wf-placeholder-label" style="font-size: 11px;">[Photo Placeholder]</span></div>
+            </div>
+            <a href="#" onclick="alert('Viewing NY recap photos...'); return false;" style="font-size: 13px; font-weight: bold; color: #000; text-decoration: underline; margin-top: 12px;">View recap →</a>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="gather-event-card" data-type="meetup" data-city="london" style="grid-column: span 4; border: 1px solid #000; background: #fff; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 280px;">
+            <div>
+              <span class="wf-label" style="background: #fef3c7; color: #d97706; padding: 2px 6px; font-size: 10px;">MEET-UP · LONDON</span>
+              <span class="wf-body-small" style="display: block; margin-top: 12px; color: #666; font-weight: bold;">2025</span>
+              <h4 class="wf-h4" style="margin-top: 8px; font-family: Georgia, serif; line-height: 1.3;">London Operator Meet-up</h4>
+              <div class="wf-placeholder-box" style="height: 80px; width: 100%; margin-top: 12px; background: #f1f5f9;"><span class="wf-placeholder-label" style="font-size: 11px;">[Photo Placeholder — 29 attendees]</span></div>
+            </div>
+            <a href="#" onclick="alert('Viewing London recap photos...'); return false;" style="font-size: 13px; font-weight: bold; color: #000; text-decoration: underline; margin-top: 12px;">View recap →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- City meet-up form -->
+      <section class="wf-section-pad grid-container" style="border-bottom: none; background: #ffffff;">
+        <div style="grid-column: 3 / span 8; border: 2px solid #000; padding: 40px; background: #fff;">
+          <h3 class="wf-h2" style="font-size: 24px; margin-bottom: 8px; text-align: center;">Want a meet-up in your city?</h3>
+          <p class="wf-body-small" style="margin-bottom: 24px; text-align: center; color: #555;">We're expanding to new cities. Let us know where you are.</p>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <label class="wf-label">Name</label>
+                <input type="text" id="city-form-name" class="wf-input-text" placeholder="Your name" style="height: 44px;" />
+              </div>
+              <div style="flex: 1;">
+                <label class="wf-label">Email</label>
+                <input type="email" id="city-form-email" class="wf-input-text" placeholder="Enter your email" style="height: 44px;" />
+              </div>
+            </div>
+            <div>
+              <label class="wf-label">City</label>
+              <input type="text" id="city-form-city" class="wf-input-text" placeholder="e.g. Chicago, IL" style="height: 44px;" />
+            </div>
+            <button class="wf-btn wf-btn-primary" style="height: 48px; margin-top: 8px;" onclick="simulateFormSubmit(this, 'Sent!')">Let us know →</button>
           </div>
         </div>
       </section>
 
       ${getFooterHTML()}
     `
+  },
+  category_hub: {
+    title: 'CATEGORY HUB',
+    annotations: [
+      { num: 1, title: 'Category Hub Purpose', body: 'Universal dynamic view presenting articles filterable by category.', top: '40px', left: '160px' },
+      { num: 2, title: 'Dynamic Category Intro', body: 'Displays operator-POV intro custom-tailored for the selected topic.', top: '150px', left: '160px' },
+      { num: 3, title: 'Article Grid', body: 'Shows 9 articles for this category. Wireframe duplicates are marked as Part 2/3.', top: '450px', left: '80px' },
+      { num: 4, title: 'Dynamic Bottom Tool', body: 'Contextual resource promotion matching the active category focus.', top: '1200px', left: '80px' }
+    ],
+    render: () => {
+      const category = STATE.currentCategory || 'Business Development';
+      
+      const categories = [
+        { id: 'bd', name: 'Business Development', gradient: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)', articles: [
+          { title: 'How to Scale Agency BD Beyond the Founder', author: 'Peter Kang', date: 'Apr 28, 2026' },
+          { title: 'The Client Pruning Framework', author: 'AgencyHabits', date: 'Apr 14, 2026' },
+          { title: 'What Does a Client Actually Buy When They Hire You?', author: 'AgencyHabits', date: 'Mar 17, 2026' }
+        ]},
+        { id: 'finance', name: 'Finance', gradient: 'linear-gradient(135deg, #eab308 0%, #ca8a04 100%)', articles: [
+          { title: "Agency Cash Flow: What the P&L Isn't Telling You", author: 'AgencyHabits', date: 'Mar 31, 2026' },
+          { title: "Reversing Your Agency's Eroding Profits", author: 'AgencyHabits', date: 'Jan 20, 2026' },
+          { title: "Are You Calculating Your Agency's Profits Correctly?", author: 'AgencyHabits', date: 'Dec 2025' }
+        ]},
+        { id: 'leadership', name: 'Leadership', gradient: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)', articles: [
+          { title: 'Specializing Requires Commitment', author: 'AgencyHabits', date: 'Jan 6, 2026' },
+          { title: 'The Org Chart Exercise Every Agency Founder Should Do', author: 'AgencyHabits', date: 'Nov 2025' },
+          { title: 'Mind the Bottom', author: 'AgencyHabits', date: 'Oct 2025' }
+        ]},
+        { id: 'positioning', name: 'Positioning', gradient: 'linear-gradient(135deg, #14b8a6 0%, #0f766e 100%)', articles: [
+          { title: 'How to Define Your Agency\'s ICP (Beyond "B2B SaaS")', author: 'Peter Kang', date: 'May 12, 2026' },
+          { title: 'The Three Agency Ecosystem Archetypes', author: 'AgencyHabits', date: 'Mar 3, 2026' },
+          { title: 'Specialization vs. Positioning', author: 'AgencyHabits', date: 'Feb 2026' }
+        ]},
+        { id: 'clients', name: 'Clients', gradient: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)', articles: [
+          { title: 'The Client Pruning Framework', author: 'AgencyHabits', date: 'Apr 14, 2026' },
+          { title: 'What Does a Client Actually Buy When They Hire You?', author: 'AgencyHabits', date: 'Mar 17, 2026' },
+          { title: 'Client Experience vs. Quality Work', author: 'AgencyHabits', date: 'Dec 2025' }
+        ]},
+        { id: 'talent', name: 'Talent', gradient: 'linear-gradient(135deg, #22c55e 0%, #15803d 100%)', articles: [
+          { title: 'Hiring Is the Highest-Leverage Thing You Do', author: 'AgencyHabits', date: 'Sep 2025' },
+          { title: 'When to Hire vs. When to Outsource', author: 'AgencyHabits', date: 'Aug 2025' },
+          { title: 'How to Build a Team That Doesn\'t Depend on You', author: 'AgencyHabits', date: 'Jul 2025' }
+        ]},
+        { id: 'delivery', name: 'Delivery', gradient: 'linear-gradient(135deg, #f97316 0%, #c2410c 100%)', articles: [
+          { title: 'How Agencies Lose Margin on Delivery', author: 'AgencyHabits', date: 'Nov 2025' },
+          { title: 'The Project Profitability Framework', author: 'AgencyHabits', date: 'Oct 2025' },
+          { title: 'SOPs That Actually Get Used', author: 'AgencyHabits', date: 'Sep 2025' }
+        ]},
+        { id: 'marketing', name: 'Marketing', gradient: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)', articles: [
+          { title: 'Why Your Agency Website Says Nothing', author: 'AgencyHabits', date: 'Feb 2026' },
+          { title: 'Content Marketing for Agency Operators', author: 'AgencyHabits', date: 'Jan 2026' },
+          { title: 'How to Build an Audience While Running a Business', author: 'AgencyHabits', date: 'Dec 2025' }
+        ]}
+      ];
+
+      const CATEGORY_INTROS = {
+        'Business Development': 'Scaling agency sales beyond the founder is the single hardest ceiling to crack. These articles outline the exact proposal structures, pipeline cadences, and sales processes used by Barrel Holdings agencies to build predictable, repeatable growth.',
+        'Finance': 'Margins are won and lost in the details of utilization, pricing models, and operational overhead. Learn how to calculate true profitability, protect your cash flow, and prepare your agency business for eventual exit or acquisition.',
+        'Leadership': 'True leadership means building systems that operate independently of your daily presence. Review the organizational design frameworks, weekly meeting habits, and performance targets we mandate for our agency general managers.',
+        'Positioning': 'Without a narrow strategic wedge, your agency is a commodity competing on price. These articles detail how to identify your niche, define your core service offerings, and position your brand to command premium fees.',
+        'Clients': 'Retaining and growing existing client relationships is far cheaper than acquiring new ones. Explore our frameworks for client onboarding, expectation management, proactive communication, and strategic client pruning.',
+        'Talent': 'Your agency is only as good as the people you recruit, train, and retain. Read our guidelines on hiring leverage, outsourcing strategies, team accountability, and structuring roles to reduce key-person risk.',
+        'Delivery': 'Operational inefficiency drains your profit margins before you notice it. Implement standard operating procedures that actually get used, optimize project scoping, and manage delivery timelines with rigor.',
+        'Marketing': 'Effective agency marketing isn\'t about vanity metrics; it\'s about building a consistent pipeline of ideal client leads. Learn how to create high-authority content, build an audience, and showcase your agency\'s expertise.'
+      };
+
+      const catObj = categories.find(c => c.name === category) || categories[0];
+      const introText = CATEGORY_INTROS[category] || 'Learn, share, and connect with agency operators on this topic.';
+
+      // Generate 9 articles
+      const categoryArticles = [];
+      for (let i = 0; i < 9; i++) {
+        const origArt = catObj.articles[i % catObj.articles.length];
+        categoryArticles.push({
+          title: i < catObj.articles.length ? origArt.title : `${origArt.title} (Part ${Math.floor(i / 3) + 1})`,
+          author: origArt.author,
+          date: origArt.date
+        });
+      }
+
+      let gridHTML = '';
+      categoryArticles.forEach(art => {
+        gridHTML += `
+          <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('${category.replace(/'/g, "\\\\'")}', '${art.title.replace(/'/g, "\\\\'")}', '${art.author.replace(/'/g, "\\\\'")}', '${art.date.replace(/'/g, "\\\\'")}')">
+            <div class="wf-placeholder-box wf-article-card-image" style="background: ${catObj.gradient}; height: 160px; display: flex; align-items: center; justify-content: center;">
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[${category.toUpperCase()} COVER]</span>
+            </div>
+            <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 180px;">
+              <div>
+                <div class="wf-meta-row" style="margin-bottom: 8px;">
+                  <span class="wf-category-tag" style="background: ${catObj.gradient}; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">${category.toUpperCase()}</span>
+                </div>
+                <h4 class="wf-h3" style="font-size: 15px; margin: 0 0 8px 0; line-height: 1.3; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${art.title}</h4>
+                <span class="wf-body-small" style="color: #666; font-size: 11px;">by ${art.author} · ${art.date}</span>
+              </div>
+              <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+            </div>
+          </div>
+        `;
+      });
+
+      // Relevant tool card
+      let toolCardHTML = '';
+      const catUpper = category.toUpperCase();
+      if (catUpper === 'BUSINESS DEVELOPMENT') {
+        toolCardHTML = `
+          <div style="grid-column: span 12; border: 1px solid #cbd5e1; padding: 40px; background: #f0fdf4; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; margin-top: 48px;">
+            <div>
+              <span class="wf-label" style="color: #166534; margin-bottom: 8px; display: block;">RECOMMENDED FOR THIS TOPIC</span>
+              <h3 class="wf-h2" style="margin: 0 0 8px 0; font-size: 24px;">The Business Development Collection</h3>
+              <p class="wf-body-small" style="color: #475569; margin: 0;">Real, winning proposals and statements of work from Barrel Holdings agencies.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+              <span style="font-size: 24px; font-weight: 800; color: #000;">$599</span>
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('bizdev_collection')">Learn More →</button>
+            </div>
+          </div>
+        `;
+      } else if (catUpper === 'FINANCE') {
+        toolCardHTML = `
+          <div style="grid-column: span 12; border: 1px solid #cbd5e1; padding: 40px; background: #fff; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; margin-top: 48px;">
+            <div>
+              <span class="wf-label" style="color: #475569; margin-bottom: 8px; display: block;">RECOMMENDED FOR THIS TOPIC</span>
+              <h3 class="wf-h2" style="margin: 0 0 8px 0; font-size: 24px;">The Exit-Readiness Checklist</h3>
+              <p class="wf-body-small" style="color: #475569; margin: 0;">See your agency the way a buyer would. Free checklist download.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+              <span style="font-size: 24px; font-weight: 800; color: #10b981;">FREE</span>
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('exit_checklist')">Download →</button>
+            </div>
+          </div>
+        `;
+      } else if (catUpper === 'POSITIONING') {
+        toolCardHTML = `
+          <div style="grid-column: span 12; border: 1px solid #cbd5e1; padding: 40px; background: #fff; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; margin-top: 48px;">
+            <div>
+              <span class="wf-label" style="color: #047857; margin-bottom: 8px; display: block;">RECOMMENDED FOR THIS TOPIC</span>
+              <h3 class="wf-h2" style="margin: 0 0 8px 0; font-size: 24px;">Foundation App</h3>
+              <p class="wf-body-small" style="color: #475569; margin: 0;">Get a free 60-second positioning audit for your agency based on your website URL.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+              <span style="font-size: 24px; font-weight: 800; color: #047857;">FREE</span>
+              <button class="wf-btn wf-btn-primary" onclick="window.open('https://foundation.agencyhabits.com', '_blank')">Get Your Positioning Audit →</button>
+            </div>
+          </div>
+        `;
+      } else {
+        toolCardHTML = `
+          <div style="grid-column: span 12; border: 1px solid #cbd5e1; padding: 40px; background: #f8fafc; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; margin-top: 48px;">
+            <div>
+              <span class="wf-label" style="color: #64748b; margin-bottom: 8px; display: block;">JOIN THE COMMUNITY</span>
+              <h3 class="wf-h2" style="margin: 0 0 8px 0; font-size: 24px;">Join 1,500+ founders running $750K–$3M agencies.</h3>
+              <p class="wf-body-small" style="color: #475569; margin: 0;">Weekly tactical advice and behind-the-scenes insights directly in your inbox.</p>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <button class="wf-btn wf-btn-primary" onclick="navigateTo('newsletter')">Subscribe →</button>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        ${getHeaderHTML('read')}
+        
+        <section class="wf-section-pad grid-container" style="padding-top: 60px; padding-bottom: 40px;">
+          <div style="grid-column: span 12; margin-bottom: 40px;">
+            <a href="#" class="wf-body-small" onclick="navigateTo('read')" style="font-weight: 700; text-decoration: underline; display: inline-block; margin-bottom: 16px;">← Back to all topics</a>
+            <h1 class="wf-h1" style="font-size: 40px; margin-bottom: 12px;">${category}</h1>
+            <p class="wf-body-large" style="max-width: 800px; color: #333;">${introText}</p>
+          </div>
+
+          <!-- Filters Row -->
+          <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; padding-bottom: 16px; margin-bottom: 32px;">
+            <div style="display: flex; gap: 8px; width: 100%; max-width: 480px;">
+              <input type="text" class="wf-input-text" placeholder="Search ${category} articles..." style="height: 38px; flex: 1;" />
+            </div>
+            <div>
+              <select class="wf-input-text" style="width: 150px; height: 38px; padding: 0 10px; appearance: auto;">
+                <option>Newest</option>
+                <option>Oldest</option>
+                <option>Most Popular</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Articles Grid (9 Articles) -->
+          <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;">
+            ${gridHTML}
+          </div>
+
+          <!-- Pagination -->
+          <div style="grid-column: span 12; display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 60px; font-weight: bold;">
+            <span style="cursor: not-allowed; color: #94a3b8;">←</span>
+            <span style="cursor: pointer; border-bottom: 2px solid #000; padding: 2px 8px;">1</span>
+            <span style="cursor: pointer; color: #64748b; padding: 2px 8px;">2</span>
+            <span style="cursor: pointer; color: #64748b; padding: 2px 8px;">3</span>
+            <span style="color: #64748b;">...</span>
+            <span style="cursor: pointer; color: #000;">Next →</span>
+          </div>
+
+          <!-- Contextual Tool -->
+          ${toolCardHTML}
+        </section>
+
+        ${getNewsletterCtaHTML()}
+        ${getFooterHTML()}
+      `;
+    }
   }
 };
-
-// Toggle 12-column grid helper
-function toggleGrid() {
-  STATE.showGrid = !STATE.showGrid;
-  const overlay = document.getElementById('grid-overlay');
-  const btn = document.getElementById('btn-grid');
-  if (STATE.showGrid) {
-    overlay.style.display = 'grid';
-    btn.classList.add('active');
-  } else {
-    overlay.style.display = 'none';
-    btn.classList.remove('active');
-  }
-}
-
-// Toggle annotations helper
-function toggleAnnotations() {
-  STATE.showAnnotations = !STATE.showAnnotations;
-  const btn = document.getElementById('btn-annotations');
-  const badges = document.querySelectorAll('.annotation-badge');
-  if (STATE.showAnnotations) {
-    btn.classList.add('active');
-    badges.forEach(b => b.style.display = 'flex');
-  } else {
-    btn.classList.remove('active');
-    badges.forEach(b => b.style.display = 'none');
-  }
-}
 
 // Render active page
 function renderActivePage() {
@@ -2268,7 +3055,7 @@ function renderActivePage() {
   
   canvas.innerHTML = `
     <!-- Grid overlay container -->
-    <div id="grid-overlay" class="grid-overlay">
+    <div id="grid-overlay" class="grid-overlay" style="display: none;">
       <div class="grid-overlay-col"></div>
       <div class="grid-overlay-col"></div>
       <div class="grid-overlay-col"></div>
@@ -2288,56 +3075,6 @@ function renderActivePage() {
   // Restore device view state
   canvas.className = 'wireframe-canvas view-' + STATE.deviceView;
 
-  // Restore section notes state
-  const sidebar = document.getElementById('annotation-sidebar');
-  if (sidebar) {
-    sidebar.style.display = STATE.showSectionNotes ? 'flex' : 'none';
-  }
-
-  // Restore grid state on render
-  const overlay = document.getElementById('grid-overlay');
-  if (STATE.showGrid) {
-    overlay.style.display = 'grid';
-  } else {
-    overlay.style.display = 'none';
-  }
-
-  // 3. Render Annotations sidebar list
-  const listContainer = document.getElementById('annotation-list');
-  listContainer.innerHTML = '';
-  
-  if (page.annotations && page.annotations.length > 0) {
-    page.annotations.forEach(ann => {
-      // Add text details in the sidebar panel
-      const item = document.createElement('div');
-      item.className = 'annotation-item';
-      item.innerHTML = `
-        <div class="annotation-item-header">
-          <span class="annotation-num">${ann.num}</span>
-          <span class="annotation-title">${ann.title}</span>
-        </div>
-        <div class="annotation-body">${ann.body}</div>
-      `;
-      listContainer.appendChild(item);
-
-      // Add a visual circular badge overlay directly on the wireframe canvas
-      const badge = document.createElement('div');
-      badge.className = 'annotation-badge';
-      badge.innerText = ann.num;
-      badge.style.top = ann.top;
-      badge.style.left = ann.left;
-      badge.style.display = STATE.showAnnotations ? 'flex' : 'none';
-      badge.onclick = () => {
-        // Highlight/scroll to sidebar element
-        item.style.backgroundColor = '#f6f8fa';
-        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => item.style.backgroundColor = 'transparent', 1500);
-      };
-      canvas.appendChild(badge);
-    });
-  } else {
-    listContainer.innerHTML = '<p class="wf-body-small" style="color:#888; font-style:italic;">No annotations for this page.</p>';
-  }
 
   // Update navigation items state in sidebar menu
   document.querySelectorAll('.menu-item').forEach(el => {
@@ -2349,7 +3086,7 @@ function renderActivePage() {
   });
 
   // Dynamic initializers for interactive widgets on specific pages
-  if (STATE.activePageId === 'podcast') {
+  if (STATE.activePageId === 'listen') {
     updatePodcastArchiveDisplay();
   } else if (STATE.activePageId === 'contact') {
     filterContactFAQ('general');
@@ -2544,26 +3281,32 @@ function updatePodcastArchiveDisplay() {
   }
 }
 
-// Toggle right annotation sidebar pane
-function toggleSectionNotes() {
-  STATE.showSectionNotes = !STATE.showSectionNotes;
-  const sidebar = document.getElementById('annotation-sidebar');
-  const btn = document.getElementById('btn-section-notes');
-  if (sidebar && btn) {
-    if (STATE.showSectionNotes) {
-      sidebar.style.display = 'flex';
-      btn.classList.add('active');
-      btn.innerHTML = '<span class="wf-icon-placeholder" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Hide Section Notes';
+// Interactive helper for Gather page filtering
+function filterGatherEvents() {
+  const typeSelect = document.getElementById('gather-filter-type');
+  const citySelect = document.getElementById('gather-filter-city');
+  if (!typeSelect || !citySelect) return;
+
+  const selectedType = typeSelect.value;
+  const selectedCity = citySelect.value;
+
+  const cards = document.querySelectorAll('.gather-event-card');
+  cards.forEach(card => {
+    const cardType = card.getAttribute('data-type');
+    const cardCity = card.getAttribute('data-city');
+
+    const typeMatch = (selectedType === 'all' || cardType === selectedType);
+    const cityMatch = (selectedCity === 'all' || cardCity === selectedCity);
+
+    if (typeMatch && cityMatch) {
+      card.style.display = 'flex';
     } else {
-      sidebar.style.display = 'none';
-      btn.classList.remove('active');
-      btn.innerHTML = '<span class="wf-icon-placeholder" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Show Section Notes';
+      card.style.display = 'none';
     }
-  }
-  
-  // Recalculate scaling immediately since viewport width changed
-  updateCanvasScale();
+  });
 }
+
+
 
 // Switch between Desktop, Tablet, and Mobile canvas view dimensions
 function setDeviceView(device) {
@@ -2596,6 +3339,11 @@ function navigateTo(pageId) {
     STATE.activePageId = pageId;
     renderActivePage();
   }
+}
+
+function navigateToArticle(category, title, author, date) {
+  STATE.currentArticle = { category, title, author, date };
+  navigateTo('article_template');
 }
 
 // Recalculate canvas zoom scale dynamically to fit container width (Framer-like behavior)

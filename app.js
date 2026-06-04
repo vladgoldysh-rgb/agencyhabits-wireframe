@@ -1983,14 +1983,6 @@ const PAGES = {
       ${getFooterHTML()}
     `
   },
-
-        </div>
-      </section>
-
-      ${getNewsletterCtaHTML()}
-      ${getFooterHTML()}
-    `
-  },
   newsletter: {
     title: 'NEWSLETTER PAGE',
     annotations: [
@@ -2563,48 +2555,6 @@ function renderActivePage() {
   // Restore device view state
   canvas.className = 'wireframe-canvas view-' + STATE.deviceView;
 
-  // Restore section notes state (always visible)
-  const sidebar = document.getElementById('annotation-sidebar');
-  if (sidebar) {
-    sidebar.style.display = 'flex';
-  }
-
-  // 3. Render Annotations sidebar list
-  const listContainer = document.getElementById('annotation-list');
-  listContainer.innerHTML = '';
-  
-  if (page.annotations && page.annotations.length > 0) {
-    page.annotations.forEach(ann => {
-      // Add text details in the sidebar panel
-      const item = document.createElement('div');
-      item.className = 'annotation-item';
-      item.innerHTML = `
-        <div class="annotation-item-header">
-          <span class="annotation-num">${ann.num}</span>
-          <span class="annotation-title">${ann.title}</span>
-        </div>
-        <div class="annotation-body">${ann.body}</div>
-      `;
-      listContainer.appendChild(item);
-
-      // Add a visual circular badge overlay directly on the wireframe canvas
-      const badge = document.createElement('div');
-      badge.className = 'annotation-badge';
-      badge.innerText = ann.num;
-      badge.style.top = ann.top;
-      badge.style.left = ann.left;
-      badge.style.display = STATE.showAnnotations ? 'flex' : 'none';
-      badge.onclick = () => {
-        // Highlight/scroll to sidebar element
-        item.style.backgroundColor = '#f6f8fa';
-        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => item.style.backgroundColor = 'transparent', 1500);
-      };
-      canvas.appendChild(badge);
-    });
-  } else {
-    listContainer.innerHTML = '<p class="wf-body-small" style="color:#888; font-style:italic;">No annotations for this page.</p>';
-  }
 
   // Update navigation items state in sidebar menu
   document.querySelectorAll('.menu-item').forEach(el => {

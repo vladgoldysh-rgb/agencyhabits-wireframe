@@ -175,9 +175,8 @@ def main():
         "   wrapper.style.width = (targetWidth * scaleFactor) + 'px'\n"
         "   wrapper.style.height = (canvasHeight * scaleFactor) + 'px'\n\n"
         "Workspace UI Layout:\n"
-        "- Sidebar Navigation: Left-docked list of 17 wireframe pages. Toggles page state and annotations.\n"
-        "- Section Notes: Right-docked annotation index. Displays contextual notes explaining wireframe logic.\n"
-        "- Control Header: Center canvas controls. Toggles annotations, device views, and overlays."
+        "- Sidebar Navigation: Left-docked list of 17 wireframe pages. Toggles active page state.\n"
+        "- Control Header: Center canvas controls. Toggles device views (Desktop, Tablet, Phone)."
     )
     pdf.multi_cell(0, 6, sanitize_text(scaling_text))
     

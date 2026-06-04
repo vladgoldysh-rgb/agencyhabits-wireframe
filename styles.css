@@ -1162,6 +1162,30 @@ body {
   margin: 0;
 }
 
+/* Responsive adjustments for wireframe page layouts */
+.view-tablet .wf-topics-grid,
+.view-phone .wf-topics-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px !important;
+}
+
+.view-tablet .wf-topics-grid > div,
+.view-phone .wf-topics-grid > div {
+  grid-column: span 1 !important;
+  height: 140px !important;
+  padding: 20px !important;
+}
+
+.view-phone .wf-portfolio-strip-logos {
+  justify-content: center !important;
+  gap: 16px 24px !important;
+}
+
+.view-tablet .wf-article-sidebar,
+.view-phone .wf-article-sidebar {
+  display: none !important;
+}
+
 /* Query targets window size below 768px (real mobile screen width) */
 @media (max-width: 767px) {
   .mobile-block-overlay {

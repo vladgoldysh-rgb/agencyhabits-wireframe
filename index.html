@@ -12,62 +12,65 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <h1>AgencyHabits Redesign</h1>
-      <p>B2B Platform Wireframe Spec v1.0</p>
+      <p>B2B Platform Wireframe Spec v2.0</p>
     </div>
     
     <nav class="sidebar-menu">
       <div class="menu-section-title">Core Pages</div>
       <div class="menu-item active" data-page-id="home" onclick="navigateTo('home')">
-        <span class="menu-item-num">01</span> Home Page
+        <span class="menu-item-num">01</span> Home
       </div>
-      <div class="menu-item" data-page-id="articles" onclick="navigateTo('articles')">
-        <span class="menu-item-num">02</span> Articles Listing
+      <div class="menu-item" data-page-id="read" onclick="navigateTo('read')">
+        <span class="menu-item-num">02</span> Read (Articles Hub)
       </div>
       <div class="menu-item" data-page-id="article_template" onclick="navigateTo('article_template')">
-        <span class="menu-item-num">03</span> Article Detail
+        <span class="menu-item-num">03</span> Article Detail Template
       </div>
-      <div class="menu-item" data-page-id="books" onclick="navigateTo('books')">
-        <span class="menu-item-num">04</span> Books Recommendations
+      <div class="menu-item" data-page-id="listen" onclick="navigateTo('listen')">
+        <span class="menu-item-num">04</span> Listen (Podcast Hub)
+      </div>
+      <div class="menu-item" data-page-id="episode_template" onclick="navigateTo('episode_template')">
+        <span class="menu-item-num">05</span> Episode Detail Template
+      </div>
+      <div class="menu-item" data-page-id="gather" onclick="navigateTo('gather')">
+        <span class="menu-item-num">06</span> Gather (Events Hub)
       </div>
       <div class="menu-item" data-page-id="tools" onclick="navigateTo('tools')">
-        <span class="menu-item-num">05</span> Tools & Downloads
-      </div>
-      <div class="menu-item" data-page-id="about" onclick="navigateTo('about')">
-        <span class="menu-item-num">06</span> About Us
-      </div>
-      <div class="menu-item" data-page-id="podcast" onclick="navigateTo('podcast')">
-        <span class="menu-item-num">07</span> Podcast Page
-      </div>
-      <div class="menu-item" data-page-id="contact" onclick="navigateTo('contact')">
-        <span class="menu-item-num">08</span> Contact Us
-      </div>
-      <div class="menu-item" data-page-id="thelist" onclick="navigateTo('thelist')">
-        <span class="menu-item-num">09</span> The List Page
+        <span class="menu-item-num">07</span> Tools
       </div>
       <div class="menu-item" data-page-id="newsletter" onclick="navigateTo('newsletter')">
-        <span class="menu-item-num">10</span> Newsletter Page
+        <span class="menu-item-num">08</span> Newsletter
+      </div>
+      <div class="menu-item" data-page-id="about" onclick="navigateTo('about')">
+        <span class="menu-item-num">09</span> About
+      </div>
+      <div class="menu-item" data-page-id="start_here" onclick="navigateTo('start_here')">
+        <span class="menu-item-num">10</span> Start Here
       </div>
 
-      <div class="menu-section-title">Asset Sub-Pages</div>
-      <div class="menu-item" data-page-id="bizdev_collection" onclick="navigateTo('bizdev_collection')">
-        <span class="menu-item-num">11</span> Biz Dev Collection
-      </div>
-      <div class="menu-item" data-page-id="exit_checklist" onclick="navigateTo('exit_checklist')">
-        <span class="menu-item-num">12</span> Exit-Readiness Checklist
-      </div>
-      <div class="menu-item" data-page-id="goal_template" onclick="navigateTo('goal_template')">
-        <span class="menu-item-num">13</span> Goal Setting Template
-      </div>
-
-      <div class="menu-section-title">Ecosystem & App</div>
+      <div class="menu-section-title">Tool Sub-Pages</div>
       <div class="menu-item" data-page-id="foundation" onclick="navigateTo('foundation')">
-        <span class="menu-item-num">14</span> Foundation App
+        <span class="menu-item-num">11</span> Foundation App
       </div>
       <div class="menu-item" data-page-id="kb" onclick="navigateTo('kb')">
-        <span class="menu-item-num">15</span> Knowledge Base
+        <span class="menu-item-num">12</span> Knowledge Base
       </div>
-      <div class="menu-item" data-page-id="events" onclick="navigateTo('events')">
-        <span class="menu-item-num">16</span> Events Page
+      <div class="menu-item" data-page-id="bizdev_collection" onclick="navigateTo('bizdev_collection')">
+        <span class="menu-item-num">13</span> BD Collection
+      </div>
+      <div class="menu-item" data-page-id="exit_checklist" onclick="navigateTo('exit_checklist')">
+        <span class="menu-item-num">14</span> Exit-Readiness Checklist
+      </div>
+      <div class="menu-item" data-page-id="goal_template" onclick="navigateTo('goal_template')">
+        <span class="menu-item-num">15</span> Goal Setting Template
+      </div>
+
+      <div class="menu-section-title">Demoted Pages</div>
+      <div class="menu-item" data-page-id="books" onclick="navigateTo('books')">
+        <span class="menu-item-num">16</span> Books (footer only)
+      </div>
+      <div class="menu-item" data-page-id="contact" onclick="navigateTo('contact')">
+        <span class="menu-item-num">17</span> Contact
       </div>
     </nav>
   </aside>
@@ -78,19 +81,6 @@
     <div class="control-bar">
       <div class="page-title-display" id="page-title-display">HOME PAGE</div>
       <div class="view-controls">
-        <!-- Canvas view controls -->
-        <button class="btn-control" id="btn-grid" onclick="toggleGrid()">
-          <span class="wf-icon-placeholder" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Show 12-Col Grid
-        </button>
-        <button class="btn-control active" id="btn-annotations" onclick="toggleAnnotations()">
-          <span class="wf-icon-placeholder wf-icon-circle" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Show Annotations
-        </button>
-        <button class="btn-control active" id="btn-section-notes" onclick="toggleSectionNotes()">
-          <span class="wf-icon-placeholder" style="width: 12px; height: 12px; border-color: #666; margin-right: 4px;"></span> Hide Section Notes
-        </button>
-        
-        <span style="border-left: 1px solid #d0d7de; margin: 0 4px; height: 20px; align-self: center;"></span>
-
         <!-- Device viewport switcher -->
         <button class="btn-control active" id="btn-device-desktop" onclick="setDeviceView('desktop')">
           Desktop (1440px)

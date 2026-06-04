@@ -331,30 +331,28 @@ Sei-Wook co-founded Barrel alongside Peter and has spent nearly two decades buil
 
 ---
 
-## PODCAST PAGE
+## LISTEN (PODCAST HUB) PAGE
 
-**H1:** The AgencyHabits Podcast
-**Subtext:** Real lessons from inside agency businesses. No fluff, no vanity metrics.
+**H1:** Real conversations from operators currently running the same play.
+**Subtext:** The AgencyHabits Podcast details the operating mechanics behind growing agencies.
 
-**Featured episode (latest):**
-EP.05 — How We'd Generate Leads If We Started Our Agency Today
-Duration: 45 min
-Description: In this episode, Peter and Sei-Wook share the exact lead generation tactics they'd prioritize if they were starting fresh — from LinkedIn outreach to referral systems to building an audience.
-Listen on: Spotify | Apple Podcasts | YouTube
+**Hosts:**
+- Peter Kang: Co-founder, Barrel Holdings
+- Sei-Wook Kim: Co-founder, Barrel Holdings
+- Ivona Namjesnik: General Manager, AgencyHabits
 
-**All 5 episodes:**
-EP.01 — The Barrel Holdings Origin Story: Building a Portfolio of Agencies | 22 min
-EP.02 — Our Approach to Agency Acquisitions: Valuation Drivers and Deal Breakers | 35 min
-EP.03 — Are You Calculating Your Agency's Profits Correctly? | 42 min
-EP.04 — How Specialization Impacts Your Agency's Growth, Margins, and Valuation | 38 min
-EP.05 — How We'd Generate Leads If We Started Our Agency Today | 45 min
+**Featured Episode:**
+- EP.07 — 10 Essential Habits for Running a Successful Agency (44 min)
+- Takeaway 1: After-action reviews compound faster than you think.
+- Takeaway 2: Weekly BD meetings only work if they're structured.
+- Takeaway 3: The "mind the bottom" habit is the hardest and most important.
+- Links: Outbound links to Spotify and YouTube (no embedded player).
 
-**Most Listened:** EP.02, EP.04
+**YouTube Shorts Row:**
+- Horizontal scroll of quick-take vertical videos.
 
-**Subscribe CTA:**
-"Listen to real lessons from inside agency businesses."
-Listen on: Spotify | Apple Podcasts | YouTube
-"Get new episodes delivered to your inbox" — email input + Subscribe
+**Subscribe Row:**
+- Platform buttons (Spotify, Apple Podcasts, YouTube) + Email newsletter signup.
 
 ---
 
@@ -393,43 +391,25 @@ Listen on: Spotify | Apple Podcasts | YouTube
 
 ---
 
-## THE LIST PAGE
+## START HERE PAGE
 
-**H1:** The List
-**Intro:** The thing about habits is that doing them just once doesn't really amount to much. The key is to work these into your business so that they are easily repeatable and recurring. Over time, these activities will compound and create value for your agency.
-Below are ten habits to get you started.
+**H1:** New here? Start with these.
+**Subtext:** If you run a $750K–$3M agency and you're tired of figuring it out alone — here's where to begin.
 
-**10 Habits:**
+**Curated Reads (in this order):**
+1. "Is Your Agency a Ponzi Scheme?" — Finance
+2. "Scaling Your Agency Beyond $2M" — Business Development
+3. "How to Scale Agency BD Beyond the Founder" — Business Development
 
-1. After-Action Reviews
-After a project or once a quarter for retainers, get together with those involved and find out: what went well, what's not going well, and what can we do to improve? Document these & disseminate learnings to the entire team. Let these drive continuous improvement initiatives within the agency, leading to new SOPs and better collaboration.
+**Featured Entry Episode:**
+- EP.07 — "10 Essential Habits for Running a Successful Agency" (44 min)
+- Best entry point for new listeners to understand the AgencyHabits operating model.
 
-2. Weekly Business Development Meeting
-Get together once a week with relevant team members to check in on all the opportunities (new biz & existing clients). Align on the status and next steps for each opportunity. Check in on progress towards goals and reflect on wins/losses to takeaway learnings.
+**Strategic Audit Tool:**
+- Foundation App CTA: Get a free 60-second positioning audit to scan website copy, ICP, and service tiers.
 
-3. Monthly Team Meeting
-Hold a monthly gathering with the entire agency to share any important news and, more importantly, to celebrate wins, launches, and commendable performance. Prepare visuals, highlight individuals, and involve different presenters if possible. Done right, it helps build sense of momentum and shared purpose.
-
-4. Weekly Outreach Emails
-Regardless of your other marketing efforts, take a few minutes each week to send a pre-determined number of outreach emails. Make it a point to hit your outreach number (2, 5, 10 per week) consistently, and never miss a week. The efforts will compound and lead to all kinds of opportunities.
-
-5. Monthly Newsletter Email
-Build a mailing list of clients, friends, advisors, and other advocates/referrers. Send them a monthly email keeping them in the loop about clients you're helping, cool projects you've launched, or insightful thought leadership you've published.
-
-6. Weekly Client Account Check-In
-This could be a conference with all the account managers or a one-on-one check-in with people who manage clients at your agency — the important thing is to run through the active client roster and get a handle on how engagements are going.
-
-7. Quarterly Business Review
-For some, having a quarterly get-together with the client can help set the right tone for the next quarter. Best to prepare reviews of work done the previous quarter (along with impact it's had), questions to get the client talking about their plans for the quarter, and activities to align on priorities and roadmap for upcoming months.
-
-8. Mind the Bottom
-This habit is all about identifying and cutting underperformers in the business. Act quickly to put these employees on a PIP and/or take steps to transition them out of the business.
-
-9. Client Feedback Surveys
-Whether it's after a project or on a monthly/quarterly basis, establish an ongoing practice to send clients a survey to get their take on your agency's level of service, quality of work, impact, value, responsiveness, etc.
-
-10. Annual/Quarterly Goals & Priorities
-Make time each quarter (and a bit more before the new year) to set goals (e.g. revenue, profit, new biz bookings, etc.) and priorities for the upcoming period.
+**Newsletter Opt-In:**
+- Simple weekly email signup CTA at the bottom.
 
 ---
 
@@ -523,26 +503,35 @@ CTA: Get Your Free Positioning Audit →
 
 ---
 
-## EVENTS PAGE
+## GATHER (EVENTS HUB) PAGE
 
 **H1:** Monthly Knowledge Share
 **Subtext:** A monthly gathering for agency operators to learn, share, and connect.
-**Annotation for wireframe:** [Format TBD — confirm with client: live webinar / workshop / in-person]
-**CTA:** Register for Next Event → (kit.com form)
 
-**Upcoming Sessions:**
-[Placeholder — real dates and titles to be provided by client]
-- June 2026 — Agency Positioning Deep Dive | Online Webinar | 60 min | Register →
-- July 2026 — [Title TBD] | Format TBD | Register →
+**Benefits Row:**
+- Learn from Peers currently running the same play.
+- Actionable SOPs and frameworks you can use the next week.
+- Connect with Founders at the same stage ($750K-$3M).
+- 100% Free online and in-person sessions.
 
-**Past Sessions:**
-[Archive content to be provided by client]
-- May 2026 — Revenue Generation Habits | Recording available
-- April 2026 — How to Think About Agency Pricing | Recording available
+**Flagship Knowledge Share Section:**
+- Next Session: June 2026 — Agency Positioning Deep Dive (Zoom registration card, 39 registered, RSVP links to lu.ma/agencyhabits).
+- Last Session Recap: Knowledge Share #4 — Revenue Generation Habits (YouTube recap link: https://youtu.be/kVuxABUqZrY).
 
-**Registration Form:**
-Name | Email | "Save My Spot" button
-Note: Integrated with kit.com for registration
+**Luma Calendar Embed:**
+- Embed placeholder showing both online Knowledge Shares and local operator meet-ups.
+
+**Past Events Grid (Filterable by Type and City):**
+- Knowledge Share #4 — Revenue Generation (May 2026) -> https://youtu.be/kVuxABUqZrY
+- Knowledge Share #3 — Service Tiers & Margin (April 2026) -> https://youtu.be/m47PcqH1VXM
+- Knowledge Share #2 — Scaling BD (March 2026) -> https://youtu.be/-Os03l5DLYE
+- Knowledge Share #1 — Defining ICP (February 2026) -> https://youtu.be/VEahl_2yKiw
+- New York Meet-up (2026, Photo placeholder)
+- London Meet-up (2025, Photo placeholder, 29 attendees)
+
+**City Meet-up Request Form:**
+- Fields: Name, Email, City
+- CTA: "Let us know →"
 
 ---
 

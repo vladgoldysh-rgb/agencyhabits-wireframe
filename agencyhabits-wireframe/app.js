@@ -248,48 +248,46 @@ const PAGES = {
       <!-- Section 4: Start Here Series -->
       <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); background: #ffffff; align-items: start;">
         <!-- Left Column (Sticky info) -->
-        <div style="grid-column: span 4; position: sticky; top: 100px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="grid-column: span 4; position: sticky; top: 120px; display: flex; flex-direction: column; gap: 16px;">
           <span class="wf-label" style="letter-spacing: 2px;">START HERE</span>
           <h2 class="wf-h2" style="font-size: 28px; line-height: 1.2; margin: 0;">New to AgencyHabits? Start with these.</h2>
-          <p class="wf-body-small" style="color: #666; margin: 0;">A sequenced path for first-time readers. Series order confirmed by client. Read Next links between articles in series.</p>
+          <p class="wf-body-small" style="color: #666; margin: 0;">A sequenced path for first-time readers.</p>
+          <!-- [Series order confirmed by client. Read Next links between articles in series.] -->
         </div>
 
-        <!-- Right Column (Vertical numbered list with dividers) -->
+        <!-- Right Column (Vertical list of cards with sticky stacking effect) -->
         <div style="grid-column: span 8; display: flex; flex-direction: column; gap: 0;">
           <!-- Item 1 -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('Finance', 'Is Your Agency a Ponzi Scheme?', 'AgencyHabits', 'Dec 2025')">
-            <div style="display: flex; align-items: center; gap: 24px;">
-              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">01</span>
-              <div>
-                <span class="wf-category-tag" style="background: #eab308; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">FINANCE</span>
-                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">Is Your Agency a Ponzi Scheme?</h3>
-              </div>
+          <div style="position: sticky; top: 120px; background: #ffffff; border: 1px solid #cbd5e1; padding: 32px; margin-bottom: 24px; display: flex; gap: 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.06); border-radius: 4px; z-index: 1; cursor: pointer;" onclick="navigateToArticle('Finance', 'Is Your Agency a Ponzi Scheme?', 'AgencyHabits', 'Dec 2025')">
+            <span style="font-size: 36px; font-weight: 800; color: #cbd5e1; line-height: 1; width: 40px; flex-shrink: 0;">01</span>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span class="wf-category-tag" style="background: #eab308; color: #fff; border: none; font-size: 9px; padding: 2px 6px; align-self: flex-start;">FINANCE</span>
+              <h3 class="wf-h3" style="font-size: 18px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">Is Your Agency a Ponzi Scheme?</h3>
+              <p class="wf-body-small" style="color: #555; margin: 4px 0 12px 0;">The uncomfortable question every founder should ask about their revenue model.</p>
+              <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
             </div>
-            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
           </div>
 
           <!-- Item 2 -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('Business Development', 'Scaling Your Agency Beyond $2M', 'AgencyHabits', 'May 2026')">
-            <div style="display: flex; align-items: center; gap: 24px;">
-              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">02</span>
-              <div>
-                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">BUSINESS DEVELOPMENT</span>
-                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">Scaling Your Agency Beyond $2M</h3>
-              </div>
+          <div style="position: sticky; top: 150px; background: #ffffff; border: 1px solid #cbd5e1; padding: 32px; margin-bottom: 24px; display: flex; gap: 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.06); border-radius: 4px; z-index: 2; cursor: pointer;" onclick="navigateToArticle('Business Development', 'Scaling Your Agency Beyond $2M', 'AgencyHabits', 'May 2026')">
+            <span style="font-size: 36px; font-weight: 800; color: #cbd5e1; line-height: 1; width: 40px; flex-shrink: 0;">02</span>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; font-size: 9px; padding: 2px 6px; align-self: flex-start;">BUSINESS DEVELOPMENT</span>
+              <h3 class="wf-h3" style="font-size: 18px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">Scaling Your Agency Beyond $2M</h3>
+              <p class="wf-body-small" style="color: #555; margin: 4px 0 12px 0;">The systems, hires, and mindset shifts that separate agencies that plateau from those that don't.</p>
+              <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
             </div>
-            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
           </div>
 
           <!-- Item 3 -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('Business Development', 'How to Scale Agency BD Beyond the Founder', 'Peter Kang', 'Apr 28, 2026')">
-            <div style="display: flex; align-items: center; gap: 24px;">
-              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">03</span>
-              <div>
-                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">BUSINESS DEVELOPMENT</span>
-                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">How to Scale Agency BD Beyond the Founder</h3>
-              </div>
+          <div style="position: sticky; top: 180px; background: #ffffff; border: 1px solid #cbd5e1; padding: 32px; margin-bottom: 24px; display: flex; gap: 24px; box-shadow: 0 -4px 20px rgba(0,0,0,0.06); border-radius: 4px; z-index: 3; cursor: pointer;" onclick="navigateToArticle('Business Development', 'How to Scale Agency BD Beyond the Founder', 'Peter Kang', 'Apr 28, 2026')">
+            <span style="font-size: 36px; font-weight: 800; color: #cbd5e1; line-height: 1; width: 40px; flex-shrink: 0;">03</span>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; font-size: 9px; padding: 2px 6px; align-self: flex-start;">BUSINESS DEVELOPMENT</span>
+              <h3 class="wf-h3" style="font-size: 18px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">How to Scale Agency BD Beyond the Founder</h3>
+              <p class="wf-body-small" style="color: #555; margin: 4px 0 12px 0;">Most agencies plateau at the founder's capacity for sales. Here's the system we use.</p>
+              <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
             </div>
-            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
           </div>
         </div>
       </section>
@@ -3304,7 +3302,7 @@ const PAGES = {
               <p class="wf-body-small" style="color: #475569; margin: 0;">Real, winning proposals and statements of work from Barrel Holdings agencies.</p>
             </div>
             <div style="text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
-              <span style="font-size: 24px; font-weight: 800; color: #000;">$599</span>
+              <span class="wf-badge-premium">PREMIUM</span>
               <button class="wf-btn wf-btn-primary" onclick="navigateTo('bizdev_collection')">Learn More →</button>
             </div>
           </div>
@@ -3403,23 +3401,32 @@ const PAGES = {
         </div>
       `;
 
-      // Tab 2: Read in Order vertical list
+      // Tab 2: Read in Order vertical list (with full cards)
       let readInOrderTabHTML = `
-        <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 0; margin-bottom: 40px;">
+        <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-bottom: 40px;">
       `;
       
       catObj.articles.forEach((art, idx) => {
         const stepNum = String(idx + 1).padStart(2, '0');
         readInOrderTabHTML += `
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('${category.replace(/'/g, "\\\\'")}', '${art.title.replace(/'/g, "\\\\'")}', '${art.author.replace(/'/g, "\\\\'")}', '${art.date.replace(/'/g, "\\\\'")}')">
-            <div style="display: flex; align-items: center; gap: 24px;">
-              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">${stepNum}</span>
+          <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('${category.replace(/'/g, "\\\\'")}', '${art.title.replace(/'/g, "\\\\'")}', '${art.author.replace(/'/g, "\\\\'")}', '${art.date.replace(/'/g, "\\\\'")}')">
+            <div class="wf-placeholder-box wf-article-card-image" style="background: ${catObj.gradient}; height: 160px; display: flex; align-items: center; justify-content: center; position: relative;">
+              <span style="position: absolute; top: 12px; left: 12px; background: #000; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">${stepNum}</span>
+              <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[${category.toUpperCase()} COVER]</span>
+            </div>
+            <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; height: 180px;">
               <div>
-                <span class="wf-category-tag" style="background: ${catObj.gradient}; color: #fff; border: none; font-size: 9px; padding: 2px 6px; text-transform: uppercase;">${category.toUpperCase()}</span>
-                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">${art.title}</h3>
+                <div class="wf-meta-row" style="margin-bottom: 8px;">
+                  <span class="wf-category-tag" style="background: ${catObj.gradient}; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">${category.toUpperCase()}</span>
+                </div>
+                <h4 class="wf-h3" style="font-size: 15px; margin: 0 0 8px 0; line-height: 1.3; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${art.title}</h4>
+                <span class="wf-body-small" style="color: #666; font-size: 11px;">by ${art.author} · ${art.date}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                <span style="font-weight: 700; font-size: 12px; text-decoration: underline; display: inline-block;">Read →</span>
+                <span style="font-size: 11px; font-weight: 800; color: #cbd5e1; text-transform: uppercase;">Next →</span>
               </div>
             </div>
-            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Next →</span>
           </div>
         `;
       });

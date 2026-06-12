@@ -246,64 +246,50 @@ const PAGES = {
       </section>
 
       <!-- Section 4: Start Here Series -->
-      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); background: #ffffff;">
-        <div style="grid-column: span 12; margin-bottom: 40px; text-align: center;">
+      <section class="wf-section-pad grid-container" style="border-top: 1px solid var(--wf-border-muted); background: #ffffff; align-items: start;">
+        <!-- Left Column (Sticky info) -->
+        <div style="grid-column: span 4; position: sticky; top: 100px; display: flex; flex-direction: column; gap: 16px;">
           <span class="wf-label" style="letter-spacing: 2px;">START HERE</span>
-          <h2 class="wf-h2">New to AgencyHabits? Start with these.</h2>
-          <p class="wf-body-small" style="color: #666; margin-top: 8px;">[Series order confirmed by client. Read Next links between articles in series.]</p>
+          <h2 class="wf-h2" style="font-size: 28px; line-height: 1.2; margin: 0;">New to AgencyHabits? Start with these.</h2>
+          <p class="wf-body-small" style="color: #666; margin: 0;">A sequenced path for first-time readers. Series order confirmed by client. Read Next links between articles in series.</p>
         </div>
 
-        <!-- Card 1 -->
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('Finance', 'Is Your Agency a Ponzi Scheme?', 'AgencyHabits', 'Dec 2025')">
-          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); height: 160px; display: flex; align-items: center; justify-content: center; position: relative;">
-            <span style="position: absolute; top: 12px; left: 12px; background: #000; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">1</span>
-            <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[FINANCE COVER]</span>
-          </div>
-          <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
-            <div>
-              <div class="wf-meta-row" style="margin-bottom: 8px;">
-                <span class="wf-category-tag" style="background: #eab308; color: #fff; border: none; padding: 2px 8px; font-size: 9px;">FINANCE</span>
+        <!-- Right Column (Vertical numbered list with dividers) -->
+        <div style="grid-column: span 8; display: flex; flex-direction: column; gap: 0;">
+          <!-- Item 1 -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('Finance', 'Is Your Agency a Ponzi Scheme?', 'AgencyHabits', 'Dec 2025')">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">01</span>
+              <div>
+                <span class="wf-category-tag" style="background: #eab308; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">FINANCE</span>
+                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">Is Your Agency a Ponzi Scheme?</h3>
               </div>
-              <h3 class="wf-h3" style="font-size: 16px; margin: 0 0 8px 0; line-height: 1.3;">Is Your Agency a Ponzi Scheme?</h3>
-              <p class="wf-body-small" style="color: #555; font-size: 12px; margin-bottom: 16px;">The uncomfortable question every founder should ask about their revenue model.</p>
             </div>
-            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
           </div>
-        </div>
 
-        <!-- Card 2 -->
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('Business Development', 'Scaling Your Agency Beyond $2M', 'AgencyHabits', 'May 2026')">
-          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); height: 160px; display: flex; align-items: center; justify-content: center; position: relative;">
-            <span style="position: absolute; top: 12px; left: 12px; background: #000; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">2</span>
-            <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[BUSINESS DEVELOPMENT COVER]</span>
-          </div>
-          <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
-            <div>
-              <div class="wf-meta-row" style="margin-bottom: 8px;">
-                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; padding: 2px 8px; font-size: 9px;">BUSINESS DEVELOPMENT</span>
+          <!-- Item 2 -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('Business Development', 'Scaling Your Agency Beyond $2M', 'AgencyHabits', 'May 2026')">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">02</span>
+              <div>
+                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">BUSINESS DEVELOPMENT</span>
+                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">Scaling Your Agency Beyond $2M</h3>
               </div>
-              <h3 class="wf-h3" style="font-size: 16px; margin: 0 0 8px 0; line-height: 1.3;">Scaling Your Agency Beyond $2M</h3>
-              <p class="wf-body-small" style="color: #555; font-size: 12px; margin-bottom: 16px;">The systems, hires, and mindset shifts that separate agencies that plateau from those that don't.</p>
             </div>
-            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
           </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div style="grid-column: span 4;" class="wf-article-card" onclick="navigateToArticle('Business Development', 'How to Scale Agency BD Beyond the Founder', 'Peter Kang', 'Apr 28, 2026')">
-          <div class="wf-placeholder-box wf-article-card-image" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); height: 160px; display: flex; align-items: center; justify-content: center; position: relative;">
-            <span style="position: absolute; top: 12px; left: 12px; background: #000; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px;">3</span>
-            <span class="wf-placeholder-label" style="color: #fff; font-weight: bold; font-size: 12px;">[BUSINESS DEVELOPMENT COVER]</span>
-          </div>
-          <div class="wf-article-card-content" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
-            <div>
-              <div class="wf-meta-row" style="margin-bottom: 8px;">
-                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; padding: 2px 8px; font-size: 9px;">BUSINESS DEVELOPMENT</span>
+          <!-- Item 3 -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('Business Development', 'How to Scale Agency BD Beyond the Founder', 'Peter Kang', 'Apr 28, 2026')">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">03</span>
+              <div>
+                <span class="wf-category-tag" style="background: #3b82f6; color: #fff; border: none; font-size: 9px; padding: 2px 6px;">BUSINESS DEVELOPMENT</span>
+                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">How to Scale Agency BD Beyond the Founder</h3>
               </div>
-              <h3 class="wf-h3" style="font-size: 16px; margin: 0 0 8px 0; line-height: 1.3;">How to Scale Agency BD Beyond the Founder</h3>
-              <p class="wf-body-small" style="color: #555; font-size: 12px; margin-bottom: 16px;">Most agencies plateau at the founder's capacity for sales. Here's the system we use.</p>
             </div>
-            <span style="font-weight: 700; font-size: 12px; text-decoration: underline; margin-top: auto; display: inline-block;">Read →</span>
+            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Read →</span>
           </div>
         </div>
       </section>
@@ -844,9 +830,9 @@ const PAGES = {
           <div class="wf-share-strip" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #e2e8f0;">
             <span style="font-size: 14px; font-weight: 700;">Send this to a founder friend:</span>
             <div style="display: flex; gap: 8px;">
-              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
               <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">LinkedIn</button>
-              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">Twitter</button>
+              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">Twitter/X</button>
+              <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
             </div>
           </div>
 
@@ -1811,26 +1797,38 @@ const PAGES = {
           <span class="wf-label" style="letter-spacing: 2px;">SPONSORSHIP OPPORTUNITIES</span>
           <h1 class="wf-h1" style="font-size: 48px; line-height: 1.15; margin: 0;">Partner with AgencyHabits</h1>
           <p class="wf-body-large" style="max-width: 620px; color: #333;">Promote your product, service, or tool to 1,500+ highly engaged agency founders, general managers, and operators running $750K–$3M businesses.</p>
-          <div style="display: flex; gap: 16px; margin-top: 12px;">
-            <a href="#sponsor-form-section" class="wf-btn wf-btn-primary" style="height: 48px; padding: 0 24px; display: inline-flex; align-items: center; text-decoration: none;">Inquire About Partnerships →</a>
-            <button class="wf-btn wf-btn-secondary" style="height: 48px; padding: 0 24px;" onclick="alert('Downloading Media Kit PDF...')">Download Sponsor Kit (PDF) →</button>
+          
+          <!-- Sponsor Kit Email Capture -->
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px; align-items: center; width: 100%;">
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; width: 100%;">
+              <a href="#sponsor-form-section" class="wf-btn wf-btn-primary" style="height: 48px; padding: 0 24px; display: inline-flex; align-items: center; text-decoration: none;">Inquire About Partnerships →</a>
+              <div style="display: flex; border: 1px solid #000; padding: 4px; background: #fff; max-width: 400px; width: 100%;">
+                <input type="email" placeholder="Enter email for Sponsor Kit" style="border: none; padding: 0 12px; font-size: 13px; outline: none; flex: 1; min-width: 150px;" />
+                <button class="wf-btn wf-btn-primary" style="height: 40px; padding: 0 16px; font-size: 13px;" onclick="simulateFormSubmit(this, 'Sponsor Kit sent!')">Send Me the Kit →</button>
+              </div>
+            </div>
+            <p class="wf-body-small" style="color: #666; margin: 0;">Want the full numbers? Request our sponsor kit.</p>
           </div>
         </div>
       </section>
 
       <!-- Stats / Audience Metrics Row -->
-      <section class="wf-section-pad grid-container" style="background: #000; color: #fff; text-align: center; padding-top: 40px; padding-bottom: 40px;">
-        <div style="grid-column: span 4;">
-          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">1,500+</h3>
-          <span class="wf-label" style="color: #888;">Newsletter Subscribers</span>
+      <section class="wf-section-pad grid-container" style="background: #000000; color: #ffffff; text-align: center; padding-top: 40px; padding-bottom: 40px;">
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #ffffff; margin-bottom: 8px; font-size: 32px;">1,500+</h3>
+          <span class="wf-label" style="color: #888888; font-size: 9px; letter-spacing: 1px;">Newsletter Subscribers</span>
         </div>
-        <div style="grid-column: span 4;">
-          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">48%</h3>
-          <span class="wf-label" style="color: #888;">Average Open Rate</span>
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #ffffff; margin-bottom: 8px; font-size: 32px;">50.5%</h3>
+          <span class="wf-label" style="color: #888888; font-size: 9px; letter-spacing: 1px;">Average Open Rate</span>
         </div>
-        <div style="grid-column: span 4;">
-          <h3 class="wf-h1" style="color: #fff; margin-bottom: 8px;">2,000+</h3>
-          <span class="wf-label" style="color: #888;">Monthly Podcast Listeners</span>
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #ffffff; margin-bottom: 8px; font-size: 32px;">70+</h3>
+          <span class="wf-label" style="color: #888888; font-size: 9px; letter-spacing: 1px;">Downloads/Episode (7d)</span>
+        </div>
+        <div style="grid-column: span 3;">
+          <h3 class="wf-h1" style="color: #ffffff; margin-bottom: 8px; font-size: 32px;">2,600+</h3>
+          <span class="wf-label" style="color: #888888; font-size: 9px; letter-spacing: 1px;">All-Time Downloads</span>
         </div>
       </section>
 
@@ -1854,9 +1852,15 @@ const PAGES = {
                 <li>✓ Average click-through rate of 2.8%</li>
               </ul>
             </div>
-            <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 16px; font-weight: 800; color: #000;">[Pricing TBD]</span>
-              <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Book Now →</a>
+            <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: #000;">Quarterly (12 wks): $5,500</span>
+                <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Book Now →</a>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: #000;">6-Month (24 wks): $9,600</span>
+                <span style="font-size: 11px; color: #ef4444; font-weight: bold;">2 sponsors/mo limit</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1874,9 +1878,14 @@ const PAGES = {
                 <li>✓ Continuous flow of new leads weekly</li>
               </ul>
             </div>
-            <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 16px; font-weight: 800; color: #000;">[Pricing TBD]</span>
-              <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Book Now →</a>
+            <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: #000;">Quarterly: $900</span>
+                <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Book Now →</a>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: #000;">6-Month: $1,600</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1894,9 +1903,14 @@ const PAGES = {
                 <li>✓ Dynamic cross-linking to source transcripts</li>
               </ul>
             </div>
-            <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 16px; font-weight: 800; color: #000;">[Pricing TBD]</span>
-              <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Book Now →</a>
+            <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: #000;">Quarterly: $3,600</span>
+                <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Book Now →</a>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 13px; font-weight: 700; color: #000;">6-Month: $6,800</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1916,7 +1930,7 @@ const PAGES = {
               </ul>
             </div>
             <div style="margin-top: 24px; border-top: 1px solid #f1f5f9; padding-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 16px; font-weight: 800; color: #000;">[Pricing TBD]</span>
+              <span style="font-size: 15px; font-weight: 800; color: #000;">$25,000 / 6 months</span>
               <a href="#sponsor-form-section" style="font-weight: 700; text-decoration: underline; font-size: 13px; color: #000;">Inquire →</a>
             </div>
           </div>
@@ -1927,8 +1941,8 @@ const PAGES = {
       <section class="wf-section-pad grid-container" style="background: #ffffff; border-bottom: 1px solid var(--wf-border-muted);">
         <div style="grid-column: 3 / span 8; text-align: center; display: flex; flex-direction: column; gap: 20px; align-items: center;">
           <span class="wf-label" style="color: #10b981;">PARTNER TESTIMONIAL</span>
-          <p class="wf-body-large" style="font-style: italic; color: #000; font-weight: 500;">"Sponsoring AgencyHabits was a game-changer for our B2B SaaS tool. Unlike general tech newsletters, their audience is exclusively agency owners who have budget and authority. We saw high-quality leads that converted into paying users within the same month."</p>
-          <span class="wf-label" style="font-size: 12px; margin-bottom: 0;">— Sponsor Partner, Agency Tools SaaS</span>
+          <p class="wf-body-large" style="font-style: italic; color: #000; font-weight: 500;">"The AgencyHabits team is great to work with as part of us helping agency owners grow and scale. They've always been focused on making sure everything is a win-win all round and care about authentic, genuine, and helpful content and promotions."</p>
+          <span class="wf-label" style="font-size: 12px; margin-bottom: 0;">— [Sponsor name — to be confirmed by client]</span>
         </div>
       </section>
 
@@ -2455,9 +2469,9 @@ const PAGES = {
         <div class="wf-share-strip" style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
           <span style="font-size: 14px; font-weight: 700;">Send this to a founder friend:</span>
           <div style="display: flex; gap: 8px;">
-            <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
             <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">LinkedIn</button>
             <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;">Twitter/X</button>
+            <button class="wf-btn wf-btn-secondary" style="height: 32px; font-size: 12px;" onclick="alert('Link copied!')">Copy Link</button>
           </div>
         </div>
       </section>
@@ -3158,10 +3172,13 @@ const PAGES = {
     annotations: [
       { num: 1, title: 'Category Hub Purpose', body: 'Universal dynamic view presenting articles filterable by category.', top: '40px', left: '160px' },
       { num: 2, title: 'Dynamic Category Intro', body: 'Displays operator-POV intro custom-tailored for the selected topic.', top: '150px', left: '160px' },
-      { num: 3, title: 'Article Grid', body: 'Shows 9 articles for this category. Wireframe duplicates are marked as Part 2/3.', top: '450px', left: '80px' },
-      { num: 4, title: 'Dynamic Bottom Tool', body: 'Contextual resource promotion matching the active category focus.', top: '1200px', left: '80px' }
+      { num: 3, title: 'Tabs Toggle', body: 'Allows switching between standard grid (All Articles) and sequential order list (Read in Order). Series order is set editorially by Ivona per category via Framer CMS field.', top: '300px', left: '80px' },
+      { num: 4, title: 'Article Grid / Read In Order List', body: 'Renders either 3-column article cards or a clean vertical list of steps.', top: '550px', left: '80px' },
+      { num: 5, title: 'Dynamic Bottom Tool', body: 'Contextual resource promotion matching the active category focus.', top: '1350px', left: '80px' }
     ],
     render: () => {
+      // Ensure active tab initialized
+      STATE.categoryHubActiveTab = STATE.categoryHubActiveTab || 'all';
       const category = STATE.currentCategory || 'Business Development';
       
       const categories = [
@@ -3386,6 +3403,31 @@ const PAGES = {
         </div>
       `;
 
+      // Tab 2: Read in Order vertical list
+      let readInOrderTabHTML = `
+        <div style="grid-column: span 12; display: flex; flex-direction: column; gap: 0; margin-bottom: 40px;">
+      `;
+      
+      catObj.articles.forEach((art, idx) => {
+        const stepNum = String(idx + 1).padStart(2, '0');
+        readInOrderTabHTML += `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid #cbd5e1; cursor: pointer;" onclick="navigateToArticle('${category.replace(/'/g, "\\\\'")}', '${art.title.replace(/'/g, "\\\\'")}', '${art.author.replace(/'/g, "\\\\'")}', '${art.date.replace(/'/g, "\\\\'")}')">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <span style="font-size: 24px; font-weight: 800; color: #cbd5e1; width: 40px;">${stepNum}</span>
+              <div>
+                <span class="wf-category-tag" style="background: ${catObj.gradient}; color: #fff; border: none; font-size: 9px; padding: 2px 6px; text-transform: uppercase;">${category.toUpperCase()}</span>
+                <h3 class="wf-h3" style="font-size: 16px; margin: 4px 0 0 0; font-weight: bold; text-decoration: underline;">${art.title}</h3>
+              </div>
+            </div>
+            <span style="font-weight: bold; font-size: 12px; text-decoration: underline;">Next →</span>
+          </div>
+        `;
+      });
+      
+      readInOrderTabHTML += `
+        </div>
+      `;
+
       return `
         ${getHeaderHTML('articles')}
         
@@ -3396,37 +3438,45 @@ const PAGES = {
             <p class="wf-body-large" style="max-width: 800px; color: #333;">${introText}</p>
           </div>
 
-          <!-- Read in Order Step-by-Step Series -->
-          ${readInOrderHTML}
+          <!-- Tabs Toggle Buttons -->
+          <div style="grid-column: span 12; display: flex; gap: 16px; margin-bottom: 32px; border-bottom: 2px solid #cbd5e1; padding-bottom: 16px;">
+            <button class="wf-btn ${STATE.categoryHubActiveTab === 'all' ? 'wf-btn-primary' : 'wf-btn-secondary'}" style="height: 38px; padding: 0 24px; font-size: 13px;" onclick="setCategoryHubTab('all')">All Articles</button>
+            <button class="wf-btn ${STATE.categoryHubActiveTab === 'order' ? 'wf-btn-primary' : 'wf-btn-secondary'}" style="height: 38px; padding: 0 24px; font-size: 13px;" onclick="setCategoryHubTab('order')">Read in Order</button>
+          </div>
 
-          <!-- Filters Row -->
-          <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; padding-bottom: 16px; margin-bottom: 32px;">
-            <div style="display: flex; gap: 8px; width: 100%; max-width: 480px;">
-              <input type="text" class="wf-input-text" placeholder="Search ${category} articles..." style="height: 38px; flex: 1;" />
+          ${STATE.categoryHubActiveTab === 'all' ? `
+            <!-- Filters Row -->
+            <div style="grid-column: span 12; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; padding-bottom: 16px; margin-bottom: 32px;">
+              <div style="display: flex; gap: 8px; width: 100%; max-width: 480px;">
+                <input type="text" class="wf-input-text" placeholder="Search ${category} articles..." style="height: 38px; flex: 1;" />
+              </div>
+              <div>
+                <select class="wf-input-text" style="width: 150px; height: 38px; padding: 0 10px; appearance: auto;">
+                  <option>Newest</option>
+                  <option>Oldest</option>
+                  <option>Most Popular</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <select class="wf-input-text" style="width: 150px; height: 38px; padding: 0 10px; appearance: auto;">
-                <option>Newest</option>
-                <option>Oldest</option>
-                <option>Most Popular</option>
-              </select>
+
+            <!-- Articles Grid (9 Articles) -->
+            <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;">
+              ${gridHTML}
             </div>
-          </div>
 
-          <!-- Articles Grid (9 Articles) -->
-          <div style="grid-column: span 12; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;">
-            ${gridHTML}
-          </div>
-
-          <!-- Pagination -->
-          <div style="grid-column: span 12; display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 60px; font-weight: bold;">
-            <span style="cursor: not-allowed; color: #94a3b8;">←</span>
-            <span style="cursor: pointer; border-bottom: 2px solid #000; padding: 2px 8px;">1</span>
-            <span style="cursor: pointer; color: #64748b; padding: 2px 8px;">2</span>
-            <span style="cursor: pointer; color: #64748b; padding: 2px 8px;">3</span>
-            <span style="color: #64748b;">...</span>
-            <span style="cursor: pointer; color: #000;">Next →</span>
-          </div>
+            <!-- Pagination -->
+            <div style="grid-column: span 12; display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 60px; font-weight: bold;">
+              <span style="cursor: not-allowed; color: #94a3b8;">←</span>
+              <span style="cursor: pointer; border-bottom: 2px solid #000; padding: 2px 8px;">1</span>
+              <span style="cursor: pointer; color: #64748b; padding: 2px 8px;">2</span>
+              <span style="cursor: pointer; color: #64748b; padding: 2px 8px;">3</span>
+              <span style="color: #64748b;">...</span>
+              <span style="cursor: pointer; color: #000;">Next →</span>
+            </div>
+          ` : `
+            <!-- Tab 2: Read in Order vertical list -->
+            ${readInOrderTabHTML}
+          `}
 
           <!-- Contextual Tool -->
           ${toolCardHTML}
@@ -3499,7 +3549,11 @@ function renderActivePage() {
 
   // Recalculate canvas zoom scale and scroll height bounds
   updateCanvasScale();
-  setTimeout(updateCanvasScale, 50);
+  handleViewportScroll();
+  setTimeout(() => {
+    updateCanvasScale();
+    handleViewportScroll();
+  }, 50);
 }
 
 // Interactive helper for Contact Page FAQ categorization tabs
@@ -3734,6 +3788,7 @@ function setDeviceView(device) {
 
   // Scale the viewport to match the new size
   updateCanvasScale();
+  handleViewportScroll();
 }
 
 // Router trigger function
@@ -3747,6 +3802,34 @@ function navigateTo(pageId) {
 function navigateToArticle(category, title, author, date) {
   STATE.currentArticle = { category, title, author, date };
   navigateTo('article_template');
+}
+
+function setCategoryHubTab(tabId) {
+  STATE.categoryHubActiveTab = tabId;
+  renderActivePage();
+  updateCanvasScale();
+}
+
+function handleViewportScroll() {
+  const viewport = document.getElementById('canvas-viewport');
+  const stickyBar = document.getElementById('wf-sticky-mobile-bar');
+  if (!viewport || !stickyBar) return;
+
+  if (STATE.deviceView !== 'phone') {
+    stickyBar.style.display = 'none';
+    return;
+  }
+
+  const scrollTop = viewport.scrollTop;
+  const scrollHeight = viewport.scrollHeight;
+  const clientHeight = viewport.clientHeight;
+  const maxScroll = scrollHeight - clientHeight;
+
+  if (maxScroll > 100 && scrollTop > maxScroll * 0.5) {
+    stickyBar.style.display = 'flex';
+  } else {
+    stickyBar.style.display = 'none';
+  }
 }
 
 // Recalculate canvas zoom scale dynamically to fit container width (Framer-like behavior)
@@ -3787,6 +3870,12 @@ function updateCanvasScale() {
 window.addEventListener('DOMContentLoaded', () => {
   renderActivePage();
   updateCanvasScale();
+  
+  // Register scroll event on the canvas viewport container
+  const viewport = document.getElementById('canvas-viewport');
+  if (viewport) {
+    viewport.addEventListener('scroll', handleViewportScroll);
+  }
   
   // Update scaling dynamically on window resize
   window.addEventListener('resize', updateCanvasScale);

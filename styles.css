@@ -1300,3 +1300,26 @@ body {
     display: flex;
   }
 }
+
+/* 6. V2.3 ADDITIONS */
+.wf-badge-premium {
+  display: inline-block;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 2px 8px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.wf-sponsor-card {
+  border: 1px solid var(--wf-border);
+  background-color: var(--wf-bg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+

@@ -107,7 +107,7 @@ def main():
         ("4. Mobile Access Blocker Specifications", 6),
         ("5. Sitemap & Core Pages Specification", 7),
         ("6. Complete Page Content Specifications", 8),
-        ("7. Appendices - Key Technical Code Snippets", 13)
+        ("7. Appendices - Key Technical Code Snippets", 21)
     ]
     
     for title, page in toc_items:
@@ -252,25 +252,26 @@ def main():
     
     pdf.set_font("helvetica", "", 10)
     sitemap_text = (
-        "The project maps 18 distinct pages covering the sitemap flow, organized by ID and navigation priority:\n\n"
-        "1. home - Home Page (Core hub containing sitemaps, podcast players, list teaser, resources)\n"
-        "2. read - Read Page (Articles Listing Hub with category sections and newsletter opt-in)\n"
-        "3. category_hub - Category Hub Page (Universal dynamic page presenting articles and tools filtered by topic)\n"
+        "The project maps 19 distinct pages covering the sitemap flow, organized by ID and navigation priority:\n\n"
+        "1. home - Home Page (Core hub containing navigation entry points, featured audit CTA, newsletter, sitemap list, latest content list, topics and tools)\n"
+        "2. content_hub - Content Hub (New aggregated directory linking to all content channels - Articles, Podcast, Events, and Tools - via a 2x2 preview grid)\n"
+        "3. articles - Articles Hub (Articles Listing Hub with category sections and newsletter opt-in)\n"
         "4. article_template - Article Detail Template (Standard reading layout with hero, headers, TOC, upsells)\n"
-        "5. listen - Listen Page (Podcast Hub featuring latest EP.07, hosts info, Shorts row, subscribe options)\n"
-        "6. episode_template - Episode Detail Template (Individual episode detail, notes, transcript, related reads)\n"
-        "7. gather - Gather Page (Events Hub with Knowledge Share session, Luma embed, past grid, city meetup form)\n"
-        "8. tools - Tools & Downloads (Overview of downloadable checklists, guides, and playbooks)\n"
-        "9. newsletter - Newsletter Landing (Hero headline centered, kit.com signup form, recent archive links)\n"
-        "10. about - About Us (Origin story, founder letter, General Manager Ivona Namjesnik, agencies grid, stats)\n"
-        "11. start_here - Start Here (Curated onboarding for first-time visitors featuring key reads, EP.07, and Foundation App)\n"
-        "12. foundation - Foundation App Page (AI strategic positioning audit preview, tabbed sections)\n"
-        "13. kb - Knowledge Base Page (Searchable AI answer-engine teaser pointing to kb.agencyhabits.com)\n"
-        "14. bizdev_collection - Business Development Collection (Sub-page detailing the $599 resource and benefits)\n"
-        "15. exit_checklist - Exit-Readiness Checklist (Sub-page with download form and alignment quote)\n"
-        "16. goal_template - Annual Goal Setting Template (Sub-page with goal structure description)\n"
-        "17. books - Book Recommendations (14 books filtered by Leadership, Finance, BD, Productivity; footer only)\n"
-        "18. contact - Contact Us (Clickable categories FAQ accordion: General, Podcast, Partners, Selling; footer only)"
+        "5. category_hub - Category Hub Page (Universal dynamic page presenting articles and tools filtered by topic)\n"
+        "6. podcast - Podcast Hub (Podcast Hub featuring latest EP.07, Peter + Sei-Wook hosts, Shorts row, subscribe options)\n"
+        "7. episode_template - Episode Detail Template (Individual episode detail, notes, transcript, related reads)\n"
+        "8. events - Events Hub (Events Hub with Knowledge Share session, Luma embed, past grid, city meetup form)\n"
+        "9. tools - Tools & Downloads (Overview of downloadable checklists, guides, playbooks, and audits)\n"
+        "10. newsletter - Newsletter Landing (Hero headline centered, kit.com signup form, recent archive links)\n"
+        "11. about - About Us (Origin story, founder letter, General Manager Ivona Namjesnik, agencies grid, stats)\n"
+        "12. partnerships - Partnerships (Opportunities for brands to sponsor the podcast, newsletter, and events)\n"
+        "13. foundation - Free Positioning Audit (Strategic agency positioning audit form and report structure)\n"
+        "14. kb - Knowledge Base (Searchable AI answer-engine teaser pointing to kb.agencyhabits.com)\n"
+        "15. bizdev_collection - BD Collection (Product landing detailing the Business Development resources collection)\n"
+        "16. exit_checklist - Exit-Readiness Checklist (Sub-page with download form and alignment quote)\n"
+        "17. goal_template - Annual Goal Setting Template (Sub-page with goal structure description)\n"
+        "18. books - Book Recommendations (14 books filtered by Leadership, Finance, BD, Productivity; footer only)\n"
+        "19. contact - Contact Us (Clickable categories FAQ accordion: General, Podcast, Partners, Selling; footer only)"
     )
     pdf.multi_cell(0, 6, sanitize_text(sitemap_text))
     
